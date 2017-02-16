@@ -21,8 +21,14 @@ gulp.task('moveHtml', ()=>{
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('watch', ()=>{
+  gulp.watch('src/**/*.coffee', ['coffee']);
+  gulp.watch('src/**/*.scss', ['sass']);
+  gulp.watch('src/**/*.html', ['moveHtml']);
+});
+
 gulp.task('compile', ['sass', 'coffee', 'moveHtml'], ()=>{});
 
-gulp.task('default', ['compile'], function() {
+gulp.task('default', ['compile', 'watch'], function() {
   server.start();
 });

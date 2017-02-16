@@ -1,0 +1,2 @@
+t = =>
+  console.log 'hehe'

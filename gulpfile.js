@@ -16,6 +16,13 @@ gulp.task('sass', ()=>{
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['sass'], function() {
+gulp.task('moveHtml', ()=>{
+  gulp.src('src/**/*.html')
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('compile', ['sass', 'coffee', 'moveHtml'], ()=>{});
+
+gulp.task('default', ['compile'], function() {
   server.start();
 });

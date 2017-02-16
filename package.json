@@ -13,5 +13,8 @@
     "components"
   ],
   "author": "solar.pom@gmail.com",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
 }

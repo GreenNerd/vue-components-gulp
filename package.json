@@ -1,0 +1,17 @@
+{
+  "name": "vue-components-gulp",
+  "version": "1.0.0",
+  "description": "open vue components sources",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue",
+    "gulp",
+    "ui",
+    "components"
+  ],
+  "author": "solar.pom@gmail.com",
+  "license": "ISC"
+}

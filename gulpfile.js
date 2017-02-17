@@ -1,3 +1,5 @@
+'use strict';
+
 const gulp = require('gulp');
 const server = require('./index').server;
 const sass = require('gulp-ruby-sass-ns');

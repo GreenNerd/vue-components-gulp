@@ -4,22 +4,26 @@ const gulp = require('gulp');
 const server = require('./index').server;
 const sass = require('gulp-ruby-sass-ns');
 const coffee = require('gulp-coffee');
+const plumber = require('gulp-plumber');
 
 
 gulp.task('coffee', function() {
   gulp.src('src/**/*.coffee')
+    .pipe(plumber())
     .pipe(coffee({ bare: false }))
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('sass', ()=>{
   gulp.src('src/**/*.scss')
+    .pipe(plumber())
     .pipe(sass({ style: 'expanded' }))
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('moveHtml', ()=>{
   gulp.src('src/**/*.html')
+    .pipe(plumber())
     .pipe(gulp.dest('dist'));
 });
 

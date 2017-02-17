@@ -1,6 +1,8 @@
+'use strict';
+
 const gulp = require('gulp');
 const server = require('./index').server;
-const sass = require('gulp-sass');
+const sass = require('gulp-ruby-sass-ns');
 const coffee = require('gulp-coffee');
 const plumber = require('gulp-plumber');
 
@@ -15,7 +17,7 @@ gulp.task('coffee', function() {
 gulp.task('sass', ()=>{
   gulp.src('src/**/*.scss')
     .pipe(plumber())
-    .pipe(sass({ outputStyle: 'expanded' }))
+    .pipe(sass({ style: 'expanded' }))
     .pipe(gulp.dest('dist'));
 });
 
@@ -31,7 +33,8 @@ gulp.task('watch', ()=>{
   gulp.watch('src/**/*.html', ['moveHtml']);
 });
 
-gulp.task('compile', ['sass', 'coffee', 'moveHtml'], ()=>{});
+
+gulp.task('compile', ['coffee', 'sass', 'moveHtml'], ()=>{});
 
 gulp.task('default', ['compile', 'watch'], function() {
   server.start();

@@ -45,8 +45,11 @@ gulp.task('start', (cb)=>{
     name = option.match(/\w[\w-\.]*/)[0];
   }
   let term = `cd src && mkdir ${ name } && cd ${ name } && touch ${ name }.coffee && touch ${ name }-demo.coffee && touch ${ name }.scss && touch ${ name }.html && cd .. && cd ..`;
-  exec(term);
-  cb();
+  exec(term, (err, stdout, stderr)=>{
+    console.log(stdout);
+    console.log(stderr);
+    cb(err);
+  });
 });
 
 gulp.task('default', ['compile', 'watch'], function() {

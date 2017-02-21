@@ -1,32 +1,3 @@
-button {
-  display: inline-block;
-  padding: 6px 12px;
-  text-align: center;
-  color: #fff;
-  outline: none;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 4px;
-  border: 1px solid transparent;
-
-  &.btn-success{
-    background-color: #5cb85c;
-    border-color: #4cae4c;
-  }
-  &.btn-warning{
-    background-color: #f0ad4e;
-    border-color: #eea236;
-  }
-  &.btn-danger{
-    background-color: #d9534f;
-    border-color: #d43f3a;
-  }
-  &.btn-info{
-    background-color: #5bc0de;
-    border-color: #46b8da;
-  }
-}
-
 .alert-container {
   display: flex;
   flex-direction: column;
@@ -59,14 +30,5 @@ button {
     &.alert-info {
       background-color: #5bc0de;
     }
-  }
-
-  .alert-mask {
-    background-color: transparent;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
   }
 }

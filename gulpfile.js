@@ -2,7 +2,7 @@
 
 const gulp = require('gulp');
 const server = require('./index').server;
-const sass = require('gulp-ruby-sass-ns');
+const sass = require('gulp-sass');
 const coffee = require('gulp-coffee');
 const plumber = require('gulp-plumber');
 
@@ -17,7 +17,7 @@ gulp.task('coffee', function() {
 gulp.task('sass', ()=>{
   gulp.src('src/**/*.scss')
     .pipe(plumber())
-    .pipe(sass({ style: 'expanded' }))
+    .pipe(sass({ outputStyle: 'expanded' }))
     .pipe(gulp.dest('dist'));
 });
 

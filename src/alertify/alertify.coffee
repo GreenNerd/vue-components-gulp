@@ -12,11 +12,8 @@ Alertify = (options) ->
 
 AlertComponent = Vue.extend
   template:"""
-    <div class="alert-container">
+    <div class="alert-container" v-if='isShow'>
       <div transition="fade"
-           enter-active-class="alert-enter"
-           leave-active-class="alert-leave"
-           v-if='isShow'
            class='alert-box'
            :class="{
              'alert-success': type === 'success',
@@ -26,7 +23,6 @@ AlertComponent = Vue.extend
         {{ content }}
       </div>
       <div @click="overlay"
-           v-if='isShow'
            class="alert-mask">
       </div>
     </div>

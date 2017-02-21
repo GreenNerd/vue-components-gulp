@@ -29,7 +29,7 @@ AlertComponent = Vue.extend
     type: 'success'
     isShow: false
     autoTime: 5000
-    showTime: 3000
+    showTime: 1500
 
   created: ->
     @display()

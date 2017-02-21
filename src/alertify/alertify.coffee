@@ -36,6 +36,8 @@ AlertComponent = Vue.extend
   methods:
     display: () ->
       @isShow = true
+      @setTime()
+    setTime: () ->
       @autoClose_timer = setTimeout =>
                           @close()
                         , @autoTime
@@ -53,11 +55,8 @@ AlertComponent = Vue.extend
     refresh: (options = {}) ->
       @content = options.content or '提示'
       @type = options.type or 'success'
-      @start_time = new Date()
       clearTimeout(@autoClose_timer)
-      @autoClose_timer = setTimeout =>
-                          @close()
-                        , @autoTime
+      @setTime()
     close: () ->
       @isShow = false
       Alertify.instance = false

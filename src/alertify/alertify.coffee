@@ -22,9 +22,6 @@ AlertComponent = Vue.extend
              'alert-info': type === 'info' }">
         {{ content }}
       </div>
-      <div @click="overlay"
-           class="alert-mask">
-      </div>
     </div>
   """
   data: ->
@@ -67,5 +64,10 @@ AlertComponent = Vue.extend
     overlay: () ->
       clearTimeout(@autoClose_timer)
       @close()
+
+document.addEventListener('click', () ->
+  if Alertify.instance
+    Alertify.instance.overlay();
+, true)
 
 window.Alertify = Alertify;

@@ -25,20 +25,25 @@ AlertComponent = Vue.extend
     isShow: false
     autoTime: 5000
     showTime: 1500
+
   created: ->
     @display()
+
   computed:
-    typeClass: () ->
+    typeClass: ->
       'alert-' + @type
+
   methods:
-    display: () ->
+    display: ->
       @isShow = true
       @setTime()
-    setTime: () ->
+
+    setTime: ->
       @autoClose_timer = setTimeout =>
                           @close()
                         , @autoTime
       @start_time = new Date()
+
     update: (options) ->
       now_time = new Date()
       play_time = now_time - @start_time
@@ -56,7 +61,7 @@ AlertComponent = Vue.extend
       clearTimeout(@autoClose_timer)
       @setTime()
 
-    close: () ->
+    close: ->
       @isShow = false
       Alertify.instance = null
 
@@ -65,7 +70,7 @@ AlertComponent = Vue.extend
       @close()
 
 
-document.body.addEventListener('click', () ->
+document.body.addEventListener('click', ->
   if Alertify.instance
     Alertify.instance.overlay();
 , true)

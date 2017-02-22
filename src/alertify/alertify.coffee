@@ -56,7 +56,7 @@ AlertComponent = Vue.extend
       @setTime()
     close: () ->
       @isShow = false
-      Alertify.instance = false
+      Alertify.instance = null
     overlay: () ->
       clearTimeout(@autoClose_timer)
       @close()

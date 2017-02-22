@@ -49,19 +49,23 @@ AlertComponent = Vue.extend
         , left_time
       else
         @refresh(options)
+
     refresh: (options = {}) ->
       @content = options.content or '提示'
       @type = options.type or 'success'
       clearTimeout(@autoClose_timer)
       @setTime()
+
     close: () ->
       @isShow = false
       Alertify.instance = null
+
     overlay: () ->
       clearTimeout(@autoClose_timer)
       @close()
 
-document.addEventListener('click', () ->
+
+document.body.addEventListener('click', () ->
   if Alertify.instance
     Alertify.instance.overlay();
 , true)

@@ -11,9 +11,9 @@ Alertify = (options) ->
 
 AlertComponent = Vue.extend
   template:"""
-    <div class="alert-container" v-if='isShow'>
-      <div transition="fade"
-           class='alert-box'
+    <div class="alert-container"
+         :class="isShow ? 'alert-open' : ''">
+      <div class='alert-box'
            :class='typeClass'>
         {{ content }}
       </div>

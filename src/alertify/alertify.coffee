@@ -3,10 +3,9 @@ Alertify = (options) ->
     Alertify.instance.update(options)
   else
     alert_box = document.createElement('div')
-    alert_box.className = 'alert-box-wrapper'
     document.body.appendChild(alert_box)
     Alertify.instance = new AlertComponent
-      el: '.alert-box-wrapper'
+      el: alert_box
       data: options
   Alertify.instance
 

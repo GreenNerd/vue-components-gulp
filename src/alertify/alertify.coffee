@@ -2,8 +2,15 @@ Alertify = (options) ->
   if Alertify.instance
     Alertify.instance.update(options)
   else
+    if document.getElementById('alert-container')
+      alertContainer = document.getElementById('alert-container')
+      alertContainer.innerHTML = ''
+    else
+      alertContainer = document.createElement('div')
+      alertContainer.id = 'alert-container'
+      document.body.appendChild(alertContainer)
     alert_box = document.createElement('div')
-    document.body.appendChild(alert_box)
+    alertContainer.appendChild(alert_box)
     Alertify.instance = new AlertComponent
       el: alert_box
       data: options

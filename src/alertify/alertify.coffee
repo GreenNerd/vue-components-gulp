@@ -18,12 +18,9 @@ Alertify = (options) ->
 
 AlertComponent = Vue.extend
   template:"""
-    <div class="alert-container"
-         :class="isShow ? 'alert-open' : ''">
-      <div class='alert-box'
-           :class='typeClass'>
+    <div class='alert-box'
+         :class='[{ "alert-open": isShow }, typeClass]'>
         {{ content }}
-      </div>
     </div>
   """
   data: ->

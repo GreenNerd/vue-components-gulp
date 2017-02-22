@@ -15,11 +15,7 @@ AlertComponent = Vue.extend
     <div class="alert-container" v-if='isShow'>
       <div transition="fade"
            class='alert-box'
-           :class="{
-             'alert-success': type === 'success',
-             'alert-danger': type === 'danger',
-             'alert-warning': type === 'warning',
-             'alert-info': type === 'info' }">
+           :class='typeClass'>
         {{ content }}
       </div>
     </div>
@@ -30,9 +26,11 @@ AlertComponent = Vue.extend
     isShow: false
     autoTime: 5000
     showTime: 1500
-
   created: ->
     @display()
+  computed:
+    typeClass: () ->
+      'alert-' + @type
   methods:
     display: () ->
       @isShow = true

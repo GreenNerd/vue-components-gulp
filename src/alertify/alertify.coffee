@@ -49,13 +49,11 @@ AlertComponent = Vue.extend
       @start_time = new Date()
 
     update: (options) ->
-      now_time = new Date()
-      play_time = now_time - @start_time
+      play_time = new Date() - @start_time
       if play_time < @showTime
-        left_time = @showTime - play_time
         setTimeout =>
           @refresh(options)
-        , left_time
+        , @showTime - new Date() + @start_time
       else
         @refresh(options)
 

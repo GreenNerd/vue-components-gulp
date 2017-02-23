@@ -54,13 +54,26 @@ AlertComponent = Vue.extend
         @_setTime()
       ,false)
       @isShow = true
-      @setTime()
+      @display()
 
-    setTime: ->
+    display: ->
+      message = msgQueue.shift() or {}
+      @content = message.content or '提示'
+      @type = message.type or 'success'
+
+    _setTime: ->
+      @start_time = new Date()
+      @show_timer = setTimeout =>
+                      @check()
+                    , @showTime
+      clearTimeout(@autoClose_timer)
       @autoClose_timer = setTimeout =>
                           @close()
                         , @autoTime
-      @start_time = new Date()
+    check: ->
+      if msgQueue.length > 0
+        @_setTime()
+        @display()
 
     update: (options = {}) ->
       msgQueue.push(options)
@@ -78,7 +91,8 @@ AlertComponent = Vue.extend
       @isShow = false
       Alertify.instance = null
 
-    overlay: () ->
+    forcedClose: () ->
+      clearTimeout(@show_timer)
       clearTimeout(@autoClose_timer)
       @close()
 

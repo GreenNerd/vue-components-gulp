@@ -1,7 +1,9 @@
+msgQueue = []
 Alertify = (options) ->
   if Alertify.instance
     Alertify.instance.update(options)
   else
+    msgQueue.push(options)
     if document.getElementById('alert-container')
       alertContainer = document.getElementById('alert-container')
       alertContainer.innerHTML = ''
@@ -23,6 +25,7 @@ AlertComponent = Vue.extend
         {{ content }}
     </div>
   """
+
   data: ->
     content: '提示'
     type: 'success'
@@ -48,20 +51,17 @@ AlertComponent = Vue.extend
                         , @autoTime
       @start_time = new Date()
 
-    update: (options) ->
-      play_time = new Date() - @start_time
-      if play_time < @showTime
-        setTimeout =>
-          @refresh(options)
-        , @showTime - new Date() + @start_time
+    update: (options = {}) ->
+      msgQueue.push(options)
+      if @isShow
+        if new Date() - @start_time > @showTime
+          @_setTime()
+          @display()
       else
-        @refresh(options)
-
-    refresh: (options = {}) ->
-      @content = options.content or '提示'
-      @type = options.type or 'success'
-      clearTimeout(@autoClose_timer)
-      @setTime()
+        if @playing
+          document.getElementById('alert-container').querySelector('.alert-box').addEventListener('animationend', =>
+            Alertify(options)
+          ,false)
 
     close: ->
       @isShow = false

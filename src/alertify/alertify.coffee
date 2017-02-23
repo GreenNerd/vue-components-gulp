@@ -1,16 +1,20 @@
 msgQueue = []
+createAlertContainer = (AlertifyId) ->
+  if document.getElementById(AlertifyId)
+    alertContainer = document.getElementById(AlertifyId)
+    alertContainer.innerHTML = ''
+  else
+    alertContainer = document.createElement('div')
+    alertContainer.id = AlertifyId
+    document.body.appendChild(alertContainer)
+  alertContainer
+
 Alertify = (options) ->
   if Alertify.instance
     Alertify.instance.update(options)
   else
     msgQueue.push(options)
-    if document.getElementById('alert-container')
-      alertContainer = document.getElementById('alert-container')
-      alertContainer.innerHTML = ''
-    else
-      alertContainer = document.createElement('div')
-      alertContainer.id = 'alert-container'
-      document.body.appendChild(alertContainer)
+    alertContainer = createAlertContainer('alert-container')
     alert_box = document.createElement('div')
     alertContainer.appendChild(alert_box)
     Alertify.instance = new AlertComponent

@@ -89,7 +89,9 @@ AlertComponent = Vue.extend
 
     close: ->
       @isShow = false
-      Alertify.instance = null
+      document.getElementById('alert-container').querySelector('.alert-box').addEventListener('animationend', =>
+        Alertify.instance = null
+      ,false)
 
     forcedClose: () ->
       clearTimeout(@show_timer)

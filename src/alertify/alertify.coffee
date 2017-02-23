@@ -37,8 +37,8 @@ AlertComponent = Vue.extend
     showTime: 1500
     playing: false
 
-  created: ->
-    @display()
+  mounted: ->
+    @beforeAnimation()
 
   computed:
     typeClass: ->
@@ -49,7 +49,10 @@ AlertComponent = Vue.extend
       @playing = true
 
   methods:
-    display: ->
+    beforeAnimation: ->
+      document.getElementById('alert-container').querySelector('.alert-box').addEventListener('animationstart', =>
+        @_setTime()
+      ,false)
       @isShow = true
       @setTime()
 

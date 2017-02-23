@@ -69,7 +69,8 @@ button {
     border-radius: 30px;
     box-shadow: 2px 2px 5px #000;
     opacity: 0;
-    animation: fadeOutUp 0.1s ease-in;
+    z-index: -1;
+    animation: fadeOutUp .1s ease-in;
 
     &.alert-success {
       background-color: #e4f1da;
@@ -87,7 +88,8 @@ button {
     }
     &.alert-open {
       opacity: 1;
-      animation: fadeInDown 0.3s ease-out;
+      animation: fadeInDown .3s ease-out;
+      z-index: 30;
     }
   }
 }

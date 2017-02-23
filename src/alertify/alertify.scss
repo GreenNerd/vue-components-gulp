@@ -55,11 +55,9 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: fixed;
-  top: 0;
 
   .alert-box {
-    position: relative;
+    position: fixed;
     margin-top: 30px;
     display: block;
     box-sizing: border-box;

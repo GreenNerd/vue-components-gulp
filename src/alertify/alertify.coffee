@@ -15,7 +15,10 @@ Alertify = (options) ->
     alertContainer.appendChild(alert_box)
     Alertify.instance = new AlertComponent
       el: alert_box
-      data: options
+  document.getElementById('alert-container').querySelector('.alert-box').addEventListener('animationend', ->
+    if Alertify.instance
+      Alertify.instance.playing = false
+  ,false)
   Alertify.instance
 
 AlertComponent = Vue.extend
@@ -32,6 +35,7 @@ AlertComponent = Vue.extend
     isShow: false
     autoTime: 5000
     showTime: 1500
+    playing: false
 
   created: ->
     @display()
@@ -39,6 +43,10 @@ AlertComponent = Vue.extend
   computed:
     typeClass: ->
       'alert-' + @type
+
+  watch:
+    isShow: ->
+      @playing = true
 
   methods:
     display: ->
@@ -71,10 +79,14 @@ AlertComponent = Vue.extend
       clearTimeout(@autoClose_timer)
       @close()
 
+document.body.addEventListener('click', (event)->
+  if Alertify.instance && Alertify.instance.playing
+    event.stopPropagation()
+, false)
 
 document.body.addEventListener('click', ->
-  if Alertify.instance
-    Alertify.instance.overlay();
+  if Alertify.instance && !Alertify.instance.playing
+    Alertify.instance.forcedClose();
 , true)
 
 window.Alertify = Alertify;

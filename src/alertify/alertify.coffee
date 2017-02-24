@@ -98,11 +98,6 @@ AlertComponent = Vue.extend
       clearTimeout(@autoClose_timer)
       @close()
 
-document.body.addEventListener('click', (event)->
-  if Alertify.instance && Alertify.instance.playing
-    event.stopPropagation()
-, false)
-
 document.body.addEventListener('click', ->
   if Alertify.instance && !Alertify.instance.playing
     Alertify.instance.forcedClose();

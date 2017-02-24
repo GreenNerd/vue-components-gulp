@@ -92,7 +92,8 @@ AlertComponent = Vue.extend
     close: ->
       @isShow = false
 
-    forcedClose: () ->
+    forcedClose: ->
+      @start_time = new Date()
       clearTimeout(@show_timer)
       clearTimeout(@autoClose_timer)
       @close()

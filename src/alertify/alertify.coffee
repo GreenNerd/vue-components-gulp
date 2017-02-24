@@ -52,10 +52,8 @@ AlertComponent = Vue.extend
 
   methods:
     beforeAnimation: ->
-      document.getElementById('alert-container').querySelector('.alert-box').addEventListener('animationstart', =>
-        @_setTime()
-      ,false)
       @isShow = true
+      @_setTime()
       @display()
 
     playEnd: ->

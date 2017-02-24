@@ -19,16 +19,14 @@ Alertify = (options) ->
     alertContainer.appendChild(alert_box)
     Alertify.instance = new AlertComponent
       el: alert_box
-  document.getElementById('alert-container').querySelector('.alert-box').addEventListener('animationend', ->
-    if Alertify.instance
-      Alertify.instance.playing = false
-  ,false)
+
   Alertify.instance
 
 AlertComponent = Vue.extend
   template:"""
     <div class='alert-box'
-         :class='[{ "alert-open": isShow }, typeClass]'>
+         :class='[{ "alert-open": isShow }, typeClass]'
+         v-on:animationend="playEnd">
         {{ content }}
     </div>
   """
@@ -60,6 +58,13 @@ AlertComponent = Vue.extend
       @isShow = true
       @display()
 
+    playEnd: ->
+      @playing = false
+      if !@isShow
+        Alertify.instance = null
+        if msgQueue.length > 0
+          window.Alertify(msgQueue.shift())
+
     display: ->
       message = msgQueue.shift() or {}
       @content = message.content or '提示'
@@ -85,17 +90,9 @@ AlertComponent = Vue.extend
         if new Date() - @start_time > @showTime
           @_setTime()
           @display()
-      else
-        if @playing
-          document.getElementById('alert-container').querySelector('.alert-box').addEventListener('animationend', =>
-            Alertify(options)
-          ,false)
 
     close: ->
       @isShow = false
-      document.getElementById('alert-container').querySelector('.alert-box').addEventListener('animationend', =>
-        Alertify.instance = null
-      ,false)
 
     forcedClose: () ->
       clearTimeout(@show_timer)

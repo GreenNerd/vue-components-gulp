@@ -1,4 +1,3 @@
-msgQueue = []
 createAlertContainer = (AlertifyId) ->
   if document.getElementById(AlertifyId)
     alertContainer = document.getElementById(AlertifyId)
@@ -9,17 +8,16 @@ createAlertContainer = (AlertifyId) ->
     document.body.appendChild(alertContainer)
   alertContainer
 
+msgQueue = []
 Alertify = (options) ->
+  msgQueue.push(options)
   if Alertify.instance
     Alertify.instance.update(options)
   else
-    msgQueue.push(options)
-    alertContainer = createAlertContainer('alert-container')
     alert_box = document.createElement('div')
-    alertContainer.appendChild(alert_box)
+    createAlertContainer('alert-container').appendChild(alert_box)
     Alertify.instance = new AlertComponent
       el: alert_box
-
   Alertify.instance
 
 AlertComponent = Vue.extend

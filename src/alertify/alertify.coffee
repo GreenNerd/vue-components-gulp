@@ -38,7 +38,9 @@ AlertComponent = Vue.extend
     playing: false
 
   mounted: ->
-    @beforeAnimation()
+    @isShow = true
+    @_setTime()
+    @display()
 
   computed:
     typeClass: ->
@@ -49,11 +51,6 @@ AlertComponent = Vue.extend
       @playing = true
 
   methods:
-    beforeAnimation: ->
-      @isShow = true
-      @_setTime()
-      @display()
-
     playEnd: ->
       @playing = false
       if !@isShow

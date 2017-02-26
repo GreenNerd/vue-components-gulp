@@ -78,11 +78,9 @@ AlertComponent = Vue.extend
         @display()
 
     update: (options = {}) ->
-      msgQueue.push(options)
-      if @isShow
-        if new Date() - @start_time > @showTime
-          @_setTime()
-          @display()
+      if @isShow && new Date() - @start_time > @showTime
+        @_setTime()
+        @display()
 
     close: ->
       @isShow = false

@@ -49,7 +49,7 @@ DatePickerComponent = Vue.extend
         <div class='datepicker-inner'>
           <div class="datepicker-monthRange">
             <span v-for="(m, $index) in months"
-                  :class="{'datapicker-item-active':months[month] == m }">
+                  :class="{'datepicker-item-active':months[month] == m }">
               {{ m }}
             </span>
           </div>

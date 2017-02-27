@@ -108,15 +108,14 @@ DatePickerComponent = Vue.extend
         firstDayWeek = 7
       dayCount = @getDayCount(@year, @month)
       # 上个月应显示的date
-      if firstDayWeek > 0
-        preMonth = @getYearMonth(@year, @month - 1)
-        preMonthDayCount = @getDayCount(preMonth.year, preMonth.month)
-        for i in [0..firstDayWeek-1]
-          date = preMonthDayCount - firstDayWeek + 1 + i
-          @dateRange.push({
-            text: date
-            class: 'cell-gray'
-          })
+      preMonth = @getYearMonth(@year, @month - 1)
+      preMonthDayCount = @getDayCount(preMonth.year, preMonth.month)
+      for i in [0..firstDayWeek-1]
+        date = preMonthDayCount - firstDayWeek + 1 + i
+        @dateRange.push({
+          text: date
+          class: 'cell-gray'
+        })
       # 这个月应显示的date
       for i in [0..dayCount-1]
         @dateRange.push({

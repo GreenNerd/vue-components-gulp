@@ -40,6 +40,7 @@ DatePickerComponent = Vue.extend
       </div>
     </div>
   """
+
   mounted: ->
     @year = @currDate.getFullYear()
     @month = @currDate.getMonth()

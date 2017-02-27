@@ -84,6 +84,13 @@ DatePickerComponent = Vue.extend
         @currDate = new Date(nextMonth.year, nextMonth.month, @date)
       @remakeCalendar()
 
+    yearClick: (num) ->
+      if num == -1
+        @currDate = new Date(@year - 1, @month, @date)
+      else
+        @currDate = new Date(@year + 1, @month, @date)
+      @year = @currDate.getFullYear()
+
     remakeCalendar: ->
       @year = @currDate.getFullYear()
       @month = @currDate.getMonth()

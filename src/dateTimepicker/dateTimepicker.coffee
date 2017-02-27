@@ -130,16 +130,20 @@ DatePickerComponent = Vue.extend
           class: 'cell-gray'
         })
       # 这个月应显示的date
-      for i in [0..dayCount-1]
+      for i in [1..dayCount]
+        dayClass = ''
+        if i == @currDate.getDate()
+          dayClass = 'datepicker-item-active'
         @dateRange.push({
-          text: i + 1
+          text: i
+          class: dayClass
         })
       # 下个月应显示的date
       if @dateRange.length < 42
         nextMonthNeed = 42 - @dateRange.length
-        for i in [0..nextMonthNeed-1]
+        for i in [1..nextMonthNeed]
           @dateRange.push({
-            text: i + 1
+            text: i
             class: 'cell-gray'
           })
 

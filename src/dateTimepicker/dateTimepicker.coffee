@@ -26,9 +26,9 @@ DatePickerComponent = Vue.extend
         <span>确认</span>
       </div>
       <div class='datepicker-ctrl'>
-        <span>&lt;</span>
+        <span v-on:click="monthClick(-1)">&lt;</span>
         <span>{{ year }}年{{ month + 1 }}月</span>
-        <span>&gt;</span>
+        <span v-on:click="monthClick(1)">&gt;</span>
       </div>
       <div class="datepicker-inner">
         <div class="datepicker-weekRange">
@@ -44,6 +44,7 @@ DatePickerComponent = Vue.extend
   mounted: ->
     @year = @currDate.getFullYear()
     @month = @currDate.getMonth()
+    @date = @currDate.getDate()
     @getDateRange()
 
   data: ->
@@ -53,6 +54,20 @@ DatePickerComponent = Vue.extend
     dateRange: []
 
   methods:
+    monthClick: (num) ->
+      if num == -1
+        preMonth = @getYearMonth(@year, @month - 1)
+        @currDate = new Date(preMonth.year, preMonth.month, @date)
+        @year = @currDate.getFullYear()
+        @month = @currDate.getMonth()
+        @getDateRange()
+      else
+        nextMonth = @getYearMonth(@year, @month + 1)
+        @currDate = new Date(nextMonth.year, nextMonth.month, @date)
+        @year = @currDate.getFullYear()
+        @month = @currDate.getMonth()
+        @getDateRange()
+
     getYearMonth: (year, month) ->
       if month > 11
         year++
@@ -61,7 +76,7 @@ DatePickerComponent = Vue.extend
         if month < 0
           year--
           month = 11
-      { year: year,month: month }
+      { year: year, month: month }
 
     getDayCount: (year, month) ->
       dict = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -71,6 +86,7 @@ DatePickerComponent = Vue.extend
       dict[month]
 
     getDateRange: ->
+      @dateRange = []
       currMonthFirstDay = new Date(@year, @month, 1)
       firstDayWeek = currMonthFirstDay.getDay()
       if firstDayWeek == 0

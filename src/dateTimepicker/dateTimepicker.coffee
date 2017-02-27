@@ -27,7 +27,7 @@ DatePickerComponent = Vue.extend
       </div>
       <div class='datepicker-ctrl'>
         <span>&lt;</span>
-        <span>{{ year }}年{{ month }}月</span>
+        <span>{{ year }}年{{ month + 1 }}月</span>
         <span>&gt;</span>
       </div>
       <div class="datepicker-inner">

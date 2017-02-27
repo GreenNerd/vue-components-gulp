@@ -1,0 +1,23 @@
+.datepicker {
+  .form-control,
+  .datepicker-ctrl {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .datepicker-inner {
+    .datepicker-weekRange {
+      display: flex;
+      justify-content: space-around;
+    }
+    .datepicker-dateRange {
+      display: flex;
+      flex-wrap: wrap;
+
+      .day-cell {
+        flex: 0 0 14.28%;
+        text-align: center;
+      }
+    }
+  }
+}

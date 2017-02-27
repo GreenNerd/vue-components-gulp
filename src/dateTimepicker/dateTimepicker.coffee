@@ -58,15 +58,15 @@ DatePickerComponent = Vue.extend
       if num == -1
         preMonth = @getYearMonth(@year, @month - 1)
         @currDate = new Date(preMonth.year, preMonth.month, @date)
-        @year = @currDate.getFullYear()
-        @month = @currDate.getMonth()
-        @getDateRange()
       else
         nextMonth = @getYearMonth(@year, @month + 1)
         @currDate = new Date(nextMonth.year, nextMonth.month, @date)
-        @year = @currDate.getFullYear()
-        @month = @currDate.getMonth()
-        @getDateRange()
+      @remakeCalendar()
+
+    remakeCalendar: ->
+      @year = @currDate.getFullYear()
+      @month = @currDate.getMonth()
+      @getDateRange()
 
     getYearMonth: (year, month) ->
       if month > 11

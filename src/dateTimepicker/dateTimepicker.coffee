@@ -35,7 +35,7 @@ DatePickerComponent = Vue.extend
           <span v-for="w in daysOfWeek">{{ w }}</span>
         </div>
         <div class="datepicker-dateRange">
-          <span v-for="d in dateRange" class="day-cell">{{ d.text }}</span>
+          <span v-for="d in dateRange" class="day-cell" :class="d.class">{{ d.text }}</span>
         </div>
       </div>
     </div>
@@ -84,6 +84,7 @@ DatePickerComponent = Vue.extend
           date = preMonthDayCount - firstDayWeek + 1 + i
           @dateRange.push({
             text: date
+            class: 'cell-gray'
           })
       # 这个月应显示的date
       for i in [0..dayCount-1]
@@ -96,6 +97,7 @@ DatePickerComponent = Vue.extend
         for i in [0..nextMonthNeed-1]
           @dateRange.push({
             text: i + 1
+            class: 'cell-gray'
           })
 
 

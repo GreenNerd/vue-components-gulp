@@ -17,6 +17,10 @@
       .day-cell {
         flex: 0 0 14.28%;
         text-align: center;
+
+        &.cell-gray {
+          color: #999;
+        }
       }
     }
   }

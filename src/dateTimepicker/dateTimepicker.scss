@@ -21,6 +21,26 @@
         &.cell-gray {
           color: #999;
         }
+        &:hover {
+          background-color: #d4d4d4;
+        }
+      }
+    }
+    .datepicker-monthRange {
+      display: flex;
+      flex-wrap: wrap;
+
+      span {
+        flex: 0 0 25%;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #d4d4d4;
+        }
+        &.datapicker-item-active {
+          background-color: #fb7e5d;
+        }
       }
     }
   }

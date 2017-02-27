@@ -47,7 +47,12 @@ DatePickerComponent = Vue.extend
           <span v-on:click="yearClick(1)">&gt;</span>
         </div>
         <div class='datepicker-inner'>
-
+          <div class="datepicker-monthRange">
+            <span v-for="(m, $index) in months"
+                  :class="{'datapicker-item-active':months[month] == m }">
+              {{ m }}
+            </span>
+          </div>
         </div>
       </div>
       </div class="datepicker-year">
@@ -66,6 +71,7 @@ DatePickerComponent = Vue.extend
     year: ''
     month: ''
     daysOfWeek: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
+    months: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
     dateRange: []
 
   methods:

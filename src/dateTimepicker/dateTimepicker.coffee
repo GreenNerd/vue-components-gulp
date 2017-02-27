@@ -21,22 +21,37 @@ dateTimepicker = (date, type) ->
 DatePickerComponent = Vue.extend
   template:"""
     <div class="datepicker">
-      <div class='form-control'>
-        <span>关闭</span>
-        <span>确认</span>
-      </div>
-      <div class='datepicker-ctrl'>
-        <span v-on:click="monthClick(-1)">&lt;</span>
-        <span>{{ year }}年{{ month + 1 }}月</span>
-        <span v-on:click="monthClick(1)">&gt;</span>
-      </div>
-      <div class="datepicker-inner">
-        <div class="datepicker-weekRange">
-          <span v-for="w in daysOfWeek">{{ w }}</span>
+      <div class="datepicker-date">
+        <div class='form-control'>
+          <span>关闭</span>
+          <span>确认</span>
         </div>
-        <div class="datepicker-dateRange">
-          <span v-for="d in dateRange" class="day-cell" :class="d.class">{{ d.text }}</span>
+        <div class='datepicker-ctrl'>
+          <span v-on:click="monthClick(-1)">&lt;</span>
+          <span>{{ year }}年{{ month + 1 }}月</span>
+          <span v-on:click="monthClick(1)">&gt;</span>
         </div>
+        <div class="datepicker-inner">
+          <div class="datepicker-weekRange">
+            <span v-for="w in daysOfWeek">{{ w }}</span>
+          </div>
+          <div class="datepicker-dateRange">
+            <span v-for="d in dateRange" class="day-cell" :class="d.class">{{ d.text }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="datepicker-month">
+        <div class='datepicker-ctrl'>
+          <span v-on:click="yearClick(-1)">&lt;</span>
+          <span>{{ year }}年</span>
+          <span v-on:click="yearClick(1)">&gt;</span>
+        </div>
+        <div class='datepicker-inner'>
+
+        </div>
+      </div>
+      </div class="datepicker-year">
+
       </div>
     </div>
   """

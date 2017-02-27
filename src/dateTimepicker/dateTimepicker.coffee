@@ -53,8 +53,18 @@ DatePickerComponent = Vue.extend
           </div>
         </div>
       </div>
-      </div class="datepicker-year">
-
+      <div class="datepicker-year">
+        <div class='datepicker-ctrl'>
+          <span v-on:click="decadeClick(-1)">&lt;</span>
+          <span>{{ stringifyDecadeYear(currDate) }}</span>
+          <span v-on:click="decadeClick(1)">&gt;</span>
+        </div>
+        <div class='datepicker-inner'>
+          <div class=datepicker-decadeRange>
+            <span v-for="y in decadeRange"
+                  :class="{'datepicker-item-active':year == y.text }">{{ y.text }}</span>
+          </div>
+        </div>
       </div>
     </div>
   """
@@ -70,7 +80,8 @@ DatePickerComponent = Vue.extend
     month: ''
     daysOfWeek: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
     months: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
-    dateRange: []
+    dateRange: [],
+    decadeRange: []
 
   methods:
     monthClick: (num) ->
@@ -88,6 +99,18 @@ DatePickerComponent = Vue.extend
       else
         @currDate = new Date(@year + 1, @month, @date)
       @year = @currDate.getFullYear()
+
+    decadeClick: (num) ->
+      if num == -1
+        @currDate = new Date(@year - 10, @month, @date)
+      else
+        @currDate = new Date(@year + 10, @month, @date)
+      @remakeCalendar()
+
+    stringifyDecadeYear: (date)->
+      firstYear = date.getFullYear() - 5
+      lastYear = date.getFullYear() + 6
+      firstYear + '-' + lastYear
 
     remakeCalendar: ->
       @year = @currDate.getFullYear()
@@ -144,6 +167,13 @@ DatePickerComponent = Vue.extend
             text: i
             class: 'cell-gray'
           })
+      # decadeRange
+      @decadeRange = []
+      firstDecadeYear = @year - 5
+      for i in [0..11]
+        @decadeRange.push({
+          text: firstDecadeYear + i
+        })
 
 
 window.dateTimepicker = dateTimepicker

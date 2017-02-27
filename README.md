@@ -8,10 +8,17 @@ vue-components and bulid tool use gulp
   npm install gulp -g
 ```
 
+### install dependencies
+```
+  npm install
+```
+
+### start a project
+```
+  gulp start --yourprocjectname
+```
+
 ### run
 ```
-  # install dependencies
-  npm install
-  # run as devlopment environment
   gulp
 ```

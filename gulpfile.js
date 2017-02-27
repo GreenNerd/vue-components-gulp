@@ -5,6 +5,7 @@ const server = require('./index').server;
 const sass = require('gulp-sass');
 const coffee = require('gulp-coffee');
 const plumber = require('gulp-plumber');
+const exec = require('child_process').exec;
 
 
 gulp.task('coffee', function() {
@@ -35,6 +36,21 @@ gulp.task('watch', ()=>{
 
 
 gulp.task('compile', ['coffee', 'sass', 'moveHtml'], ()=>{});
+
+
+gulp.task('start', (cb)=>{
+  var name = null;
+  let option = process.argv[3];
+  if (option) {
+    name = option.match(/\w[\w-\.]*/)[0];
+  }
+  let term = `cd src && mkdir ${ name } && cd ${ name } && touch ${ name }.coffee && touch ${ name }-demo.coffee && touch ${ name }.scss && touch ${ name }.html && cd .. && cd ..`;
+  exec(term, (err, stdout, stderr)=>{
+    console.log(stdout);
+    console.log(stderr);
+    cb(err);
+  });
+});
 
 gulp.task('default', ['compile', 'watch'], function() {
   server.start();

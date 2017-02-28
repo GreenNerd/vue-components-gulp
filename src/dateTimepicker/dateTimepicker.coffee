@@ -114,16 +114,10 @@ DatePickerComponent = Vue.extend
         @currDate = new Date(nextMonth.year, nextMonth.month, @date)
 
     yearClick: (num) ->
-      if num == -1
-        @year = @year - 1
-      else
-        @year = @year + 1
+      if num == -1 then @year = @year - 1 else @year = @year + 1
 
     decadeClick: (num) ->
-      if num == -1
-        @year = @year - 10
-      else
-        @year = @year + 10
+      if num == -1 then @year = @year - 10 else @year = @year + 10
       @getDateRange()
 
     showMonthView: ->
@@ -164,7 +158,7 @@ DatePickerComponent = Vue.extend
     getDayCount: (year, month) ->
       dict = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
       if month == 1
-        if year % 400 == 0 || year % 4 == 0 && year % 100 != 0
+        if year % 400 == 0 or year % 4 == 0 and year % 100 != 0
           return 29
       dict[month]
 

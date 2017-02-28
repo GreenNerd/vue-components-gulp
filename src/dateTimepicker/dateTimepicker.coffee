@@ -23,17 +23,18 @@ DatePickerComponent = Vue.extend
     <div class="datepicker">
       <div class="datepicker-date">
         <div class='form-control'>
-          <span>关闭</span>
-          <span>确认</span>
+          <span class="datepickerExit">关闭</span>
+          <span class="datepickerSubmit">确认</span>
         </div>
         <div class='datepicker-ctrl'>
-          <span v-on:click="monthClick(-1)">&lt;</span>
-          <span>{{ year }}年{{ month + 1 }}月</span>
-          <span v-on:click="monthClick(1)">&gt;</span>
+          <span class="datepicker-preBtn" @click="monthClick(-1)">&lt;</span>
+          <span class="datepicker-text">{{ year }}年{{ month + 1 }}月</span>
+          <span class="datepicker-nextBtn" @click="monthClick(1)">&gt;</span>
         </div>
         <div class="datepicker-inner">
           <div class="datepicker-weekRange">
-            <span v-for="w in daysOfWeek">{{ w }}</span>
+            <span v-for="(w, $index) in daysOfWeek"
+                  :class="{'highlightWeekend': $index == 0 || $index == 6 }">{{ w }}</span>
           </div>
           <div class="datepicker-dateRange">
             <span v-for="d in dateRange" class="day-cell" :class="d.class">{{ d.text }}</span>
@@ -42,9 +43,9 @@ DatePickerComponent = Vue.extend
       </div>
       <div class="datepicker-month">
         <div class='datepicker-ctrl'>
-          <span v-on:click="yearClick(-1)">&lt;</span>
+          <span @click="yearClick(-1)">&lt;</span>
           <span>{{ year }}年</span>
-          <span v-on:click="yearClick(1)">&gt;</span>
+          <span @click="yearClick(1)">&gt;</span>
         </div>
         <div class='datepicker-inner'>
           <div class="datepicker-monthRange">
@@ -55,9 +56,9 @@ DatePickerComponent = Vue.extend
       </div>
       <div class="datepicker-year">
         <div class='datepicker-ctrl'>
-          <span v-on:click="decadeClick(-1)">&lt;</span>
+          <span @click="decadeClick(-1)">&lt;</span>
           <span>{{ stringifyDecadeYear(currDate) }}</span>
-          <span v-on:click="decadeClick(1)">&gt;</span>
+          <span @click="decadeClick(1)">&gt;</span>
         </div>
         <div class='datepicker-inner'>
           <div class=datepicker-decadeRange>

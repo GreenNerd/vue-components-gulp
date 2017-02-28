@@ -1,31 +1,84 @@
+$color-main: #fb7e5d;
+
+body{
+  margin: 0;
+}
 .datepicker {
+  background: #fafafb;
+  position: fixed;
+  bottom: 0;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
   .form-control,
   .datepicker-ctrl {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    height: 40px;
+  }
+  .form-control {
+    padding: 0 20px;
+
+    .datepickerSubmit {
+      color: $color-main;
+    }
+  }
+  .datepicker-ctrl {
+    border-top: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3;
+    background-color: #f7f7f7;
+
+    .datepicker-preBtn,
+    .datepicker-nextBtn {
+      flex: 1;
+      color: #a7d457;
+      height: 100%;
+      line-height: 40px;
+    }
+    .datepicker-text {
+      flex: 8;
+      color: #625f6c;
+      border-left: 1px solid #d3d3d3;
+      border-right: 1px solid #d3d3d3;
+    }
   }
 
   .datepicker-inner {
     .datepicker-weekRange {
       display: flex;
       justify-content: space-around;
+      height: 35px;
+      align-items: center;
+      color: #acacac;
+
+      .highlightWeekend,{
+        color: $color-main;
+      }
     }
     .datepicker-dateRange {
       display: flex;
       flex-wrap: wrap;
+      height: 300px;
 
       .day-cell {
         flex: 0 0 14.28%;
+        height: 40px;
+        line-height: 40px;
         text-align: center;
 
         &.cell-gray {
-          color: #999;
-        }
-        &:hover {
-          background-color: #d4d4d4;
+          color: #d4d4d4;
         }
         &.datepicker-item-active {
-          background-color: #fb7e5d;
+          div {
+            max-width: 40px;
+            margin: 0 auto;
+            background-color: $color-main;
+            color: #fff;
+            border-radius: 50%;
+          }
         }
       }
     }

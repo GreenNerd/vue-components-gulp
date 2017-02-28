@@ -8,7 +8,7 @@ createTimepickerContainer = (TimepickerId) ->
     document.body.appendChild(timepickerContainer)
   timepickerContainer
 
-dateTimepicker = (date, type) ->
+dateTimepicker = (date = new Date(), type = 'date') ->
   datepicker = document.createElement('div')
   createTimepickerContainer('date-container').appendChild(datepicker)
   dateTimepicker.instance = new DatePickerComponent

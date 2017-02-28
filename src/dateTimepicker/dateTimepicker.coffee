@@ -173,11 +173,11 @@ DatePickerComponent = Vue.extend
       preMonth = @getYearMonth(@year, @month - 1)
       preMonthDayCount = @getDayCount(preMonth.year, preMonth.month)
       nextMonth = @getYearMonth(@year, @month + 1)
-      for i in [0..firstDayWeek-1]
-        date = preMonthDayCount - firstDayWeek + 1 + i
+      for i in [1..firstDayWeek]
+        dayText = preMonthDayCount - firstDayWeek + i
         @dateRange.push({
-          date: preMonth.year + '-' + preMonth.month + '-' + date
-          text: date
+          date: preMonth.year + '-' + preMonth.month + '-' + dayText
+          text: dayText
           class: 'cell-gray'
         })
       # 这个月应显示的date

@@ -137,7 +137,10 @@ DatePickerComponent = Vue.extend
       @displayDateView = true
       @currDate = new Date(@year, index, @date)
 
-    yearSelect: ->
+    yearSelect: (num) ->
+      @displayYearView = false
+      @displayMonthView = true
+      @currDate = new Date(num , @month, @date)
 
     stringifyDecadeYear: (date)->
       firstYear = date.getFullYear() - 5

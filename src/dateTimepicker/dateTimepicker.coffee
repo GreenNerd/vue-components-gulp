@@ -53,7 +53,8 @@ DatePickerComponent = Vue.extend
         <div class='datepicker-inner'>
           <div class="datepicker-monthRange">
             <span v-for="(m, $index) in months"
-                  :class="{'datepicker-item-active':months[month] == m && currDate.getFullYear() == new Date().getFullYear() }"><div>{{ m }}</div></span>
+                  :class="{'datepicker-item-active':months[month] == m && currDate.getFullYear() == new Date().getFullYear() }"
+                  @click="monthSelect($index)"><div>{{ m }}</div></span>
           </div>
         </div>
       </div>
@@ -66,7 +67,8 @@ DatePickerComponent = Vue.extend
         <div class='datepicker-inner'>
           <div class=datepicker-decadeRange>
             <span v-for="y in decadeRange"
-                  :class="{'datepicker-item-active':year == y.text && year == new Date().getFullYear() }"><div>{{ y.text }}</div></span>
+                  :class="{'datepicker-item-active':year == y.text && year == new Date().getFullYear() }"
+                  @click="yearSelect(y.text)"><div>{{ y.text }}</div></span>
           </div>
         </div>
       </div>
@@ -89,6 +91,12 @@ DatePickerComponent = Vue.extend
     months: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
     dateRange: []
     decadeRange: []
+
+  watch:
+    currDate: ->
+      @year = @currDate.getFullYear()
+      @month = @currDate.getMonth()
+      @remakeCalendar()
 
   methods:
     monthClick: (num) ->
@@ -121,6 +129,15 @@ DatePickerComponent = Vue.extend
     showYearView: ->
       @displayMonthView = false
       @displayYearView = true
+
+    daySelect: ->
+
+    monthSelect: (index) ->
+      @displayMonthView = false
+      @displayDateView = true
+      @currDate = new Date(@year, index, @date)
+
+    yearSelect: ->
 
     stringifyDecadeYear: (date)->
       firstYear = date.getFullYear() - 5

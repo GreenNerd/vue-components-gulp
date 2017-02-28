@@ -228,5 +228,9 @@ DatePickerComponent = Vue.extend
       @displayMonthView = false
       @displayYearView = false
 
+    submitDate: ->
+      console.log(@currDate)
+      @close()
+
 
 window.dateTimepicker = dateTimepicker

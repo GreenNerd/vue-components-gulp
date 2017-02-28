@@ -50,7 +50,7 @@ DatePickerComponent = Vue.extend
         <div class='datepicker-inner'>
           <div class="datepicker-monthRange">
             <span v-for="(m, $index) in months"
-                  :class="{'datepicker-item-active':months[month] == m }">{{ m }}</span>
+                  :class="{'datepicker-item-active':months[month] == m && currDate.getFullYear() == new Date().getFullYear() }">{{ m }}</span>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@ DatePickerComponent = Vue.extend
         <div class='datepicker-inner'>
           <div class=datepicker-decadeRange>
             <span v-for="y in decadeRange"
-                  :class="{'datepicker-item-active':year == y.text }">{{ y.text }}</span>
+                  :class="{'datepicker-item-active':year == y.text && year == new Date().getFullYear() }">{{ y.text }}</span>
           </div>
         </div>
       </div>
@@ -154,7 +154,7 @@ DatePickerComponent = Vue.extend
       # 这个月应显示的date
       for i in [1..dayCount]
         dayClass = ''
-        if i == @currDate.getDate()
+        if i == @currDate.getDate() && new Date().getFullYear() == @year && new Date().getMonth() == @month
           dayClass = 'datepicker-item-active'
         @dateRange.push({
           text: i

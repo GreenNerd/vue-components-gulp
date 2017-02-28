@@ -28,7 +28,7 @@ DatePickerComponent = Vue.extend
       <div class="datepicker-date" v-show="displayDateView">
         <div class='datepicker-ctrl'>
           <span class="datepicker-preBtn" @click="monthClick(-1)">&lt;</span>
-          <span class="datepicker-text">{{ year }}年{{ month + 1 }}月</span>
+          <span class="datepicker-text" @click="showMonthView">{{ year }}年{{ month + 1 }}月</span>
           <span class="datepicker-nextBtn" @click="monthClick(1)">&gt;</span>
         </div>
         <div class="datepicker-inner">
@@ -47,7 +47,7 @@ DatePickerComponent = Vue.extend
       <div class="datepicker-month" v-show="displayMonthView">
         <div class='datepicker-ctrl'>
           <span class="datepicker-preBtn" @click="yearClick(-1)">&lt;</span>
-          <span class="datepicker-text">{{ year }}年</span>
+          <span class="datepicker-text" @click="showYearView">{{ year }}年</span>
           <span class="datepicker-nextBtn "@click="yearClick(1)">&gt;</span>
         </div>
         <div class='datepicker-inner'>
@@ -57,7 +57,7 @@ DatePickerComponent = Vue.extend
           </div>
         </div>
       </div>
-      <div class="datepicker-year" v-show="displayYeadView">
+      <div class="datepicker-year" v-show="displayYearView">
         <div class='datepicker-ctrl'>
           <span class="datepicker-preBtn" @click="decadeClick(-1)">&lt;</span>
           <span class="datepicker-text">{{ stringifyDecadeYear(currDate) }}</span>
@@ -113,6 +113,14 @@ DatePickerComponent = Vue.extend
       else
         @currDate = new Date(@year + 10, @month, @date)
       @remakeCalendar()
+
+    showMonthView: ->
+      @displayDateView = false
+      @displayMonthView = true
+
+    showYearView: ->
+      @displayMonthView = false
+      @displayYearView = true
 
     stringifyDecadeYear: (date)->
       firstYear = date.getFullYear() - 5

@@ -21,8 +21,8 @@ dateTimepicker = (date = new Date(), type = 'date') ->
 DatePickerComponent = Vue.extend
   template:"""
     <div>
-      <div class="datepicker-mask" @click="close" v-show="datepickerView"></div>
-      <div class="datepicker" v-show="datepickerView">
+      <div class="datepicker-mask" @click="close" v-if="datepickerView"></div>
+      <div class="datepicker" v-if="datepickerView">
         <div class="form-control">
           <span class="datepickerExit" @click="close">关闭</span>
           <span class="datepickerSubmit" @click="submitDate">确认</span>
@@ -224,9 +224,7 @@ DatePickerComponent = Vue.extend
 
     close: ->
       @datepickerView = false
-      @displayDateView = false
-      @displayMonthView = false
-      @displayYearView = false
+      dateTimepicker.instance = null
 
     submitDate: ->
       console.log(@currDate)

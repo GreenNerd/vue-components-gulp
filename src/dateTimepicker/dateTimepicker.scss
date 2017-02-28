@@ -6,6 +6,8 @@ body{
 .datepicker {
   background: #fafafb;
   position: fixed;
+  left: 0;
+  right: 0;
   bottom: 0;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -29,6 +31,7 @@ body{
     border-top: 1px solid #d3d3d3;
     border-bottom: 1px solid #d3d3d3;
     background-color: #f7f7f7;
+    box-sizing: border-box;
 
     .datepicker-preBtn,
     .datepicker-nextBtn {
@@ -44,8 +47,9 @@ body{
       border-right: 1px solid #d3d3d3;
     }
   }
-
   .datepicker-inner {
+    height: 335px;
+
     .datepicker-weekRange {
       display: flex;
       justify-content: space-around;
@@ -86,17 +90,27 @@ body{
     .datepicker-decadeRange {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
+      height: 100%;
 
       span {
         flex: 0 0 25%;
         text-align: center;
         cursor: pointer;
+        height: 60px;
+        line-height: 60px;
 
         &:hover {
           background-color: #d4d4d4;
         }
         &.datepicker-item-active {
-          background-color: #fb7e5d;
+          div {
+            max-width: 60px;
+            margin: 0 auto;
+            background-color: $color-main;
+            color: #fff;
+            border-radius: 50%;
+          }
         }
       }
     }

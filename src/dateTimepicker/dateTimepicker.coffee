@@ -21,11 +21,11 @@ dateTimepicker = (date, type) ->
 DatePickerComponent = Vue.extend
   template:"""
     <div class="datepicker">
-      <div class="datepicker-date">
-        <div class='form-control'>
-          <span class="datepickerExit">关闭</span>
-          <span class="datepickerSubmit">确认</span>
-        </div>
+      <div class='form-control'>
+        <span class="datepickerExit">关闭</span>
+        <span class="datepickerSubmit">确认</span>
+      </div>
+      <div class="datepicker-date" v-show="displayDateView">
         <div class='datepicker-ctrl'>
           <span class="datepicker-preBtn" @click="monthClick(-1)">&lt;</span>
           <span class="datepicker-text">{{ year }}年{{ month + 1 }}月</span>
@@ -37,33 +37,36 @@ DatePickerComponent = Vue.extend
                   :class="{'highlightWeekend': $index == 0 || $index == 6 }">{{ w }}</span>
           </div>
           <div class="datepicker-dateRange">
-            <span v-for="d in dateRange" class="day-cell" :class="d.class">{{ d.text }}</span>
+            <span v-for="d in dateRange"
+                  class="day-cell"
+                  :class="d.class"
+                  @click="daySelect(d)"><div>{{ d.text }}</div></span>
           </div>
         </div>
       </div>
-      <div class="datepicker-month">
+      <div class="datepicker-month" v-show="displayMonthView">
         <div class='datepicker-ctrl'>
-          <span @click="yearClick(-1)">&lt;</span>
-          <span>{{ year }}年</span>
-          <span @click="yearClick(1)">&gt;</span>
+          <span class="datepicker-preBtn" @click="yearClick(-1)">&lt;</span>
+          <span class="datepicker-text">{{ year }}年</span>
+          <span class="datepicker-nextBtn "@click="yearClick(1)">&gt;</span>
         </div>
         <div class='datepicker-inner'>
           <div class="datepicker-monthRange">
             <span v-for="(m, $index) in months"
-                  :class="{'datepicker-item-active':months[month] == m && currDate.getFullYear() == new Date().getFullYear() }">{{ m }}</span>
+                  :class="{'datepicker-item-active':months[month] == m && currDate.getFullYear() == new Date().getFullYear() }"><div>{{ m }}</div></span>
           </div>
         </div>
       </div>
-      <div class="datepicker-year">
+      <div class="datepicker-year" v-show="displayYeadView">
         <div class='datepicker-ctrl'>
-          <span @click="decadeClick(-1)">&lt;</span>
-          <span>{{ stringifyDecadeYear(currDate) }}</span>
-          <span @click="decadeClick(1)">&gt;</span>
+          <span class="datepicker-preBtn" @click="decadeClick(-1)">&lt;</span>
+          <span class="datepicker-text">{{ stringifyDecadeYear(currDate) }}</span>
+          <span class="datepicker-nextBtn" @click="decadeClick(1)">&gt;</span>
         </div>
         <div class='datepicker-inner'>
           <div class=datepicker-decadeRange>
             <span v-for="y in decadeRange"
-                  :class="{'datepicker-item-active':year == y.text && year == new Date().getFullYear() }">{{ y.text }}</span>
+                  :class="{'datepicker-item-active':year == y.text && year == new Date().getFullYear() }"><div>{{ y.text }}</div></span>
           </div>
         </div>
       </div>
@@ -77,11 +80,14 @@ DatePickerComponent = Vue.extend
     @getDateRange()
 
   data: ->
+    displayDateView: false
+    displayMonthView: false
+    displayYeadView: true
     year: ''
     month: ''
     daysOfWeek: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
     months: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
-    dateRange: [],
+    dateRange: []
     decadeRange: []
 
   methods:

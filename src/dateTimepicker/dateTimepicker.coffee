@@ -42,7 +42,7 @@ DatePickerComponent = Vue.extend
               <span v-for="d in dateRange"
                     class="day-cell"
                     :class="d.class"
-                    @click="daySelect(d)"><div>{{ d.text }}</div></span>
+                    @click="daySelect(d.date)"><div>{{ d.text }}</div></span>
             </div>
           </div>
         </div>
@@ -136,7 +136,9 @@ DatePickerComponent = Vue.extend
       @displayMonthView = false
       @displayYearView = true
 
-    daySelect: ->
+    daySelect: (date) ->
+      selectDate = date.split('-')
+      @currDate = new Date(selectDate[0], selectDate[1], selectDate[2])
 
     monthSelect: (index) ->
       @displayMonthView = false
@@ -185,9 +187,11 @@ DatePickerComponent = Vue.extend
       # 上个月应显示的date
       preMonth = @getYearMonth(@year, @month - 1)
       preMonthDayCount = @getDayCount(preMonth.year, preMonth.month)
+      nextMonth = @getYearMonth(@year, @month + 1)
       for i in [0..firstDayWeek-1]
         date = preMonthDayCount - firstDayWeek + 1 + i
         @dateRange.push({
+          date: preMonth.year + '-' + preMonth.month + '-' + date
           text: date
           class: 'cell-gray'
         })
@@ -197,6 +201,7 @@ DatePickerComponent = Vue.extend
         if i == @currDate.getDate() && new Date().getFullYear() == @year && new Date().getMonth() == @month
           dayClass = 'datepicker-item-active'
         @dateRange.push({
+          date: @year + '-' + @month + '-' + i
           text: i
           class: dayClass
         })
@@ -205,6 +210,7 @@ DatePickerComponent = Vue.extend
         nextMonthNeed = 42 - @dateRange.length
         for i in [1..nextMonthNeed]
           @dateRange.push({
+            date: nextMonth.year + '-' + nextMonth.month + '-' + i
             text: i
             class: 'cell-gray'
           })

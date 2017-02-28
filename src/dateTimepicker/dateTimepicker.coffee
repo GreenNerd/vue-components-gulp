@@ -101,7 +101,8 @@ DatePickerComponent = Vue.extend
     currDate: ->
       @year = @currDate.getFullYear()
       @month = @currDate.getMonth()
-      @remakeCalendar()
+      @date = @currDate.getDate()
+      @getDateRange()
 
   methods:
     monthClick: (num) ->
@@ -111,7 +112,6 @@ DatePickerComponent = Vue.extend
       else
         nextMonth = @getYearMonth(@year, @month + 1)
         @currDate = new Date(nextMonth.year, nextMonth.month, @date)
-      @remakeCalendar()
 
     yearClick: (num) ->
       if num == -1
@@ -150,11 +150,6 @@ DatePickerComponent = Vue.extend
 
     stringifyDecadeYear: (year) ->
       year - 5 + '-' + ( year + 6 )
-
-    remakeCalendar: ->
-      @year = @currDate.getFullYear()
-      @month = @currDate.getMonth()
-      @getDateRange()
 
     getYearMonth: (year, month) ->
       if month > 11

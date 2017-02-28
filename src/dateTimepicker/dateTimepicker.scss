@@ -3,6 +3,14 @@ $color-main: #fb7e5d;
 body{
   margin: 0;
 }
+.datepicker-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(98, 95, 108, 0.6);
+}
 .datepicker {
   background: #fafafb;
   position: fixed;

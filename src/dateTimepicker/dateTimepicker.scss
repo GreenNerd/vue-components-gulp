@@ -1,4 +1,5 @@
 $color-main: #fb7e5d;
+$color-arrow: #a7d457;
 
 body{
   margin: 0;
@@ -44,7 +45,7 @@ body{
     .datepicker-preBtn,
     .datepicker-nextBtn {
       flex: 1;
-      color: #a7d457;
+      color: $color-arrow;
       height: 100%;
       line-height: 38px;
     }
@@ -120,6 +121,117 @@ body{
             border-radius: 50%;
           }
         }
+      }
+    }
+  }
+}
+.timepicker {
+  height: 300px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fafafb;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
+  .timepicker-hour-minute,
+  .timepicker-hour,
+  .timepicker-minute {
+    height: 100%;
+
+    .form-control {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 40px;
+      padding: 0 20px;
+      border-bottom: 1px solid #f3f3f3;
+      box-sizing: border-box;
+
+      .timepickerSubmit {
+        color: $color-main;
+      }
+    }
+  }
+
+  .timepicker-hour-minute {
+    .timepicker-inner {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      height: 260px;
+
+      .connection {
+        margin: 0 35px;
+      }
+
+      .timepicker-hour,
+      .timepicker-minute {
+        width: 80px;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+
+        .timeName {
+          flex: 1;
+          font-size: 14px;
+          color: #a7a7a7;
+        }
+        .preBtn,
+        .nextBtn {
+          width: 100%;
+          color: $color-arrow;
+        }
+        .preBtn {
+          flex: 1;
+        }
+        .nextBtn {
+          flex: 2;
+          line-height: 60px;
+        }
+        .timeText {
+          flex: 2;
+          width: 60px;
+          height: 60px;
+          line-height: 60px;
+          border: 1px solid #f3f3f3;
+          box-sizing: border-box;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+  .timepicker-hour {
+    .timepicker-inner {
+      display: flex;
+      flex-wrap: wrap;
+      height: 260px;
+      text-align: center;
+
+      span {
+        flex: 16.67%;
+        height: 65px;
+        line-height: 65px;
+      }
+    }
+  }
+  .timepicker-minute {
+    .timepicker-inner {
+      display: flex;
+      flex-wrap: wrap;
+      height: 220px;
+      padding: 20px;
+      text-align: center;
+
+      span {
+        flex: 25%;
+        height: 70px;
+        line-height: 70px;
       }
     }
   }

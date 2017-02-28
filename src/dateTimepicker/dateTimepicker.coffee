@@ -75,6 +75,47 @@ DatePickerComponent = Vue.extend
           </div>
         </div>
       </div>
+      <div class="timepicker" v-if="true">
+        <div class="timepicker-hour-minute" v-show="true">
+          <div class="form-control">
+            <span class="timepickerExit">关闭</span>
+            <span class="timepickerSubmit">确认</span>
+          </div>
+          <div class="timepicker-inner">
+            <div class="timepicker-hour">
+              <span class="timeName">小时</span>
+              <span class="preBtn">&and;</span>
+              <div class="timeText">03</div>
+              <div class="nextBtn">&or;</div>
+            </div>
+            <span class="connection">:</span>
+            <div class="timepicker-minute">
+              <span class="timeName">分钟</span>
+              <span class="preBtn">&and;</span>
+              <div class="timeText">45</div>
+              <div class="nextBtn">&or;</div>
+            </div>
+          </div>
+        </div>
+        <div class="timepicker-hour" v-show="false">
+          <div class="form-control">
+            <span class="timepickerExit">关闭</span>
+            <span class="timepickerSubmit">确认</span>
+          </div>
+          <div class="timepicker-inner">
+            <span v-for="h in hourRange"><div>{{ h }}</div></span>
+          </div>
+        </div>
+        <div class="timepicker-minute" v-show="false">
+          <div class="form-control">
+            <span class="timepickerExit">关闭</span>
+            <span class="timepickerSubmit">确认</span>
+          </div>
+          <div class="timepicker-inner">
+            <span v-for="m in minuteRange"><div>{{ m }}</div></span>
+          </div>
+        </div>
+      </div>
     </div>
   """
 
@@ -96,7 +137,8 @@ DatePickerComponent = Vue.extend
     months: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
     dateRange: []
     decadeRange: []
-
+    hourRange: ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+    minuteRange: ["00","05","10","15","20","25","30","35","40","45","50","55"]
   watch:
     currDate: ->
       @year = @currDate.getFullYear()

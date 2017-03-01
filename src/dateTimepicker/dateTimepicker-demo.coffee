@@ -1,1 +1,1 @@
-dateTimepicker(new Date(), "date")
+dateTimepicker(new Date(), "datetime")

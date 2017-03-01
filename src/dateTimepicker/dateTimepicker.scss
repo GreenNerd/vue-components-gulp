@@ -242,6 +242,16 @@ body{
         flex: 25%;
         height: 70px;
         line-height: 70px;
+
+        &.timepicker-item-active {
+          div {
+            width: 70px;
+            margin: 0 auto;
+            background-color: #fb7e5d;
+            color: #fff;
+            border-radius: 50%;
+          }
+        }
       }
     }
   }

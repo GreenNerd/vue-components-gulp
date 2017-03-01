@@ -105,16 +105,18 @@ DatePickerComponent = Vue.extend
           <div class="timepicker-inner">
             <span v-for="h in hourRange"
                   :class="{'timepicker-item-active': h == selectedHour}"
-                  @click="selectHour(h)"><div>{{ h }}</div></span>
+                  @click="hourSelect(h)"><div>{{ h }}</div></span>
           </div>
         </div>
         <div class="timepicker-minute" v-show="displayMinuteView">
           <div class="form-control">
-            <span class="timepickerExit">关闭</span>
-            <span class="timepickerSubmit">确认</span>
+            <span class="timepickerExit" @click="showTimeView">关闭</span>
+            <span class="timepickerSubmit" @click="submitMinute">确认</span>
           </div>
           <div class="timepicker-inner">
-            <span v-for="m in minuteRange"><div>{{ m }}</div></span>
+            <span v-for="m in minuteRange"
+                  :class="{'timepicker-item-active': m == selectedMinute }"
+                  @click="minuteSelect(m)"><div>{{ m }}</div></span>
           </div>
         </div>
       </div>
@@ -309,8 +311,11 @@ DatePickerComponent = Vue.extend
         minute = 60 + minute
       { hour: hour, minute: minute }
 
-    selectHour: (h) ->
+    hourSelect: (h) ->
       @selectedHour = h
+
+    minuteSelect: (m) ->
+      @selectedMinute = m
 
     showHourView: ->
       @displayHourView = true
@@ -321,12 +326,18 @@ DatePickerComponent = Vue.extend
       @displayTimeView = false
 
     showTimeView: ->
+      @selectedHour = ''
+      @selectedMinute = ''
       @displayTimeView = true
       @displayHourView = false
       @displayMinuteView = false
 
     submitHour: ->
-      @hour = @selectedHour
+      @hour = parseInt(@selectedHour)
+      @showTimeView()
+
+    submitMinute: ->
+      @minute = parseInt(@selectedMinute)
       @showTimeView()
 
     timepickerClose: ->

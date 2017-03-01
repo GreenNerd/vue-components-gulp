@@ -57,8 +57,6 @@ body{
     }
   }
   .datepicker-inner {
-    height: 335px;
-
     .datepicker-weekRange {
       display: flex;
       justify-content: space-around;
@@ -139,7 +137,6 @@ body{
   }
 }
 .timepicker {
-  height: 300px;
   position: fixed;
   left: 0;
   right: 0;

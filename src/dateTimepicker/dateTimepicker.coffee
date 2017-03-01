@@ -274,10 +274,8 @@ DatePickerComponent = Vue.extend
         })
 
     close: ->
-      if @type == 'date'
-        @datepickerClose()
-      if @type == 'time'
-        @timepickerClose()
+      @datepickerClose()
+      @timepickerClose()
       dateTimepicker.instance = null
 
     datepickerClose: ->

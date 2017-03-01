@@ -326,6 +326,8 @@ DatePickerComponent = Vue.extend
       @displayMinuteView = false
 
     submitHour: ->
+      @hour = @selectedHour
+      @showTimeView()
 
     timepickerClose: ->
       @pickerView = false

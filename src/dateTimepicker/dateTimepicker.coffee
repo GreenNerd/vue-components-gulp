@@ -84,16 +84,16 @@ DatePickerComponent = Vue.extend
           <div class="timepicker-inner">
             <div class="timepicker-hour">
               <span class="timeName">小时</span>
-              <span class="preBtn">&and;</span>
-              <div class="timeText">{{ hour }}</div>
-              <div class="nextBtn">&or;</div>
+              <span class="preBtn" @click="hourClick(-1)">&and;</span>
+              <div class="timeText" @click="showHourView">{{ stringifyTime(hour) }}</div>
+              <div class="nextBtn" @click="hourClick(1)">&or;</div>
             </div>
             <span class="connection">:</span>
             <div class="timepicker-minute">
               <span class="timeName">分钟</span>
-              <span class="preBtn">&and;</span>
-              <div class="timeText" @click="showMinuteView">{{ minute }}</div>
-              <div class="nextBtn">&or;</div>
+              <span class="preBtn" @click="minuteClick(-1)">&and;</span>
+              <div class="timeText" @click="showMinuteView">{{ stringifyTime(minute) }}</div>
+              <div class="nextBtn" @click="minuteClick(1)">&or;</div>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ DatePickerComponent = Vue.extend
     @year = @currDate.getFullYear()
     @month = @currDate.getMonth()
     @date = @currDate.getDate()
-    @hour = @stringifyHours(@currDate.getHours())
+    @hour = @currDate.getHours()
     @minute = @currDate.getMinutes()
     @getDateRange()
     @pickerView = true
@@ -158,9 +158,6 @@ DatePickerComponent = Vue.extend
       @getDateRange()
 
   methods:
-    stringifyHours: (h) ->
-      if h < 10 then '0' + h else h
-
     monthClick: (num) ->
       if num == -1
         preMonth = @getYearMonth(@year, @month - 1)
@@ -280,6 +277,32 @@ DatePickerComponent = Vue.extend
     submitDate: ->
       console.log(@currDate)
       @close()
+
+    stringifyTime: (t) ->
+      ('0' + t).slice(-2)
+
+    hourClick: (num) ->
+      if num == -1
+        @hour = @getHourMinute(@hour - 1, @minute).hour
+      else
+        @hour = @getHourMinute(@hour + 1, @minute).hour
+
+    minuteClick: (num) ->
+      if num == -1
+        @minute = @getHourMinute(@hour, @minute - 5).minute
+      else
+        @minute = @getHourMinute(@hour, @minute + 5).minute
+
+    getHourMinute: (hour, minute) ->
+      if hour > 23
+        hour = 0
+      if hour < 0
+        hour = 23
+      if minute > 59
+        minute = minute - 60
+      if minute < 0
+        minute = 60 + minute
+      { hour: hour, minute: minute }
 
     showHourView: ->
       @displayHourView = true

@@ -21,7 +21,7 @@ dateTimepicker = (date = new Date(), type = 'date') ->
 DatePickerComponent = Vue.extend
   template:"""
     <div>
-      <div class="datepicker-mask" @click="close" v-if="datepickerView"></div>
+      <div class="datepicker-mask" @click="close" v-if="pickerView"></div>
       <div class="datepicker" v-if="datepickerView">
         <div class="form-control">
           <span class="datepickerExit" @click="close">关闭</span>
@@ -75,10 +75,10 @@ DatePickerComponent = Vue.extend
           </div>
         </div>
       </div>
-      <div class="timepicker" v-if="true">
-        <div class="timepicker-hour-minute" v-show="true">
+      <div class="timepicker" v-if="timepickerView">
+        <div class="timepicker-hour-minute" v-show="displayTimeView">
           <div class="form-control">
-            <span class="timepickerExit">关闭</span>
+            <span class="timepickerExit" @click="timepickerClose">关闭</span>
             <span class="timepickerSubmit">确认</span>
           </div>
           <div class="timepicker-inner">
@@ -92,12 +92,12 @@ DatePickerComponent = Vue.extend
             <div class="timepicker-minute">
               <span class="timeName">分钟</span>
               <span class="preBtn">&and;</span>
-              <div class="timeText">{{ minute }}</div>
+              <div class="timeText" @click="showMinuteView">{{ minute }}</div>
               <div class="nextBtn">&or;</div>
             </div>
           </div>
         </div>
-        <div class="timepicker-hour" v-show="false">
+        <div class="timepicker-hour" v-show="displayHourView">
           <div class="form-control">
             <span class="timepickerExit">关闭</span>
             <span class="timepickerSubmit">确认</span>
@@ -106,7 +106,7 @@ DatePickerComponent = Vue.extend
             <span v-for="h in hourRange"><div>{{ h }}</div></span>
           </div>
         </div>
-        <div class="timepicker-minute" v-show="false">
+        <div class="timepicker-minute" v-show="displayMinuteView">
           <div class="form-control">
             <span class="timepickerExit">关闭</span>
             <span class="timepickerSubmit">确认</span>
@@ -126,13 +126,20 @@ DatePickerComponent = Vue.extend
     @hour = @stringifyHours(@currDate.getHours())
     @minute = @currDate.getMinutes()
     @getDateRange()
-    @datepickerView = true
+    @pickerView = true
+    @timepickerView = true
 
   data: ->
+    pickerView: false
     datepickerView: false
     displayDateView: true
     displayMonthView: false
     displayYearView: false
+
+    timepickerView: false
+    displayTimeView: true
+    displayHourView: false
+    displayMinuteView: false
     year: '2017'
     month: '0'
     hour: ''
@@ -260,12 +267,33 @@ DatePickerComponent = Vue.extend
         })
 
     close: ->
+      if @type == 'date'
+        @datepickerClose()
+      if @type == 'time'
+        @timepickerClose()
+
+    datepickerClose: ->
+      pickerView = false
       @datepickerView = false
       dateTimepicker.instance = null
 
     submitDate: ->
       console.log(@currDate)
       @close()
+
+    showHourView: ->
+      @displayHourView = true
+      @displayTimeView = false
+
+    showMinuteView: ->
+      @displayMinuteView = true
+      @displayTimeView = false
+
+    timepickerClose: ->
+      @pickerView = false
+      @timepickerView = false
+
+
 
 
 window.dateTimepicker = dateTimepicker

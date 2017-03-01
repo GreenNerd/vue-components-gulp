@@ -99,11 +99,13 @@ DatePickerComponent = Vue.extend
         </div>
         <div class="timepicker-hour" v-show="displayHourView">
           <div class="form-control">
-            <span class="timepickerExit">关闭</span>
-            <span class="timepickerSubmit">确认</span>
+            <span class="timepickerExit" @click="showTimeView">关闭</span>
+            <span class="timepickerSubmit" @click="submitHour">确认</span>
           </div>
           <div class="timepicker-inner">
-            <span v-for="h in hourRange"><div>{{ h }}</div></span>
+            <span v-for="h in hourRange"
+                  :class="{'timepicker-item-active': h == selectedHour}"
+                  @click="selectHour(h)"><div>{{ h }}</div></span>
           </div>
         </div>
         <div class="timepicker-minute" v-show="displayMinuteView">
@@ -144,6 +146,9 @@ DatePickerComponent = Vue.extend
     month: '0'
     hour: ''
     minute: ''
+
+    selectedHour: ''
+    selectedMinute: ''
     daysOfWeek: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
     months: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
     dateRange: []
@@ -304,6 +309,9 @@ DatePickerComponent = Vue.extend
         minute = 60 + minute
       { hour: hour, minute: minute }
 
+    selectHour: (h) ->
+      @selectedHour = h
+
     showHourView: ->
       @displayHourView = true
       @displayTimeView = false
@@ -311,6 +319,13 @@ DatePickerComponent = Vue.extend
     showMinuteView: ->
       @displayMinuteView = true
       @displayTimeView = false
+
+    showTimeView: ->
+      @displayTimeView = true
+      @displayHourView = false
+      @displayMinuteView = false
+
+    submitHour: ->
 
     timepickerClose: ->
       @pickerView = false

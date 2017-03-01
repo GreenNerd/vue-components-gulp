@@ -30,7 +30,7 @@ DatePickerComponent = Vue.extend
         <div class="datepicker-date" v-show="displayDateView">
           <div class='datepicker-ctrl'>
             <span class="datepicker-preBtn" @click="monthClick(-1)">&lt;</span>
-            <span class="datepicker-text" @click="showMonthView">{{ year }}年{{ month + 1 }}月</span>
+            <span class="datepicker-text" @click="showMonthView">{{ year }}年{{ stringifyTime(month + 1) }}月</span>
             <span class="datepicker-nextBtn" @click="monthClick(1)">&gt;</span>
           </div>
           <div class="datepicker-inner">

@@ -135,27 +135,22 @@ body{
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 
-  .timepicker-hour-minute,
-  .timepicker-hour,
-  .timepicker-minute {
-    height: 100%;
+  .form-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    padding: 0 20px;
+    border-bottom: 1px solid #f3f3f3;
+    box-sizing: border-box;
 
-    .form-control {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 40px;
-      padding: 0 20px;
-      border-bottom: 1px solid #f3f3f3;
-      box-sizing: border-box;
-
-      .timepickerSubmit {
-        color: $color-main;
-      }
+    .timepickerSubmit {
+      color: $color-main;
     }
   }
-
   .timepicker-hour-minute {
+    height: 100%;
+
     .timepicker-inner {
       display: flex;
       flex-direction: row;
@@ -206,6 +201,8 @@ body{
     }
   }
   .timepicker-hour {
+    height: 100%;
+
     .timepicker-inner {
       display: flex;
       flex-wrap: wrap;
@@ -231,6 +228,8 @@ body{
     }
   }
   .timepicker-minute {
+    height: 100%;
+
     .timepicker-inner {
       display: flex;
       flex-wrap: wrap;

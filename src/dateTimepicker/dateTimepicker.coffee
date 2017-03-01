@@ -76,11 +76,11 @@ DatePickerComponent = Vue.extend
         </div>
       </div>
       <div class="timepicker" v-if="timepickerView">
+        <div class="form-control">
+          <span class="timepickerExit" @click="close">关闭</span>
+          <span class="timepickerSubmit" @click="submitTime">确认</span>
+        </div>
         <div class="timepicker-hour-minute" v-show="displayTimeView">
-          <div class="form-control">
-            <span class="timepickerExit" @click="timepickerClose">关闭</span>
-            <span class="timepickerSubmit" @click="submitTime">确认</span>
-          </div>
           <div class="timepicker-inner">
             <div class="timepicker-hour">
               <span class="timeName">小时</span>
@@ -98,10 +98,6 @@ DatePickerComponent = Vue.extend
           </div>
         </div>
         <div class="timepicker-hour" v-show="displayHourView">
-          <div class="form-control">
-            <span class="timepickerExit" @click="showTimeView">关闭</span>
-            <span class="timepickerSubmit" @click="submitHour">确认</span>
-          </div>
           <div class="timepicker-inner">
             <span v-for="h in hourRange"
                   :class="{'timepicker-item-active': h == selectedHour}"
@@ -109,10 +105,6 @@ DatePickerComponent = Vue.extend
           </div>
         </div>
         <div class="timepicker-minute" v-show="displayMinuteView">
-          <div class="form-control">
-            <span class="timepickerExit" @click="showTimeView">关闭</span>
-            <span class="timepickerSubmit" @click="submitMinute">确认</span>
-          </div>
           <div class="timepicker-inner">
             <span v-for="m in minuteRange"
                   :class="{'timepicker-item-active': m == selectedMinute }"
@@ -324,21 +316,6 @@ DatePickerComponent = Vue.extend
     showMinuteView: ->
       @displayMinuteView = true
       @displayTimeView = false
-
-    showTimeView: ->
-      @selectedHour = ''
-      @selectedMinute = ''
-      @displayTimeView = true
-      @displayHourView = false
-      @displayMinuteView = false
-
-    submitHour: ->
-      @hour = parseInt(@selectedHour)
-      @showTimeView()
-
-    submitMinute: ->
-      @minute = parseInt(@selectedMinute)
-      @showTimeView()
 
     submitTime: ->
       @currDate.setHours(@hour)

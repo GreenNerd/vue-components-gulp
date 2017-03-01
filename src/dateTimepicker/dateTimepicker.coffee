@@ -123,7 +123,8 @@ DatePickerComponent = Vue.extend
     @minute = @currDate.getMinutes()
     @getDateRange()
     @pickerView = true
-    @timepickerView = true
+    @datepickerView = true if @type == 'date'
+    @timepickerView = true if @type == 'time'
 
   data: ->
     pickerView: false
@@ -265,11 +266,11 @@ DatePickerComponent = Vue.extend
         @datepickerClose()
       if @type == 'time'
         @timepickerClose()
+      dateTimepicker.instance = null
 
     datepickerClose: ->
-      pickerView = false
+      @pickerView = false
       @datepickerView = false
-      dateTimepicker.instance = null
 
     submitDate: ->
       console.log(@currDate)
@@ -310,6 +311,7 @@ DatePickerComponent = Vue.extend
       @currDate.setHours(@hour)
       @currDate.setMinutes(@minute)
       console.log(@currDate)
+      @timepickerClose()
 
     timepickerClose: ->
       @pickerView = false

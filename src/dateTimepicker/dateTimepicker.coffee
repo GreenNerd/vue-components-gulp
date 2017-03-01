@@ -91,9 +91,9 @@ DatePickerComponent = Vue.extend
             <span class="connection">:</span>
             <div class="timepicker-minute">
               <span class="timeName">分钟</span>
-              <span class="preBtn" @click="minuteClick(-1)">&and;</span>
+              <span class="preBtn" @click="minuteClick(-5)">&and;</span>
               <div class="timeText" @click="showMinuteView">{{ stringifyTime(minute) }}</div>
-              <div class="nextBtn" @click="minuteClick(1)">&or;</div>
+              <div class="nextBtn" @click="minuteClick(5)">&or;</div>
             </div>
           </div>
         </div>
@@ -281,27 +281,14 @@ DatePickerComponent = Vue.extend
       ('0' + t).slice(-2)
 
     hourClick: (num) ->
-      if num == -1
-        @hour = @getHourMinute(@hour - 1, @minute).hour
-      else
-        @hour = @getHourMinute(@hour + 1, @minute).hour
+      if @hour + num > 23 then @hour = 0
+      else if @hour + num < 0 then @hour = 23
+      else @hour = @hour + num
 
     minuteClick: (num) ->
-      if num == -1
-        @minute = @getHourMinute(@hour, @minute - 5).minute
-      else
-        @minute = @getHourMinute(@hour, @minute + 5).minute
-
-    getHourMinute: (hour, minute) ->
-      if hour > 23
-        hour = 0
-      if hour < 0
-        hour = 23
-      if minute > 59
-        minute = minute - 60
-      if minute < 0
-        minute = 60 + minute
-      { hour: hour, minute: minute }
+      if @minute + num > 59 then @minute = @minute + num - 60
+      else if @minute + num < 0 then @minute = @minute + num + 60
+      else @minute = @minute + num
 
     hourSelect: (h) ->
       @selectedHour = h

@@ -123,6 +123,19 @@ body{
         }
       }
     }
+    .time-data {
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      color: #615f6c;
+      background-color: #f7f7f7;
+      border-top: 1px solid #d3d3d3;
+      box-sizing: border-box;
+
+      .fa {
+        margin: 0 10px;
+      }
+    }
   }
 }
 .timepicker {
@@ -151,6 +164,20 @@ body{
   .timepicker-hour-minute {
     height: 100%;
 
+    .date-data {
+      height: 40px;
+      line-height: 40px;
+      color: #615f6c;
+      background-color: #f7f7f7;
+      border-top: 1px solid #d3d3d3;
+      border-bottom: 1px solid #d3d3d3;
+      text-align: center;
+      box-sizing: border-box;
+
+      .fa {
+        margin: 0 10px;
+      }
+    }
     .timepicker-inner {
       display: flex;
       flex-direction: row;

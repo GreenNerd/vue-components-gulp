@@ -44,6 +44,9 @@ DatePickerComponent = Vue.extend
                     :class="d.class"
                     @click="daySelect(d.date)"><div>{{ d.text }}</div></span>
             </div>
+            <div class="time-data" @click="changeView" v-if="isShowData">
+              <i class="fa fa-clock-o"></i>{{ stringifyTime(hour) }}:{{ stringifyTime(minute) }}
+            </div>
           </div>
         </div>
         <div class="datepicker-month" v-show="displayMonthView">
@@ -81,6 +84,9 @@ DatePickerComponent = Vue.extend
           <span class="timepickerSubmit" @click="submitTime">确认</span>
         </div>
         <div class="timepicker-hour-minute" v-show="displayTimeView">
+          <div class="date-data" @click="changeView" v-if="isShowData">
+            <i class="fa fa-calendar"></i>{{ year }}年{{ stringifyTime(month + 1) }}月{{ stringifyTime(date) }}日
+          </div>
           <div class="timepicker-inner">
             <div class="timepicker-hour">
               <span class="timeName">小时</span>
@@ -123,8 +129,9 @@ DatePickerComponent = Vue.extend
     @minute = @currDate.getMinutes()
     @getDateRange()
     @pickerView = true
-    @datepickerView = true if @type == 'date'
+    @datepickerView = true if @type == 'date' or @type == 'datetime'
     @timepickerView = true if @type == 'time'
+    @isShowData = true if @type == 'datetime'
 
   data: ->
     pickerView: false
@@ -133,6 +140,7 @@ DatePickerComponent = Vue.extend
     displayMonthView: false
     displayYearView: false
 
+    isShowData: false
     timepickerView: false
     displayTimeView: true
     displayHourView: false
@@ -156,6 +164,10 @@ DatePickerComponent = Vue.extend
       @getDateRange()
 
   methods:
+    changeView: ->
+      @datepickerView = !@datepickerView
+      @timepickerView = !@timepickerView
+
     monthClick: (num) ->
       if num == -1
         preMonth = @getYearMonth(@year, @month - 1)

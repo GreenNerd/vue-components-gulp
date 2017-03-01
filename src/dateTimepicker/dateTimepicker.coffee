@@ -79,7 +79,7 @@ DatePickerComponent = Vue.extend
         <div class="timepicker-hour-minute" v-show="displayTimeView">
           <div class="form-control">
             <span class="timepickerExit" @click="timepickerClose">关闭</span>
-            <span class="timepickerSubmit">确认</span>
+            <span class="timepickerSubmit" @click="submitTime">确认</span>
           </div>
           <div class="timepicker-inner">
             <div class="timepicker-hour">
@@ -339,6 +339,11 @@ DatePickerComponent = Vue.extend
     submitMinute: ->
       @minute = parseInt(@selectedMinute)
       @showTimeView()
+
+    submitTime: ->
+      @currDate.setHours(@hour)
+      @currDate.setMinutes(@minute)
+      console.log(@currDate)
 
     timepickerClose: ->
       @pickerView = false

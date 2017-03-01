@@ -85,14 +85,14 @@ DatePickerComponent = Vue.extend
             <div class="timepicker-hour">
               <span class="timeName">小时</span>
               <span class="preBtn">&and;</span>
-              <div class="timeText">03</div>
+              <div class="timeText">{{ hour }}</div>
               <div class="nextBtn">&or;</div>
             </div>
             <span class="connection">:</span>
             <div class="timepicker-minute">
               <span class="timeName">分钟</span>
               <span class="preBtn">&and;</span>
-              <div class="timeText">45</div>
+              <div class="timeText">{{ minute }}</div>
               <div class="nextBtn">&or;</div>
             </div>
           </div>
@@ -123,6 +123,8 @@ DatePickerComponent = Vue.extend
     @year = @currDate.getFullYear()
     @month = @currDate.getMonth()
     @date = @currDate.getDate()
+    @hour = @stringifyHours(@currDate.getHours())
+    @minute = @currDate.getMinutes()
     @getDateRange()
     @datepickerView = true
 
@@ -133,6 +135,8 @@ DatePickerComponent = Vue.extend
     displayYearView: false
     year: '2017'
     month: '0'
+    hour: ''
+    minute: ''
     daysOfWeek: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
     months: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
     dateRange: []
@@ -147,6 +151,9 @@ DatePickerComponent = Vue.extend
       @getDateRange()
 
   methods:
+    stringifyHours: (h) ->
+      if h < 10 then '0' + h else h
+
     monthClick: (num) ->
       if num == -1
         preMonth = @getYearMonth(@year, @month - 1)

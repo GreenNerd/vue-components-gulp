@@ -127,11 +127,13 @@ DatePickerComponent = Vue.extend
     @date = @currDate.getDate()
     @hour = @currDate.getHours()
     @minute = @currDate.getMinutes()
-    @getDateRange()
     @pickerView = true
     @datepickerView = true if @type == 'date' or @type == 'datetime'
     @timepickerView = true if @type == 'time'
     @isShowData = true if @type == 'datetime'
+    @getDateRange()
+    @getMonthRange()
+    @getTimeRange()
 
   data: ->
     pickerView: false
@@ -151,11 +153,12 @@ DatePickerComponent = Vue.extend
     minute: ''
 
     daysOfWeek: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
-    months: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
+    months: []
     dateRange: []
     decadeRange: []
-    hourRange: ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
-    minuteRange: ["00","05","10","15","20","25","30","35","40","45","50","55"]
+    hourRange: []
+    minuteRange: []
+
   watch:
     currDate: ->
       @year = @currDate.getFullYear()
@@ -164,6 +167,16 @@ DatePickerComponent = Vue.extend
       @getDateRange()
 
   methods:
+    getMonthRange: ->
+      for i in [1..12]
+        @months.push(i + '月')
+
+    getTimeRange: ->
+      for i in [0..23]
+        @hourRange.push((('0')+i).slice(-2))
+      for i in [0..55] by 5
+        @minuteRange.push((('0')+i).slice(-2))
+
     changeView: ->
       @datepickerView = !@datepickerView
       @timepickerView = !@timepickerView

@@ -1,25 +1,25 @@
-createTimepickerContainer = (TimepickerId) ->
-  if document.getElementById(TimepickerId)
-    timepickerContainer = document.getElementById(TimepickerId)
-    timepickerContainer.innerHTML = ''
+createDateTimepickerContainer = (dateTimepickerId) ->
+  if document.getElementById(dateTimepickerId)
+    dateTimepickerContainer = document.getElementById(dateTimepickerId)
+    dateTimepickerContainer.innerHTML = ''
   else
-    timepickerContainer = document.createElement('div')
-    timepickerContainer.id = TimepickerId
-    document.body.appendChild(timepickerContainer)
-  timepickerContainer
+    dateTimepickerContainer = document.createElement('div')
+    dateTimepickerContainer.id = dateTimepickerId
+    document.body.appendChild(dateTimepickerContainer)
+  dateTimepickerContainer
 
-dateTimepicker = (date = new Date(), type = 'date') ->
-  datepicker = document.createElement('div')
-  createTimepickerContainer('date-container').appendChild(datepicker)
-  dateTimepicker.instance = new DatePickerComponent
-    el: datepicker
+dateTimepicker = (date = new Date(), type = 'datetime') ->
+  dateTimepicker = document.createElement('div')
+  createDateTimepickerContainer('dateTimepicker-container').appendChild(dateTimepicker)
+  dateTimepicker.instance = new DateTimepickerComponent
+    el: dateTimepicker
     data:
       currDate: date
       selectedDate: date
       type: type
   dateTimepicker.instance
 
-DatePickerComponent = Vue.extend
+DateTimepickerComponent = Vue.extend
   template:"""
     <div>
       <div class="datepicker-mask" @click="close" v-if="pickerView"></div>

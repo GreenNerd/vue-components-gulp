@@ -234,23 +234,16 @@ DatePickerComponent = Vue.extend
           month = 11
       { year: year, month: month }
 
-    getDayCount: (year, month) ->
-      dict = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-      if month == 1
-        if year % 400 == 0 or year % 4 == 0 and year % 100 != 0
-          return 29
-      dict[month]
-
     getDateRange: ->
       @dateRange = []
       currMonthFirstDay = new Date(@year, @month, 1)
       firstDayWeek = currMonthFirstDay.getDay()
       if firstDayWeek == 0
         firstDayWeek = 7
-      dayCount = @getDayCount(@year, @month)
+      dayCount = new Date(@year, @month + 1, 0).getDate()
       # 上个月应显示的date
       preMonth = @getYearMonth(@year, @month - 1)
-      preMonthDayCount = @getDayCount(preMonth.year, preMonth.month)
+      preMonthDayCount = new Date(@year, @month, 0).getDate()
       nextMonth = @getYearMonth(@year, @month + 1)
       for i in [1..firstDayWeek]
         dayText = preMonthDayCount - firstDayWeek + i

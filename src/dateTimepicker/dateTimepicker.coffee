@@ -81,7 +81,7 @@ DatePickerComponent = Vue.extend
       <div class="timepicker" v-if="timepickerView">
         <div class="form-control">
           <span class="timepickerExit" @click="close">关闭</span>
-          <span class="timepickerSubmit" @click="submitTime">确认</span>
+          <span class="timepickerSubmit" @click="submitDate">确认</span>
         </div>
         <div class="timepicker-hour-minute" v-show="displayTimeView">
           <div class="date-data" @click="changeView" v-if="isShowData">
@@ -274,17 +274,16 @@ DatePickerComponent = Vue.extend
         })
 
     close: ->
-      @datepickerClose()
-      @timepickerClose()
-      dateTimepicker.instance = null
-
-    datepickerClose: ->
       @pickerView = false
       @datepickerView = false
+      @timepickerView = false
+      dateTimepicker.instance = null
 
     submitDate: ->
-      console.log(@currDate)
+      if @type != 'date'
+        @currDate.setHours(@hour, @minute)
       @close()
+      console.log(@currDate)
 
     stringifyTime: (t) ->
       ('0' + t).slice(-2)
@@ -316,17 +315,6 @@ DatePickerComponent = Vue.extend
     showMinuteView: ->
       @displayMinuteView = true
       @displayTimeView = false
-
-    submitTime: ->
-      @currDate.setHours(@hour)
-      @currDate.setMinutes(@minute)
-      console.log(@currDate)
-      @timepickerClose()
-
-    timepickerClose: ->
-      @pickerView = false
-      @timepickerView = false
-
 
 
 

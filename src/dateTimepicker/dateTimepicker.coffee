@@ -149,8 +149,8 @@ DatePickerComponent = Vue.extend
     displayMinuteView: false
     year: '2017'
     month: '0'
-    hour: ''
-    minute: ''
+    hour: '0'
+    minute: '0'
 
     daysOfWeek: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
     months: []

@@ -150,6 +150,7 @@ DateTimepickerComponent = Vue.extend
     displayMinuteView: false
     year: '2017'
     month: '0'
+    date: '1'
     hour: '0'
     minute: '0'
 

@@ -158,6 +158,9 @@ DatePickerComponent = Vue.extend
     decadeRange: []
     hourRange: []
     minuteRange: []
+    dateFormat: 'yyyy/MM/dd'
+    timeFormat: 'hh:mm'
+    datetimeFormat: 'yyyy/MM/dd hh:mm'
 
   watch:
     currDate: ->
@@ -293,10 +296,26 @@ DatePickerComponent = Vue.extend
       dateTimepicker.instance = null
 
     submitDate: ->
-      if @type != 'date'
-        @currDate.setHours(@hour, @minute)
+      console.log(@stringify())
       @close()
-      console.log(@currDate)
+
+    stringify: ->
+      if @type == 'date'
+        @dateFormat
+        .replace(/yyyy/g, @year)
+        .replace(/MM/g, (('0') + (@month + 1)).slice(-2))
+        .replace(/dd/g, (('0') + @date).slice(-2))
+      else if @type == 'time'
+        @timeFormat
+        .replace(/hh/g, @stringifyTime(@hour))
+        .replace(/mm/g, @stringifyTime(@minute))
+      else
+        @datetimeFormat
+        .replace(/yyyy/g, @year)
+        .replace(/MM/g, (('0') + (@month + 1)).slice(-2))
+        .replace(/dd/g, (('0') + @date).slice(-2))
+        .replace(/hh/g, @stringifyTime(@hour))
+        .replace(/mm/g, @stringifyTime(@minute))
 
     stringifyTime: (t) ->
       ('0' + t).slice(-2)

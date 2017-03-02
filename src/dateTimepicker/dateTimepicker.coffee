@@ -15,6 +15,7 @@ dateTimepicker = (date = new Date(), type = 'date') ->
     el: datepicker
     data:
       currDate: date
+      selectedDate: date
       type: type
   dateTimepicker.instance
 
@@ -85,7 +86,7 @@ DatePickerComponent = Vue.extend
         </div>
         <div class="timepicker-hour-minute" v-show="displayTimeView">
           <div class="date-data" @click="changeView" v-if="isShowData">
-            <i class="fa fa-calendar"></i>{{ year }}年{{ stringifyTime(month + 1) }}月{{ stringifyTime(date) }}日
+            <i class="fa fa-calendar"></i>{{ selectedDate.getFullYear() }}年{{ stringifyTime(selectedDate.getMonth() + 1) }}月{{ stringifyTime(selectedDate.getDate()) }}日
           </div>
           <div class="timepicker-inner">
             <div class="timepicker-hour">
@@ -169,6 +170,9 @@ DatePickerComponent = Vue.extend
       @date = @currDate.getDate()
       @getDateRange()
 
+    selectedDate: ->
+      @getDateRange()
+
   methods:
     getMonthRange: ->
       for i in [1..12]
@@ -209,7 +213,7 @@ DatePickerComponent = Vue.extend
 
     daySelect: (date) ->
       selectDate = date.split('-')
-      @currDate = new Date(selectDate[0], selectDate[1], selectDate[2])
+      @selectedDate = new Date(selectDate[0], selectDate[1] - 1, selectDate[2])
 
     monthSelect: (index) ->
       @displayMonthView = false
@@ -255,10 +259,10 @@ DatePickerComponent = Vue.extend
       # 这个月应显示的date
       for i in [1..dayCount]
         dayClass = ''
-        if i == @currDate.getDate() && @currDate.getFullYear() == @year && @currDate.getMonth() == @month
+        if i == @selectedDate.getDate() && @selectedDate.getFullYear() == @year && @selectedDate.getMonth() == @month
           dayClass = 'datepicker-item-active'
         @dateRange.push({
-          date: @year + '-' + @month + '-' + i
+          date: @year + '-' + (@month + 1) + '-' + i
           text: i
           class: dayClass
         })
@@ -295,18 +299,18 @@ DatePickerComponent = Vue.extend
     stringify: ->
       if @type == 'date'
         @dateFormat
-        .replace(/yyyy/g, @year)
-        .replace(/MM/g, (('0') + (@month + 1)).slice(-2))
-        .replace(/dd/g, (('0') + @date).slice(-2))
+        .replace(/yyyy/g, @selectedDate.getFullYear())
+        .replace(/MM/g, (('0') + (@selectedDate.getMonth() + 1)).slice(-2))
+        .replace(/dd/g, (('0') + @selectedDate.getDate()).slice(-2))
       else if @type == 'time'
         @timeFormat
         .replace(/hh/g, @stringifyTime(@hour))
         .replace(/mm/g, @stringifyTime(@minute))
       else
         @datetimeFormat
-        .replace(/yyyy/g, @year)
-        .replace(/MM/g, (('0') + (@month + 1)).slice(-2))
-        .replace(/dd/g, (('0') + @date).slice(-2))
+        .replace(/yyyy/g, @selectedDate.getFullYear())
+        .replace(/MM/g, (('0') + (@selectedDate.getMonth() + 1)).slice(-2))
+        .replace(/dd/g, (('0') + @selectedDate.getDate()).slice(-2))
         .replace(/hh/g, @stringifyTime(@hour))
         .replace(/mm/g, @stringifyTime(@minute))
 

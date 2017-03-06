@@ -41,7 +41,10 @@ datetimepicker = Vue.extend
             <span v-if="showdate">date</span>
             <span v-else>time<span>
           </div>
-          <timepicker :initValue=initValue v-if="isShowTime"></timepicker>
+          <timepicker :initValue.sync=initValue
+                      v-if="isShowTime"
+                      v-on:update="updateTime"
+                      ></timepicker>
         </div>
       </div>
     </selection>
@@ -65,6 +68,9 @@ datetimepicker = Vue.extend
     month: '0'
     date: '1'
 
+    hour: '00'
+    minute: '00'
+
     dateFormat: 'yyyy/MM/dd'
     timeFormat: 'hh:mm'
     datetimeFormat: 'yyyy/MM/dd hh:mm'
@@ -79,6 +85,10 @@ datetimepicker = Vue.extend
       @year = selectDate[0]
       @month = selectDate[1]
       @date = selectDate[2]
+
+    updateTime: (selectTime) ->
+      @hour = selectTime[0]
+      @minute = selectTime[1]
 
     stringify: ->
       if @type == 'date'
@@ -359,11 +369,16 @@ timePicker = Vue.extend
   mounted: ->
     @hour = @initValue.getHours()
     @minute = @initValue.getMinutes()
-    @timepickerView = true if @type == 'time'
     @getTimeRange()
 
+  watch:
+    hour: ->
+      @$emit('update', [@hour, @minute])
+
+    minute: ->
+      @$emit('update', [@hour, @minute])
+
   data: ->
-    timepickerView: false
     displayTimeView: true
     displayHourView: false
     displayMinuteView: false
@@ -392,6 +407,7 @@ timePicker = Vue.extend
       if @minute + num > 59 then @minute = @minute + num - 60
       else if @minute + num < 0 then @minute = @minute + num + 60
       else @minute = @minute + num
+
 
     hourSelect: (h) ->
       @hour = parseInt(h)

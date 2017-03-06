@@ -34,7 +34,9 @@ datetimepicker = Vue.extend
           <span class="datepickerSubmit" @click="submitDate">确认</span>
         </div>
         <div class="datetimepicker">
-          <datepicker :initValue=initValue v-if="isShowDate"></datepicker>
+          <datepicker :initValue=initValue
+                      v-if="isShowDate"
+                      v-on:daySelect="updateDate"></datepicker>
           <div v-if="type == 'datetime'" @click="changeView">
             <span v-if="showdate">date</span>
             <span v-else>time<span>
@@ -49,6 +51,9 @@ datetimepicker = Vue.extend
       @isShowDate = true
     else
       @isShowTime = true
+    @year = @initValue.getFullYear()
+    @month = @initValue.getMonth() + 1
+    @date = @initValue.getDate()
 
   data: ->
     selectionView: true
@@ -56,22 +61,50 @@ datetimepicker = Vue.extend
     isShowTime: false
     showdate: true
 
+    year: '2017'
+    month: '0'
+    date: '1'
+
+    dateFormat: 'yyyy/MM/dd'
+    timeFormat: 'hh:mm'
+    datetimeFormat: 'yyyy/MM/dd hh:mm'
+
   methods:
     changeView: ->
       @showdate = !@showdate
       @isShowDate = !@isShowDate
       @isShowTime = !@isShowTime
 
-    submitDate: ->
+    updateDate: (selectDate) ->
+      @year = selectDate[0]
+      @month = selectDate[1]
+      @date = selectDate[2]
 
-    close: ->
-      @selectionView = false
-      dateTimepicker.instance = null
+    stringify: ->
+      if @type == 'date'
+        @dateFormat
+        .replace(/yyyy/g, @year)
+        .replace(/MM/g, (('0') + @month).slice(-2))
+        .replace(/dd/g, (('0') + @date).slice(-2))
+      else if @type == 'time'
+        @timeFormat
+        .replace(/hh/g, @hour)
+        .replace(/mm/g, @minute)
+      else
+        @datetimeFormat
+        .replace(/yyyy/g, @year)
+        .replace(/MM/g, (('0') + @month).slice(-2))
+        .replace(/dd/g, (('0') + @date).slice(-2))
+        .replace(/hh/g, @hour)
+        .replace(/mm/g, @minute)
 
     submitDate: ->
       console.log(@stringify())
       @close()
 
+    close: ->
+      @selectionView = false
+      dateTimepicker.instance = null
 
 datePicker = Vue.extend
   template:"""
@@ -158,7 +191,6 @@ datePicker = Vue.extend
     months: []
     dateRange: []
     decadeRange: []
-    dateFormat: 'yyyy/MM/dd'
 
   watch:
     initValue: ->
@@ -207,6 +239,7 @@ datePicker = Vue.extend
     daySelect: (date) ->
       selectDate = date.split('-')
       @selectedDate = new Date(selectDate[0], selectDate[1] - 1, selectDate[2])
+      @$emit('daySelect', selectDate)
 
     monthSelect: (index) ->
       @displayMonthView = false
@@ -279,24 +312,6 @@ datePicker = Vue.extend
           text: firstDecadeYear + i
         })
 
-    stringify: ->
-      if @type == 'date'
-        @dateFormat
-        .replace(/yyyy/g, @selectedDate.getFullYear())
-        .replace(/MM/g, (('0') + (@selectedDate.getMonth() + 1)).slice(-2))
-        .replace(/dd/g, (('0') + @selectedDate.getDate()).slice(-2))
-      # else if @type == 'time'
-      #   @timeFormat
-      #   .replace(/hh/g, @stringifyTime(@hour))
-      #   .replace(/mm/g, @stringifyTime(@minute))
-      # else
-      #   @datetimeFormat
-      #   .replace(/yyyy/g, @selectedDate.getFullYear())
-      #   .replace(/MM/g, (('0') + (@selectedDate.getMonth() + 1)).slice(-2))
-      #   .replace(/dd/g, (('0') + @selectedDate.getDate()).slice(-2))
-      #   .replace(/hh/g, @stringifyTime(@hour))
-      #   .replace(/mm/g, @stringifyTime(@minute))
-
     stringifyTime: (t) ->
       ('0' + t).slice(-2)
 
@@ -344,7 +359,6 @@ timePicker = Vue.extend
   mounted: ->
     @hour = @initValue.getHours()
     @minute = @initValue.getMinutes()
-    @pickerView = true
     @timepickerView = true if @type == 'time'
     @getTimeRange()
 
@@ -358,8 +372,6 @@ timePicker = Vue.extend
 
     hourRange: []
     minuteRange: []
-    timeFormat: 'hh:mm'
-    datetimeFormat: 'yyyy/MM/dd hh:mm'
 
   methods:
     getTimeRange: ->
@@ -367,38 +379,6 @@ timePicker = Vue.extend
         @hourRange.push((('0')+i).slice(-2))
       for i in [0..55] by 5
         @minuteRange.push((('0')+i).slice(-2))
-
-    changeView: ->
-      @datepickerView = !@datepickerView
-      @timepickerView = !@timepickerView
-
-    close: ->
-      @pickerView = false
-      @datepickerView = false
-      @timepickerView = false
-      dateTimepicker.instance = null
-
-    submitDate: ->
-      console.log(@stringify())
-      @close()
-
-    stringify: ->
-      if @type == 'date'
-        @dateFormat
-        .replace(/yyyy/g, @selectedDate.getFullYear())
-        .replace(/MM/g, (('0') + (@selectedDate.getMonth() + 1)).slice(-2))
-        .replace(/dd/g, (('0') + @selectedDate.getDate()).slice(-2))
-      else if @type == 'time'
-        @timeFormat
-        .replace(/hh/g, @stringifyTime(@hour))
-        .replace(/mm/g, @stringifyTime(@minute))
-      else
-        @datetimeFormat
-        .replace(/yyyy/g, @selectedDate.getFullYear())
-        .replace(/MM/g, (('0') + (@selectedDate.getMonth() + 1)).slice(-2))
-        .replace(/dd/g, (('0') + @selectedDate.getDate()).slice(-2))
-        .replace(/hh/g, @stringifyTime(@hour))
-        .replace(/mm/g, @stringifyTime(@minute))
 
     stringifyTime: (t) ->
       ('0' + t).slice(-2)

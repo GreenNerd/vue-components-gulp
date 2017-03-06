@@ -26,19 +26,21 @@ dateTimepicker = (date = new Date(), type = 'datetime') ->
 
 datetimepicker = Vue.extend
   template:"""
-    <selection>
-      <div class="mask"></div>
-      <div class="form-control">
-        <span class="datepickerExit" @click="close">关闭</span>
-        <span class="datepickerSubmit" @click="submitDate">确认</span>
-      </div>
-      <div class="datetimepicker">
-        <datepicker :initValue=initValue v-if="isShowDate"></datepicker>
-        <div v-if="type == 'datetime'" @click="changeView">
-          <span v-if="showdate">date</span>
-          <span v-else>time<span>
+    <selection v-if="selectionView">
+      <div class="mask" @click="close"></div>
+      <div class="datetimepicker-wrapper">
+        <div class="form-control">
+          <span class="datepickerExit" @click="close">关闭</span>
+          <span class="datepickerSubmit" @click="submitDate">确认</span>
         </div>
-        <timepicker :initValue=initValue v-if="isShowTime"></timepicker>
+        <div class="datetimepicker">
+          <datepicker :initValue=initValue v-if="isShowDate"></datepicker>
+          <div v-if="type == 'datetime'" @click="changeView">
+            <span v-if="showdate">date</span>
+            <span v-else>time<span>
+          </div>
+          <timepicker :initValue=initValue v-if="isShowTime"></timepicker>
+        </div>
       </div>
     </selection>
   """
@@ -49,6 +51,7 @@ datetimepicker = Vue.extend
       @isShowTime = true
 
   data: ->
+    selectionView: true
     isShowDate: false
     isShowTime: false
     showdate: true
@@ -62,6 +65,13 @@ datetimepicker = Vue.extend
     submitDate: ->
 
     close: ->
+      @selectionView = false
+      dateTimepicker.instance = null
+
+    submitDate: ->
+      console.log(@stringify())
+      @close()
+
 
 datePicker = Vue.extend
   template:"""
@@ -171,10 +181,6 @@ datePicker = Vue.extend
       for i in [0..55] by 5
         @minuteRange.push((('0')+i).slice(-2))
 
-    changeView: ->
-      @datepickerView = !@datepickerView
-      @timepickerView = !@timepickerView
-
     monthClick: (num) ->
       if num == -1
         preMonth = @getYearMonth(@year, @month - 1)
@@ -273,16 +279,6 @@ datePicker = Vue.extend
           text: firstDecadeYear + i
         })
 
-    close: ->
-      @pickerView = false
-      @datepickerView = false
-      @timepickerView = false
-      dateTimepicker.instance = null
-
-    submitDate: ->
-      console.log(@stringify())
-      @close()
-
     stringify: ->
       if @type == 'date'
         @dateFormat
@@ -303,34 +299,6 @@ datePicker = Vue.extend
 
     stringifyTime: (t) ->
       ('0' + t).slice(-2)
-
-    hourClick: (num) ->
-      if @hour + num > 23 then @hour = 0
-      else if @hour + num < 0 then @hour = 23
-      else @hour = @hour + num
-
-    minuteClick: (num) ->
-      if @minute + num > 59 then @minute = @minute + num - 60
-      else if @minute + num < 0 then @minute = @minute + num + 60
-      else @minute = @minute + num
-
-    hourSelect: (h) ->
-      @hour = parseInt(h)
-      @displayTimeView = true
-      @displayHourView = false
-
-    minuteSelect: (m) ->
-      @minute = parseInt(m)
-      @displayTimeView = true
-      @displayMinuteView = false
-
-    showHourView: ->
-      @displayHourView = true
-      @displayTimeView = false
-
-    showMinuteView: ->
-      @displayMinuteView = true
-      @displayTimeView = false
 
 timePicker = Vue.extend
   template:"""

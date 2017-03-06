@@ -39,8 +39,8 @@ datetimepicker = Vue.extend
           <span class="datepickerSubmit" @click="submitDate">确认</span>
         </div>
         <div class="datetimepicker">
-          <datepicker :initValue=initValue
-                      v-if="isShowDate"
+          <datepicker :initDate=initValue
+                      v-show="isShowDate"
                       v-on:daySelect="updateDate"></datepicker>
           <div class="date-time-data" v-if="type == 'datetime'" @click="changeView">
             <span v-if="showdate">
@@ -50,8 +50,8 @@ datetimepicker = Vue.extend
               <i class="fa fa-calendar"></i>{{ year }}年{{ stringifyTime(month) }}月{{ stringifyTime(date) }}日
             <span>
           </div>
-          <timepicker :initValue.sync=initValue
-                      v-if="isShowTime"
+          <timepicker :initTime=initValue
+                      v-show="isShowTime"
                       v-on:update="updateTime"
                       ></timepicker>
         </div>

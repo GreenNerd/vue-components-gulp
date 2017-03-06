@@ -4,6 +4,39 @@ $color-arrow: #a7d457;
 body{
   margin: 0;
 }
+
+selection {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fafafb;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
+  .smask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(98, 95, 108, 0.6);
+  }
+  .form-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    height: 40px;
+    padding: 0 20px;
+    border-bottom: 1px solid #d4d4d4;
+    box-sizing: border-box;
+
+    .datepickerSubmit {
+      color: $color-main;
+    }
+  }
+}
 .datepicker-mask {
   position: fixed;
   top: 0;
@@ -13,14 +46,6 @@ body{
   background-color: rgba(98, 95, 108, 0.6);
 }
 .datepicker {
-  background: #fafafb;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-
   .form-control,
   .datepicker-ctrl {
     display: flex;
@@ -137,13 +162,6 @@ body{
   }
 }
 .timepicker {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #fafafb;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
 
   .form-control {
     display: flex;

@@ -34,261 +34,220 @@ selection {
         color: $color-main;
       }
     }
-  }
-}
-.datepicker-mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(98, 95, 108, 0.6);
-}
-.datepicker {
-  .form-control,
-  .datepicker-ctrl {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    height: 40px;
-  }
-  .form-control {
-    padding: 0 20px;
 
-    .datepickerSubmit {
-      color: $color-main;
-    }
-  }
-  .datepicker-ctrl {
-    border-bottom: 1px solid #d3d3d3;
-    background-color: #f7f7f7;
-    box-sizing: border-box;
-
-    .datepicker-preBtn,
-    .datepicker-nextBtn {
-      flex: 1;
-      color: $color-arrow;
-      height: 100%;
-      line-height: 38px;
-    }
-    .datepicker-text {
-      flex: 8;
-      color: #625f6c;
-      border-left: 1px solid #d3d3d3;
-      border-right: 1px solid #d3d3d3;
-    }
-  }
-  .datepicker-inner {
-    .datepicker-weekRange {
-      display: flex;
-      justify-content: space-around;
-      height: 35px;
-      align-items: center;
-      color: #acacac;
-
-      .highlightWeekend,{
-        color: $color-main;
-      }
-    }
-    .datepicker-dateRange {
-      display: flex;
-      flex-wrap: wrap;
-      height: 300px;
-
-      .day-cell {
-        flex: 0 0 14.28%;
+    .datetimepicker {
+      .date-time-data {
         height: 40px;
         line-height: 40px;
+        color: #615f6c;
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #d3d3d3;
         text-align: center;
+        box-sizing: border-box;
 
-        &.cell-gray {
-          color: #d4d4d4;
+        .fa {
+          margin: 0 10px;
         }
-        &.datepicker-item-active {
-          div {
-            max-width: 40px;
-            margin: 0 auto;
-            background-color: $color-main;
-            color: #fff;
-            border-radius: 50%;
+      }
+      .datepicker {
+        border-bottom: 1px solid #d3d3d3;
+
+        .datepicker-ctrl {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          text-align: center;
+          height: 40px;
+          background-color: #f7f7f7;
+          box-sizing: border-box;
+          border-bottom: 1px solid #d3d3d3;
+
+          .datepicker-preBtn,
+          .datepicker-nextBtn {
+            flex: 1;
+            color: $color-arrow;
+            height: 100%;
+            line-height: 38px;
+          }
+          .datepicker-text {
+            flex: 8;
+            color: #625f6c;
+            border-left: 1px solid #d3d3d3;
+            border-right: 1px solid #d3d3d3;
+          }
+        }
+        .datepicker-inner {
+          .datepicker-weekRange {
+            display: flex;
+            justify-content: space-around;
+            height: 35px;
+            align-items: center;
+            color: #acacac;
+
+            .highlightWeekend,{
+              color: $color-main;
+            }
+          }
+          .datepicker-dateRange {
+            display: flex;
+            flex-wrap: wrap;
+            height: 300px;
+
+            .day-cell {
+              flex: 0 0 14.28%;
+              height: 40px;
+              line-height: 40px;
+              text-align: center;
+
+              &.cell-gray {
+                color: #d4d4d4;
+              }
+              &.datepicker-item-active {
+                div {
+                  max-width: 40px;
+                  margin: 0 auto;
+                  background-color: $color-main;
+                  color: #fff;
+                  border-radius: 50%;
+                }
+              }
+            }
+          }
+          .datepicker-monthRange,
+          .datepicker-decadeRange {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            height: 300px;
+
+            span {
+              flex: 0 0 25%;
+              text-align: center;
+              cursor: pointer;
+              height: 60px;
+              line-height: 60px;
+
+              &:hover {
+                background-color: #d4d4d4;
+              }
+              &.datepicker-item-active {
+                div {
+                  max-width: 60px;
+                  margin: 0 auto;
+                  background-color: $color-main;
+                  color: #fff;
+                  border-radius: 50%;
+                }
+              }
+            }
           }
         }
       }
-    }
-    .datepicker-monthRange,
-    .datepicker-decadeRange {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      height: 300px;
+      .timepicker {
+        .timepicker-hour-minute {
+          height: 100%;
 
-      span {
-        flex: 0 0 25%;
-        text-align: center;
-        cursor: pointer;
-        height: 60px;
-        line-height: 60px;
+          .timepicker-inner {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            height: 260px;
 
-        &:hover {
-          background-color: #d4d4d4;
-        }
-        &.datepicker-item-active {
-          div {
-            max-width: 60px;
-            margin: 0 auto;
-            background-color: $color-main;
-            color: #fff;
-            border-radius: 50%;
+            .connection {
+              margin: 0 35px;
+            }
+
+            .timepicker-hour,
+            .timepicker-minute {
+              width: 80px;
+              height: 180px;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-around;
+              align-items: center;
+              text-align: center;
+
+              .timeName {
+                flex: 1;
+                font-size: 14px;
+                color: #a7a7a7;
+              }
+              .preBtn,
+              .nextBtn {
+                width: 100%;
+                color: $color-arrow;
+              }
+              .preBtn {
+                flex: 1;
+              }
+              .nextBtn {
+                flex: 2;
+                line-height: 60px;
+              }
+              .timeText {
+                flex: 2;
+                width: 60px;
+                height: 60px;
+                line-height: 60px;
+                border: 1px solid #f3f3f3;
+                border-radius: 5px;
+              }
+            }
           }
         }
-      }
-    }
-    .time-data {
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      color: #615f6c;
-      background-color: #f7f7f7;
-      border-top: 1px solid #d3d3d3;
-      box-sizing: border-box;
+        .timepicker-hour {
+          height: 100%;
 
-      .fa {
-        margin: 0 10px;
-      }
-    }
-  }
-}
-.timepicker {
+          .timepicker-inner {
+            display: flex;
+            flex-wrap: wrap;
+            height: 220px;
+            padding: 20px 0;
+            text-align: center;
 
-  .form-control {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 40px;
-    padding: 0 20px;
-    border-bottom: 1px solid #f3f3f3;
-    box-sizing: border-box;
+            span {
+              flex: 16.67%;
+              height: 50px;
+              line-height: 50px;
 
-    .timepickerSubmit {
-      color: $color-main;
-    }
-  }
-  .timepicker-hour-minute {
-    height: 100%;
-
-    .date-data {
-      height: 40px;
-      line-height: 40px;
-      color: #615f6c;
-      background-color: #f7f7f7;
-      border-top: 1px solid #d3d3d3;
-      border-bottom: 1px solid #d3d3d3;
-      text-align: center;
-      box-sizing: border-box;
-
-      .fa {
-        margin: 0 10px;
-      }
-    }
-    .timepicker-inner {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      height: 260px;
-
-      .connection {
-        margin: 0 35px;
-      }
-
-      .timepicker-hour,
-      .timepicker-minute {
-        width: 80px;
-        height: 180px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        text-align: center;
-
-        .timeName {
-          flex: 1;
-          font-size: 14px;
-          color: #a7a7a7;
-        }
-        .preBtn,
-        .nextBtn {
-          width: 100%;
-          color: $color-arrow;
-        }
-        .preBtn {
-          flex: 1;
-        }
-        .nextBtn {
-          flex: 2;
-          line-height: 60px;
-        }
-        .timeText {
-          flex: 2;
-          width: 60px;
-          height: 60px;
-          line-height: 60px;
-          border: 1px solid #f3f3f3;
-          border-radius: 5px;
-        }
-      }
-    }
-  }
-  .timepicker-hour {
-    height: 100%;
-
-    .timepicker-inner {
-      display: flex;
-      flex-wrap: wrap;
-      height: 220px;
-      padding: 20px 0;
-      text-align: center;
-
-      span {
-        flex: 16.67%;
-        height: 50px;
-        line-height: 50px;
-
-        &.timepicker-item-active {
-          div {
-            width: 50px;
-            margin: 0 auto;
-            background-color: #fb7e5d;
-            border-radius: 50%;
-            color: #fff;
+              &.timepicker-item-active {
+                div {
+                  width: 50px;
+                  margin: 0 auto;
+                  background-color: #fb7e5d;
+                  border-radius: 50%;
+                  color: #fff;
+                }
+              }
+            }
           }
         }
-      }
-    }
-  }
-  .timepicker-minute {
-    height: 100%;
+        .timepicker-minute {
+          height: 100%;
 
-    .timepicker-inner {
-      display: flex;
-      flex-wrap: wrap;
-      height: 220px;
-      padding: 20px;
-      text-align: center;
+          .timepicker-inner {
+            display: flex;
+            flex-wrap: wrap;
+            height: 220px;
+            padding: 20px;
+            text-align: center;
 
-      span {
-        flex: 25%;
-        height: 70px;
-        line-height: 70px;
+            span {
+              flex: 25%;
+              height: 70px;
+              line-height: 70px;
 
-        &.timepicker-item-active {
-          div {
-            width: 70px;
-            margin: 0 auto;
-            background-color: #fb7e5d;
-            color: #fff;
-            border-radius: 50%;
+              &.timepicker-item-active {
+                div {
+                  width: 70px;
+                  margin: 0 auto;
+                  background-color: #fb7e5d;
+                  color: #fff;
+                  border-radius: 50%;
+                }
+              }
+            }
           }
         }
       }

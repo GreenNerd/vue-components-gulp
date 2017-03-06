@@ -8,6 +8,11 @@ createDateTimepickerContainer = (dateTimepickerId) ->
     document.body.appendChild(dateTimepickerContainer)
   dateTimepickerContainer
 
+timeMixins =
+  methods:
+    stringifyTime: (t) ->
+      ('0' + t).slice(-2)
+
 dateTimepicker = (date = new Date(), type = 'datetime') ->
   dateTimepicker = document.createElement('div')
   createDateTimepickerContainer('dateTimepicker-container').appendChild(dateTimepicker)
@@ -37,9 +42,13 @@ datetimepicker = Vue.extend
           <datepicker :initValue=initValue
                       v-if="isShowDate"
                       v-on:daySelect="updateDate"></datepicker>
-          <div v-if="type == 'datetime'" @click="changeView">
-            <span v-if="showdate">date</span>
-            <span v-else>time<span>
+          <div class="date-time-data" v-if="type == 'datetime'" @click="changeView">
+            <span v-if="showdate">
+              <i class="fa fa-clock-o"></i>{{ stringifyTime(hour) }}:{{ stringifyTime(minute) }}
+            </span>
+            <span v-else>
+              <i class="fa fa-calendar"></i>{{ year }}年{{ stringifyTime(month) }}月{{ stringifyTime(date) }}日
+            <span>
           </div>
           <timepicker :initValue.sync=initValue
                       v-if="isShowTime"
@@ -49,6 +58,9 @@ datetimepicker = Vue.extend
       </div>
     </selection>
   """
+
+  mixins: [timeMixins]
+
   created: ->
     if @type == 'date' || @type == 'datetime'
       @isShowDate = true
@@ -57,6 +69,8 @@ datetimepicker = Vue.extend
     @year = @initValue.getFullYear()
     @month = @initValue.getMonth() + 1
     @date = @initValue.getDate()
+    @hour = @initValue.getHours()
+    @minute = @initValue.getMinutes()
 
   data: ->
     selectionView: true
@@ -94,19 +108,19 @@ datetimepicker = Vue.extend
       if @type == 'date'
         @dateFormat
         .replace(/yyyy/g, @year)
-        .replace(/MM/g, (('0') + @month).slice(-2))
-        .replace(/dd/g, (('0') + @date).slice(-2))
+        .replace(/MM/g, @stringifyTime(@month))
+        .replace(/dd/g, @stringifyTime(@date))
       else if @type == 'time'
         @timeFormat
-        .replace(/hh/g, @hour)
-        .replace(/mm/g, @minute)
+        .replace(/hh/g, @stringifyTime(@hour))
+        .replace(/mm/g, @stringifyTime(@minute))
       else
         @datetimeFormat
         .replace(/yyyy/g, @year)
-        .replace(/MM/g, (('0') + @month).slice(-2))
-        .replace(/dd/g, (('0') + @date).slice(-2))
-        .replace(/hh/g, @hour)
-        .replace(/mm/g, @minute)
+        .replace(/MM/g, @stringifyTime(@month))
+        .replace(/dd/g, @stringifyTime(@date))
+        .replace(/hh/g, @stringifyTime(@hour))
+        .replace(/mm/g, @stringifyTime(@minute))
 
     submitDate: ->
       console.log(@stringify())
@@ -172,6 +186,8 @@ datePicker = Vue.extend
   props:
     initValue:
       default: new Date()
+
+  mixins: [timeMixins]
 
   mounted: ->
     @year = @initValue.getFullYear()
@@ -322,9 +338,6 @@ datePicker = Vue.extend
           text: firstDecadeYear + i
         })
 
-    stringifyTime: (t) ->
-      ('0' + t).slice(-2)
-
 timePicker = Vue.extend
   template:"""
     <div class="timepicker">
@@ -366,6 +379,8 @@ timePicker = Vue.extend
     initValue:
       default: new Date()
 
+  mixins: [timeMixins]
+
   mounted: ->
     @hour = @initValue.getHours()
     @minute = @initValue.getMinutes()
@@ -382,9 +397,8 @@ timePicker = Vue.extend
     displayTimeView: true
     displayHourView: false
     displayMinuteView: false
-    hour: '0'
-    minute: '0'
-
+    hour: '00'
+    minute: '00'
     hourRange: []
     minuteRange: []
 
@@ -394,9 +408,6 @@ timePicker = Vue.extend
         @hourRange.push((('0')+i).slice(-2))
       for i in [0..55] by 5
         @minuteRange.push((('0')+i).slice(-2))
-
-    stringifyTime: (t) ->
-      ('0' + t).slice(-2)
 
     hourClick: (num) ->
       if @hour + num > 23 then @hour = 0

@@ -43,12 +43,12 @@ datetimepicker = Vue.extend
                       v-show="isShowDate"
                       v-on:daySelect="updateDate"></datepicker>
           <div class="date-time-data" v-if="type == 'datetime'" @click="changeView">
-            <span v-if="showdate">
+            <div class="time-data-view" v-if="showtime">
               <i class="fa fa-clock-o"></i>{{ stringifyTime(hour) }}:{{ stringifyTime(minute) }}
-            </span>
-            <span v-else>
+            </div>
+            <div class="date-data-view" v-else>
               <i class="fa fa-calendar"></i>{{ year }}年{{ stringifyTime(month) }}月{{ stringifyTime(date) }}日
-            <span>
+            <div>
           </div>
           <timepicker :initTime=initValue
                       v-show="isShowTime"
@@ -76,7 +76,7 @@ datetimepicker = Vue.extend
     selectionView: true
     isShowDate: false
     isShowTime: false
-    showdate: true
+    showtime: true
     year: '2017'
     month: '0'
     date: '1'
@@ -142,11 +142,11 @@ datePicker = Vue.extend
                   :class="{'highlightWeekend': $index == 0 || $index == 6 }">{{ w }}</span>
           </div>
           <div class="datepicker-dateRange">
-            <span v-for="d in dateRange"
+            <div v-for="d in dateRange"
                   class="day-cell"
                   :class="d.class"
                   :date-data="d.date"
-                  @click="daySelect(d.date)"><div>{{ d.text }}</div></span>
+                  @click="daySelect(d.date)"><span>{{ d.text }}</span></div>
           </div>
         </div>
       </div>
@@ -158,9 +158,9 @@ datePicker = Vue.extend
         </div>
         <div class='datepicker-inner'>
           <div class="datepicker-monthRange">
-            <span v-for="(m, $index) in months"
+            <div v-for="(m, $index) in months"
                   :class="{'datepicker-item-active':months[month] == m && year == displayDate.getFullYear() }"
-                  @click="monthSelect($index)"><div>{{ m }}</div></span>
+                  @click="monthSelect($index)"><span>{{ m }}</span></div>
           </div>
         </div>
       </div>
@@ -172,9 +172,9 @@ datePicker = Vue.extend
         </div>
         <div class='datepicker-inner'>
           <div class=datepicker-decadeRange>
-            <span v-for="y in decadeRange"
+            <div v-for="y in decadeRange"
                   :class="{'datepicker-item-active':year == y.text && year == displayDate.getFullYear() }"
-                  @click="yearSelect(y.text)"><div>{{ y.text }}</div></span>
+                  @click="yearSelect(y.text)"><span>{{ y.text }}</span></div>
           </div>
         </div>
       </div>

@@ -32,8 +32,10 @@ dateTimepicker = (date = new Date(), type = 'datetime') ->
 datetimepicker = Vue.extend
   template:"""
     <selection v-if="selectionView">
-      <div class="mask" @click="close"></div>
-      <div class="datetimepicker-wrapper">
+      <div class="mask"
+           :class="{'modal-open': displayContent }"
+           @click="maskDisplay"></div>
+      <div class="content" v-if="displayContent">
         <div class="form-control">
           <span class="cancel-select" @click="close">取消</span>
           <span class="ensure-select" @click="submitDate">确认</span>
@@ -73,6 +75,7 @@ datetimepicker = Vue.extend
     @minute = @initValue.getMinutes()
 
   data: ->
+    displayContent: true
     selectionView: true
     isShowDate: false
     isShowTime: false
@@ -122,6 +125,9 @@ datetimepicker = Vue.extend
     submitDate: ->
       console.log(@stringify())
       @close()
+
+    maskDisplay: ->
+      @displayContent = false
 
     close: ->
       @selectionView = false

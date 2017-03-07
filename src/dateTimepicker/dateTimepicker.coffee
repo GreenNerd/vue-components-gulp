@@ -245,8 +245,9 @@ datePicker = Vue.extend
       @displayYearView = true
 
     daySelect: (date) ->
-      selectDate = date.split('-')
-      @displayDate = @selectedDate = new Date(selectDate[0], selectDate[1] - 1, selectDate[2])
+      if date
+        selectDate = date.split('-')
+        @displayDate = @selectedDate = new Date(selectDate[0], selectDate[1] - 1, selectDate[2])
 
     monthSelect: (index) ->
       @displayMonthView = false
@@ -275,20 +276,12 @@ datePicker = Vue.extend
       @dateRange = []
       currMonthFirstDay = new Date(@year, @month, 1)
       firstDayWeek = currMonthFirstDay.getDay()
-      if firstDayWeek == 0
-        firstDayWeek = 7
+      dateRangeLength = firstDayWeek == 0 ? 35 : 42
       dayCount = new Date(@year, @month + 1, 0).getDate()
-      # 上个月应显示的date
-      preMonth = @getYearMonth(@year, @month - 1)
-      preMonthDayCount = new Date(@year, @month, 0).getDate()
-      nextMonth = @getYearMonth(@year, @month + 1)
+      # 上个月的date
       for i in [1..firstDayWeek]
-        dayClass = 'cell-gray'
-        dayText = preMonthDayCount - firstDayWeek + i
         @dateRange.push({
-          date: preMonth.year + '-' + (preMonth.month + 1) + '-' + dayText
-          text: dayText
-          class: dayClass
+          text: ''
         })
       # 这个月应显示的date
       for i in [1..dayCount]
@@ -300,15 +293,12 @@ datePicker = Vue.extend
           text: i
           class: dayClass
         })
-      # 下个月应显示的date
-      if @dateRange.length < 42
-        nextMonthNeed = 42 - @dateRange.length
+      # 下个月的date
+      if @dateRange.length < dateRangeLength
+        nextMonthNeed = dateRangeLength - @dateRange.length
         for i in [1..nextMonthNeed]
-          dayClass = 'cell-gray'
           @dateRange.push({
-            date: nextMonth.year + '-' + (nextMonth.month + 1) + '-' + i
-            text: i
-            class: dayClass
+            text: ''
           })
 
       @getDecadeRange()

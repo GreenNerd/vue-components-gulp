@@ -25,11 +25,17 @@ selection {
       justify-content: space-between;
       align-items: center;
       text-align: center;
-      padding: 20px;
+      padding: 1rem;
       border-bottom: 1px solid #d3d3d3;
       box-sizing: border-box;
 
-      .datepickerSubmit {
+      .cancel-select,
+      .ensure-select {
+        padding: 1rem;
+        margin: -1rem;
+      }
+
+      .ensure-select {
         color: $color-main;
       }
     }
@@ -55,7 +61,8 @@ selection {
           justify-content: space-between;
           align-items: center;
           text-align: center;
-          height: 40px;
+          padding: .5rem 0;
+          margin-bottom: .5rem;
           background-color: #f7f7f7;
           box-sizing: border-box;
           border-bottom: 1px solid #d3d3d3;
@@ -78,7 +85,6 @@ selection {
           .datepicker-weekRange {
             display: flex;
             justify-content: space-around;
-            height: 35px;
             align-items: center;
             color: #acacac;
 
@@ -89,6 +95,7 @@ selection {
           .datepicker-dateRange {
             display: flex;
             flex-wrap: wrap;
+            padding: .5rem 0;
 
             .day-cell {
               flex: 0 0 14.28%;

@@ -42,16 +42,24 @@ selection {
 
     .datetimepicker {
       .date-time-data {
-        padding: 1rem 0;
+        padding: .8rem 0;
         color: #615f6c;
         background-color: #f7f7f7;
         border-bottom: 1px solid #d3d3d3;
         text-align: center;
         box-sizing: border-box;
 
-        .fa {
-          margin: 0 10px;
+        .data-view {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .fa {
+            font-size: 2rem;
+            margin: 0 10px;
+          }
         }
+
       }
       .datepicker {
         border-bottom: 1px solid #d3d3d3;

@@ -48,7 +48,7 @@ datetimepicker = Vue.extend
             </div>
             <div class="date-data-view" v-else>
               <i class="fa fa-calendar"></i>{{ year }}年{{ stringifyTime(month) }}月{{ stringifyTime(date) }}日
-            <div>
+            </div>
           </div>
           <timepicker :initTime=initValue
                       v-show="isShowTime"
@@ -88,7 +88,7 @@ datetimepicker = Vue.extend
 
   methods:
     changeView: ->
-      @showdate = !@showdate
+      @showtime = !@showtime
       @isShowDate = !@isShowDate
       @isShowTime = !@isShowTime
 

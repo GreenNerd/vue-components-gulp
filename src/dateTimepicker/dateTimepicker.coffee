@@ -35,8 +35,8 @@ datetimepicker = Vue.extend
       <div class="mask" @click="close"></div>
       <div class="datetimepicker-wrapper">
         <div class="form-control">
-          <span class="datepickerExit" @click="close">关闭</span>
-          <span class="datepickerSubmit" @click="submitDate">确认</span>
+          <span class="cancel-select" @click="close">取消</span>
+          <span class="ensure-select" @click="submitDate">确认</span>
         </div>
         <div class="datetimepicker">
           <datepicker :initDate=initValue

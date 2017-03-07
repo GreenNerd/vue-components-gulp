@@ -188,7 +188,7 @@ datePicker = Vue.extend
   mixins: [timeMixins]
 
   mounted: ->
-    @selectedDate = @initDate
+    @selectedDate = @displayDate = @initDate
     @year = @initDate.getFullYear()
     @month = @initDate.getMonth()
     @date = @initDate.getDate()
@@ -197,6 +197,7 @@ datePicker = Vue.extend
 
   data: ->
     selectedDate: ''
+    displayDate: ''
     displayDateView: true
     displayMonthView: false
     displayYearView: false
@@ -216,10 +217,10 @@ datePicker = Vue.extend
     decadeRange: []
 
   watch:
-    initDate: ->
-      @year = @initDate.getFullYear()
-      @month = @initDate.getMonth()
-      @date = @initDate.getDate()
+    displayDate: ->
+      @year = @displayDate.getFullYear()
+      @month = @displayDate.getMonth()
+      @date = @displayDate.getDate()
       @getDateRange()
 
     selectedDate: ->
@@ -239,10 +240,10 @@ datePicker = Vue.extend
     monthClick: (num) ->
       if num == -1
         preMonth = @getYearMonth(@year, @month - 1)
-        @initDate = new Date(preMonth.year, preMonth.month, @date)
+        @displayDate = new Date(preMonth.year, preMonth.month, @date)
       else
         nextMonth = @getYearMonth(@year, @month + 1)
-        @initDate = new Date(nextMonth.year, nextMonth.month, @date)
+        @displayDate = new Date(nextMonth.year, nextMonth.month, @date)
 
     yearClick: (num) ->
       if num == -1 then @year = @year - 1 else @year = @year + 1
@@ -261,18 +262,18 @@ datePicker = Vue.extend
 
     daySelect: (date) ->
       selectDate = date.split('-')
-      @initDate = @selectedDate = new Date(selectDate[0], selectDate[1] - 1, selectDate[2])
+      @displayDate = @selectedDate = new Date(selectDate[0], selectDate[1] - 1, selectDate[2])
       @$emit('daySelect', selectDate)
 
     monthSelect: (index) ->
       @displayMonthView = false
       @displayDateView = true
-      @initDate = new Date(@year, index, @date)
+      @displayDate = new Date(@year, index, @date)
 
     yearSelect: (num) ->
       @displayYearView = false
       @displayMonthView = true
-      @initDate = new Date(num , @month, @date)
+      @displayDate = new Date(num , @month, @date)
 
     stringifyDecadeYear: (year) ->
       year - 5 + '-' + ( year + 6 )

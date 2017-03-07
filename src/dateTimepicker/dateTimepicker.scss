@@ -25,8 +25,7 @@ selection {
       justify-content: space-between;
       align-items: center;
       text-align: center;
-      height: 40px;
-      padding: 0 20px;
+      padding: 20px;
       border-bottom: 1px solid #d3d3d3;
       box-sizing: border-box;
 
@@ -37,8 +36,7 @@ selection {
 
     .datetimepicker {
       .date-time-data {
-        height: 40px;
-        line-height: 40px;
+        padding: 1rem 0;
         color: #615f6c;
         background-color: #f7f7f7;
         border-bottom: 1px solid #d3d3d3;
@@ -91,20 +89,20 @@ selection {
           .datepicker-dateRange {
             display: flex;
             flex-wrap: wrap;
-            height: 300px;
 
             .day-cell {
               flex: 0 0 14.28%;
-              height: 40px;
-              line-height: 40px;
+              height: 50px;
+              line-height: 50px;
               text-align: center;
 
               &.cell-gray {
                 color: #d4d4d4;
               }
               &.datepicker-item-active {
-                div {
-                  max-width: 40px;
+                span {
+                  display: block;
+                  max-width: 50px;
                   margin: 0 auto;
                   background-color: $color-main;
                   color: #fff;
@@ -120,7 +118,7 @@ selection {
             align-items: center;
             height: 300px;
 
-            span {
+            div {
               flex: 0 0 25%;
               text-align: center;
               cursor: pointer;
@@ -131,7 +129,8 @@ selection {
                 background-color: #d4d4d4;
               }
               &.datepicker-item-active {
-                div {
+                span {
+                  display: block;
                   max-width: 60px;
                   margin: 0 auto;
                   background-color: $color-main;
@@ -206,13 +205,14 @@ selection {
             padding: 20px 0;
             text-align: center;
 
-            span {
+            div {
               flex: 16.67%;
               height: 50px;
               line-height: 50px;
 
               &.timepicker-item-active {
-                div {
+                span {
+                  display: block;
                   width: 50px;
                   margin: 0 auto;
                   background-color: #fb7e5d;
@@ -233,13 +233,14 @@ selection {
             padding: 20px;
             text-align: center;
 
-            span {
+            div {
               flex: 25%;
               height: 70px;
               line-height: 70px;
 
               &.timepicker-item-active {
-                div {
+                span {
+                  display: block;
                   width: 70px;
                   margin: 0 auto;
                   background-color: #fb7e5d;

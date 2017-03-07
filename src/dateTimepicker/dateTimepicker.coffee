@@ -1,12 +1,12 @@
-createDateTimepickerContainer = (dateTimepickerId) ->
-  if document.getElementById(dateTimepickerId)
-    dateTimepickerContainer = document.getElementById(dateTimepickerId)
-    dateTimepickerContainer.innerHTML = ''
+createModalContainer = (modalId) ->
+  if document.getElementById(modalId)
+    modalContainer = document.getElementById(modalId)
+    modalContainer.innerHTML = ''
   else
-    dateTimepickerContainer = document.createElement('div')
-    dateTimepickerContainer.id = dateTimepickerId
-    document.body.appendChild(dateTimepickerContainer)
-  dateTimepickerContainer
+    modalContainer = document.createElement('div')
+    modalContainer.id = modalId
+    document.body.appendChild(modalContainer)
+  modalContainer
 
 timeMixins =
   methods:
@@ -14,10 +14,10 @@ timeMixins =
       ('0' + t).slice(-2)
 
 dateTimepicker = (date = new Date(), type = 'datetime') ->
-  dateTimepicker = document.createElement('div')
-  createDateTimepickerContainer('dateTimepicker-container').appendChild(dateTimepicker)
+  dateTimepickerDiv = document.createElement('div')
+  createModalContainer('dateTimepicker-container').appendChild(dateTimepickerDiv)
   dateTimepicker.instance = new datetimepicker
-    el: dateTimepicker
+    el: dateTimepickerDiv
 
     data:
       initValue: date

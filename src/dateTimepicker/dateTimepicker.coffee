@@ -202,11 +202,6 @@ datePicker = Vue.extend
     displayMonthView: false
     displayYearView: false
 
-    isShowData: false
-    timepickerView: false
-    displayTimeView: true
-    displayHourView: false
-    displayMinuteView: false
     year: '2017'
     month: '0'
     date: '1'
@@ -230,12 +225,6 @@ datePicker = Vue.extend
     getMonthRange: ->
       for i in [1..12]
         @months.push(i + '月')
-
-    getTimeRange: ->
-      for i in [0..23]
-        @hourRange.push((('0')+i).slice(-2))
-      for i in [0..55] by 5
-        @minuteRange.push((('0')+i).slice(-2))
 
     monthClick: (num) ->
       if num == -1

@@ -201,11 +201,9 @@ datePicker = Vue.extend
     displayDateView: true
     displayMonthView: false
     displayYearView: false
-
     year: '2017'
     month: '0'
     date: '1'
-
     daysOfWeek: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
     months: []
     dateRange: []

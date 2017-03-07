@@ -261,7 +261,6 @@ datePicker = Vue.extend
 
     stringifyDecadeYear: (year) ->
       year - 5 + '-' + ( year + 6 )
-
     getYearMonth: (year, month) ->
       if month > 11
         year++

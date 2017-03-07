@@ -44,10 +44,10 @@ datetimepicker = Vue.extend
                       v-on:daySelect="updateDate"></datepicker>
           <div class="date-time-data" v-if="type == 'datetime'" @click="changeView">
             <div class="time-data-view" v-if="showtime">
-              <i class="fa fa-clock-o"></i>{{ stringifyTime(hour) }}:{{ stringifyTime(minute) }}
+              <i class="fa fa-clock-o"></i><span>{{ stringifyTime(hour) }}:{{ stringifyTime(minute) }}</span>
             </div>
             <div class="date-data-view" v-else>
-              <i class="fa fa-calendar"></i>{{ year }}年{{ stringifyTime(month) }}月{{ stringifyTime(date) }}日
+              <i class="fa fa-calendar"></i><span>{{ year }}年{{ stringifyTime(month) }}月{{ stringifyTime(date) }}日</span>
             </div>
           </div>
           <timepicker :initTime=initValue

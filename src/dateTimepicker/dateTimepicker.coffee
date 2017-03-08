@@ -108,34 +108,18 @@ datetimepicker = Vue.extend
       @isShowTime = !@isShowTime
 
     updateDate: (selectDate) ->
-      @year = selectDate[0]
-      @month = selectDate[1]
-      @date = selectDate[2]
+      @currDate.setFullYear(selectDate[0], selectDate[1], selectDate[2])
 
     updateTime: (selectTime) ->
-      @hour = selectTime[0]
-      @minute = selectTime[1]
-
-    stringify: ->
-      if @type == 'date'
-        @dateFormat
-        .replace(/yyyy/g, @year)
-        .replace(/MM/g, @stringifyTime(@month))
-        .replace(/dd/g, @stringifyTime(@date))
-      else if @type == 'time'
-        @timeFormat
-        .replace(/hh/g, @stringifyTime(@hour))
-        .replace(/mm/g, @stringifyTime(@minute))
-      else
-        @datetimeFormat
-        .replace(/yyyy/g, @year)
-        .replace(/MM/g, @stringifyTime(@month))
-        .replace(/dd/g, @stringifyTime(@date))
-        .replace(/hh/g, @stringifyTime(@hour))
-        .replace(/mm/g, @stringifyTime(@minute))
+      @currDate.setHours(selectTime[0], selectTime[1])
 
     submitDate: ->
-      console.log(@stringify())
+      if (@type == 'date')
+        console.log(@currDate.format(@dateFormat))
+      else if (@type == 'time')
+        console.log(@currDate.format(@timeFormat))
+      else
+        console.log(@currDate.format(@datetimeFormat))
       @close()
 
     close: ->

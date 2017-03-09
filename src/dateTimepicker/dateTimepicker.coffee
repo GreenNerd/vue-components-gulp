@@ -6,7 +6,10 @@ createModalContainer = (modalId) ->
     modalContainer = document.createElement('div')
     modalContainer.id = modalId
     document.body.appendChild(modalContainer)
-  modalContainer
+
+  modalDiv = document.createElement('div')
+  modalContainer.appendChild(modalDiv)
+  modalDiv
 
 timeMixins =
   methods:
@@ -27,10 +30,8 @@ Date.prototype.format = (format) ->
   .replace(/mm/g, ('0' + @getMinutes()).slice(-2))
 
 dateTimepicker = (date = new Date(), type = 'datetime') ->
-  dateTimepickerDiv = document.createElement('div')
-  createModalContainer('dateTimepicker-container').appendChild(dateTimepickerDiv)
-  dateTimepicker.instance = new datetimepicker
-    el: dateTimepickerDiv
+  dateTimepicker.instance = new datetimepickerSelection
+    el: createModalContainer('modal-container')
 
     data:
       initValue: date

@@ -21,7 +21,7 @@ Date.prototype.format = (format) ->
   .replace(/年/g, @getFullYear())
   .replace(/yyyy/g, @getFullYear())
   .replace(/月/g, ('0' + (@getMonth() + 1)).slice(-2))
-  .replace(/mm/g, ('0' + (@getMonth() + 1)).slice(-2))
+  .replace(/MM/g, ('0' + (@getMonth() + 1)).slice(-2))
   .replace(/日/g, ('0' + @getDate()).slice(-2))
   .replace(/dd/g, ('0' + @getDate()).slice(-2))
   .replace(/时/g, ('0' + @getHours()).slice(-2))

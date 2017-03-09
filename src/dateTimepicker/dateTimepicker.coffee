@@ -38,91 +38,28 @@ dateTimepicker = (date = new Date(), type = 'datetime') ->
       type: type
 
     components:
-      'datepicker': datePicker
-      'timepicker': timePicker
+      'selection': selection
+      'datetimepicker': datetimepicker
 
   dateTimepicker.instance
 
-datetimepicker = Vue.extend
-  template:"""
+datetimepickerSelection = Vue.extend
+  template: """
     <selection>
-      <div class="mask"
-           :class="{'modal-open': displayContent }"
-           @click="close"></div>
-      <div class="content" v-if="displayContent">
-        <div class="form-control">
-          <span class="cancel-select" @click="close">取消</span>
-          <span class="ensure-select" @click="submitDate">确认</span>
-        </div>
-        <div class="datetimepicker">
-          <datepicker :initDate=initValue
-                      v-show="isShowDate"
-                      v-on:daySelect="updateDate"></datepicker>
-          <div class="date-time-data" v-if="type == 'datetime'" @click="changeView">
-            <div class="data-view" v-if="showtime">
-              <i class="fa fa-clock-o"></i><span>{{ stringifyTime(currDate.getHours()) }}:{{ stringifyTime(currDate.getMinutes()) }}</span>
-            </div>
-            <div class="data-view" v-else>
-              <i class="fa fa-calendar"></i><span>{{ currDate.getFullYear() }}年{{ stringifyTime(currDate.getMonth()) }}月{{ stringifyTime(currDate.getDate()) }}日</span>
-            </div>
-          </div>
-          <timepicker :initTime=initValue
-                      v-show="isShowTime"
-                      v-on:update="updateTime"
-                      ></timepicker>
-        </div>
-      </div>
+      <datetimepicker slot="content" :Default=initValue :type=type></datetimepicker>
     </selection>
   """
 
-  mixins: [timeMixins]
-
-  created: ->
-    if @type == 'date' || @type == 'datetime'
-      @isShowDate = true
-    else
-      @isShowTime = true
-    @currDate = @initValue
-
-  data: ->
-    currDate: new Date()
-    displayContent: true
-    isShowDate: false
-    isShowTime: false
-    showtime: true
-    year: '2017'
-    month: '0'
-    date: '1'
-    hour: '00'
-    minute: '00'
-    dateFormat: 'yyyy/MM/dd'
-    timeFormat: 'hh:mm'
-    datetimeFormat: 'yyyy/MM/dd hh:mm'
-
-  methods:
-    changeView: ->
-      @showtime = !@showtime
-      @isShowDate = !@isShowDate
-      @isShowTime = !@isShowTime
-
-    updateDate: (selectDate) ->
-      @currDate.setFullYear(selectDate[0], selectDate[1] - 1, selectDate[2])
-
-    updateTime: (selectTime) ->
-      @currDate.setHours(selectTime[0], selectTime[1])
-
-    submitDate: ->
-      if (@type == 'date')
-        console.log(@currDate.format(@dateFormat))
-      else if (@type == 'time')
-        console.log(@currDate.format(@timeFormat))
-      else
-        console.log(@currDate.format(@datetimeFormat))
-      @close()
-
-    close: ->
-      @displayContent = false
-      dateTimepicker.instance = null
+selection = Vue.extend
+  template: """
+    <div>
+      <div class="selection-ctrl">
+        <span class="cancel-select" @click="">取消</span>
+        <span class="ensure-select" @click="">确认</span>
+      </div>
+      <slot class="selection-content" name="content"></slot>
+    </div>
+  """
 
 datePicker = Vue.extend
   template:"""
@@ -407,6 +344,85 @@ timePicker = Vue.extend
       @displayMinuteView = true
       @displayTimeView = false
 
+datetimepicker = Vue.extend
+  template:"""
+    <div class="datetimepicker">
+      <datepicker :initDate=currDate
+                  v-show="isShowDate"
+                  v-on:daySelect="updateDate"></datepicker>
+      <div class="date-time-data" v-if="type == 'datetime'" @click="changeView">
+        <div class="data-view" v-if="showtime">
+          <i class="fa fa-clock-o"></i><span>{{ stringifyTime(currDate.getHours()) }}:{{ stringifyTime(currDate.getMinutes()) }}</span>
+        </div>
+        <div class="data-view" v-else>
+          <i class="fa fa-calendar"></i><span>{{ currDate.getFullYear() }}年{{ stringifyTime(currDate.getMonth() + 1) }}月{{ stringifyTime(currDate.getDate()) }}日</span>
+        </div>
+      </div>
+      <timepicker :initTime=currDate
+                  v-show="isShowTime"
+                  v-on:update="updateTime"
+                  ></timepicker>
+    </div>
+  """
 
+  mixins: [timeMixins]
+
+  components:
+    'datepicker': datePicker
+    'timepicker': timePicker
+
+  props:
+    Default:
+      type: Object
+
+    type:
+      default: 'datetime'
+
+  created: ->
+    if @type == 'date' || @type == 'datetime'
+      @isShowDate = true
+    else
+      @isShowTime = true
+    @currDate = @Default
+
+  data: ->
+    currDate: new Date()
+    displayContent: true
+    isShowDate: false
+    isShowTime: false
+    showtime: true
+    year: '2017'
+    month: '0'
+    date: '1'
+    hour: '00'
+    minute: '00'
+    dateFormat: '年/月/日'
+    timeFormat: '时:分'
+    datetimeFormat: 'yyyy/mm/dd hh:mm'
+
+  methods:
+    changeView: ->
+      @showtime = !@showtime
+      @isShowDate = !@isShowDate
+      @isShowTime = !@isShowTime
+
+    updateDate: (selectDate) ->
+      @currDate.setFullYear(selectDate[0], selectDate[1] - 1, selectDate[2])
+
+    updateTime: (selectTime) ->
+      @currDate.setHours(selectTime[0], selectTime[1])
+
+    submitDate: ->
+      if (@type == 'date')
+        console.log(@currDate.format(@dateFormat))
+      else if (@type == 'time')
+        console.log(@currDate.format(@timeFormat))
+      else
+        console.log(@currDate.format(@datetimeFormat))
+      @close()
+
+    close: ->
+      @displayContent = false
+      dateTimepicker.instance = null
 
 window.dateTimepicker = dateTimepicker

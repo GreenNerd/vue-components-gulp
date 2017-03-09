@@ -52,14 +52,48 @@ datetimepickerSelection = Vue.extend
 
 selection = Vue.extend
   template: """
-    <div>
-      <div class="selection-ctrl">
-        <span class="cancel-select" @click="">取消</span>
-        <span class="ensure-select" @click="">确认</span>
+    <div class="modal modal-position-bottom"
+         :class="{ 'modal-open': displayModal }"
+         @click="toggleDisplay(event)">
+      <div class="modal-content">
+        <div class="selection-ctrl">
+          <span class="cancel-select" @click="close">取消</span>
+          <span class="ensure-select" @click="submit">确认</span>
+        </div>
+        <slot class="selection-content" name="content"></slot>
       </div>
-      <slot class="selection-content" name="content"></slot>
     </div>
   """
+
+  props:
+    nowValue:
+      type: Object
+
+    dateType:
+      type: String
+
+  data: ->
+    displayModal: true
+    dateFormat: '年/月/日'
+    timeFormat: '时:分'
+    datetimeFormat: 'yyyy/MM/dd hh:mm'
+
+  methods:
+    submit: ->
+      if (@dateType == 'date')
+        console.log(@nowValue.format(@dateFormat))
+      else if (@dateType == 'time')
+        console.log(@nowValue.format(@timeFormat))
+      else
+        console.log(@nowValue.format(@datetimeFormat))
+      @close()
+
+    close: ->
+      @displayModal = false
+      dateTimepicker.instance = null
+
+    toggleDisplay: (e) ->
+      @close() if e.target.classList.contains('modal')
 
 datePicker = Vue.extend
   template:"""
@@ -387,7 +421,6 @@ datetimepicker = Vue.extend
 
   data: ->
     currDate: new Date()
-    displayContent: true
     isShowDate: false
     isShowTime: false
     showtime: true
@@ -396,9 +429,6 @@ datetimepicker = Vue.extend
     date: '1'
     hour: '00'
     minute: '00'
-    dateFormat: '年/月/日'
-    timeFormat: '时:分'
-    datetimeFormat: 'yyyy/mm/dd hh:mm'
 
   methods:
     changeView: ->
@@ -411,18 +441,5 @@ datetimepicker = Vue.extend
 
     updateTime: (selectTime) ->
       @currDate.setHours(selectTime[0], selectTime[1])
-
-    submitDate: ->
-      if (@type == 'date')
-        console.log(@currDate.format(@dateFormat))
-      else if (@type == 'time')
-        console.log(@currDate.format(@timeFormat))
-      else
-        console.log(@currDate.format(@datetimeFormat))
-      @close()
-
-    close: ->
-      @displayContent = false
-      dateTimepicker.instance = null
 
 window.dateTimepicker = dateTimepicker

@@ -35,7 +35,7 @@ dateTimepicker = (date = new Date(), type = 'datetime') ->
 
     data:
       initValue: date
-      type: type
+      formatType: type
 
     components:
       'selection': selection
@@ -45,8 +45,8 @@ dateTimepicker = (date = new Date(), type = 'datetime') ->
 
 datetimepickerSelection = Vue.extend
   template: """
-    <selection>
-      <datetimepicker slot="content" :Default=initValue :type=type></datetimepicker>
+    <selection :nowValue=initValue :dateType=formatType>
+      <datetimepicker slot="content" :Default.sync=initValue :dateType=formatType></datetimepicker>
     </selection>
   """
 
@@ -350,7 +350,7 @@ datetimepicker = Vue.extend
       <datepicker :initDate=currDate
                   v-show="isShowDate"
                   v-on:daySelect="updateDate"></datepicker>
-      <div class="date-time-data" v-if="type == 'datetime'" @click="changeView">
+      <div class="date-time-data" v-if="dateType == 'datetime'" @click="changeView">
         <div class="data-view" v-if="showtime">
           <i class="fa fa-clock-o"></i><span>{{ stringifyTime(currDate.getHours()) }}:{{ stringifyTime(currDate.getMinutes()) }}</span>
         </div>
@@ -375,11 +375,11 @@ datetimepicker = Vue.extend
     Default:
       type: Object
 
-    type:
-      default: 'datetime'
+    dateType:
+      type: String
 
   created: ->
-    if @type == 'date' || @type == 'datetime'
+    if @dateType == 'date' || @dateType == 'datetime'
       @isShowDate = true
     else
       @isShowTime = true

@@ -156,33 +156,37 @@ datePicker = Vue.extend
   mixins: [timeMixins]
 
   created: ->
-    @displayDate = @initDate
-    @year = @initDate.getFullYear()
-    @month = @initDate.getMonth()
-    @date = @initDate.getDate()
+    @displayDate = @selectedDate = @initDate
     @getDateRange()
     @getMonthRange()
 
+  computed:
+    daysOfWeek: ->
+       ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
+    year: ->
+      @displayDate.getFullYear()
+    month: ->
+      @displayDate.getMonth()
+    date: ->
+      @displayDate.getDate()
+
   data: ->
     displayDate: ''
+    selectedDate: ''
     displayDateView: true
     displayMonthView: false
     displayYearView: false
-    year: '2017'
-    month: '0'
-    date: '1'
-    daysOfWeek: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
     months: []
     dateRange: []
     decadeRange: []
 
   watch:
     displayDate: ->
-      @year = @displayDate.getFullYear()
-      @month = @displayDate.getMonth()
-      @date = @displayDate.getDate()
       @getDateRange()
-      @$emit('daySelect', [@year, @month + 1, @date])
+
+    selectedDate: ->
+      @getDateRange()
+      @$emit('daySelect', [@selectedDate.getFullYear(), @selectedDate.getMonth() + 1, @selectedDate.getDate()])
 
   methods:
     getMonthRange: ->
@@ -202,7 +206,6 @@ datePicker = Vue.extend
 
     decadeClick: (num) ->
       if num == -1 then @year = @year - 10 else @year = @year + 10
-      @getDateRange()
 
     showMonthView: ->
       @displayDateView = false
@@ -215,7 +218,7 @@ datePicker = Vue.extend
     daySelect: (date) ->
       if date
         selectDate = date.split('-')
-        @displayDate = new Date(selectDate[0], selectDate[1] - 1, selectDate[2])
+        @selectedDate = new Date(selectDate[0], selectDate[1] - 1, selectDate[2])
 
     monthSelect: (index) ->
       @displayMonthView = false
@@ -229,6 +232,7 @@ datePicker = Vue.extend
 
     stringifyDecadeYear: (year) ->
       year - 5 + '-' + ( year + 6 )
+
     getYearMonth: (year, month) ->
       if month > 11
         year++
@@ -253,7 +257,7 @@ datePicker = Vue.extend
       # 这个月应显示的date
       for i in [1..dayCount]
         dayClass = ''
-        if i == @date
+        if i == @selectedDate.getDate() && @year == @selectedDate.getFullYear() && @month == @selectedDate.getMonth()
           dayClass = 'datepicker-item-active'
         @dateRange.push({
           date: @year + '-' + (@month + 1) + '-' + i

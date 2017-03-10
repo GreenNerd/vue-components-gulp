@@ -48,9 +48,9 @@ datetimepickerSelection = Vue.extend
 
   data: ->
     initValue: new Date()
-    dateFormat: '年/月/日'
-    timeFormat: '时:分'
-    datetimeFormat: 'yyyy/MM/dd hh:mm'
+    dateFormat: 'YYYY/MM/DD'
+    timeFormat: 'hh:mm'
+    datetimeFormat: 'YYYY/MM/DD hh:mm'
 
   methods:
     submitDate: ->

@@ -18,15 +18,10 @@ timeMixins =
 
 Date.prototype.format = (format) ->
   format
-  .replace(/年/g, @getFullYear())
-  .replace(/yyyy/g, @getFullYear())
-  .replace(/月/g, ('0' + (@getMonth() + 1)).slice(-2))
+  .replace(/YYYY/g, @getFullYear())
   .replace(/MM/g, ('0' + (@getMonth() + 1)).slice(-2))
-  .replace(/日/g, ('0' + @getDate()).slice(-2))
-  .replace(/dd/g, ('0' + @getDate()).slice(-2))
-  .replace(/时/g, ('0' + @getHours()).slice(-2))
+  .replace(/DD/g, ('0' + @getDate()).slice(-2))
   .replace(/hh/g, ('0' + @getHours()).slice(-2))
-  .replace(/分/g, ('0' + @getMinutes()).slice(-2))
   .replace(/mm/g, ('0' + @getMinutes()).slice(-2))
 
 dateTimepicker = (date = new Date(), type = 'datetime') ->

@@ -48,18 +48,10 @@ datetimepickerSelection = Vue.extend
 
   data: ->
     initValue: new Date()
-    dateFormat: 'YYYY/MM/DD'
-    timeFormat: 'hh:mm'
-    datetimeFormat: 'YYYY/MM/DD hh:mm'
 
   methods:
     submitDate: ->
-      if (@dateType == 'date')
-        console.log(@initValue.format(@dateFormat))
-      else if (@dateType == 'time')
-        console.log(@initValue.format(@timeFormat))
-      else
-        console.log(@initValue.format(@datetimeFormat))
+      @$emit 'valueChanged', @initValue
 
     close: ->
 

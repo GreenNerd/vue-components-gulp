@@ -3,6 +3,13 @@ $color-arrow: #a7d457;
 
 body{
   margin: 0;
+
+  #datetimepicker {
+    height: 40px;
+    line-height: 40px;
+    margin: 20px;
+    border: 1px solid #d3d3d3;
+  }
 }
 .modal {
   position: fixed;

@@ -98,14 +98,16 @@ datePicker = Vue.extend
         <div class="datepicker-inner">
           <div class="datepicker-weekRange">
             <span v-for="(w, $index) in daysOfWeek"
+                  :key="w.id"
                   :class="{'highlightWeekend': $index == 0 || $index == 6 }">{{ w }}</span>
           </div>
           <div class="datepicker-dateRange">
             <div v-for="d in dateRange"
-                  class="day-cell"
-                  :class="d.class"
-                  :date-data="d.date"
-                  @click="daySelect(d.date)"><span>{{ d.text }}</span></div>
+                 :key="d.id"
+                 class="day-cell"
+                 :class="d.class"
+                 :date-data="d.date"
+                 @click="daySelect(d.date)"><span>{{ d.text }}</span></div>
           </div>
         </div>
       </div>
@@ -118,8 +120,9 @@ datePicker = Vue.extend
         <div class='datepicker-inner'>
           <div class="datepicker-monthRange">
             <div v-for="(m, $index) in months"
-                  :class="{'datepicker-item-active':months[month] == m && year == selectedDate.getFullYear() }"
-                  @click="monthSelect($index)"><span>{{ m }}</span></div>
+                 :key="m.id"
+                 :class="{'datepicker-item-active':months[month] == m && year == selectedDate.getFullYear() }"
+                 @click="monthSelect($index)"><span>{{ m }}</span></div>
           </div>
         </div>
       </div>
@@ -132,8 +135,9 @@ datePicker = Vue.extend
         <div class='datepicker-inner'>
           <div class=datepicker-decadeRange>
             <div v-for="y in decadeRange"
-                  :class="{'datepicker-item-active':year == y.text }"
-                  @click="yearSelect(y.text)"><span>{{ y.text }}</span></div>
+                 :key="y.id"
+                 :class="{'datepicker-item-active':year == y.text }"
+                 @click="yearSelect(y.text)"><span>{{ y.text }}</span></div>
           </div>
         </div>
       </div>
@@ -298,15 +302,17 @@ timePicker = Vue.extend
       <div class="timepicker-hour" v-show="displayHourView">
         <div class="timepicker-inner">
           <div v-for="h in hourRange"
-                :class="{'timepicker-item-active': h == hour}"
-                @click="hourSelect(h)"><span>{{ h }}</span></div>
+               :key="h.id"
+               :class="{'timepicker-item-active': h == hour}"
+               @click="hourSelect(h)"><span>{{ h }}</span></div>
         </div>
       </div>
       <div class="timepicker-minute" v-show="displayMinuteView">
         <div class="timepicker-inner">
           <div v-for="m in minuteRange"
-                :class="{'timepicker-item-active': m == minute }"
-                @click="minuteSelect(m)"><span>{{ m }}</span></div>
+               :key="m.id"
+               :class="{'timepicker-item-active': m == minute }"
+               @click="minuteSelect(m)"><span>{{ m }}</span></div>
         </div>
       </div>
     </div>

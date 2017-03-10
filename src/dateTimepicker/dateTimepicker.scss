@@ -1,7 +1,12 @@
-$color-main: #fb7e5d;
-$color-arrow: #a7d457;
+$color-main: #fd7d58;
+$color-arrow: #a5d54e;
+$color-border: #e9e9e9;
+$color-gray: #615f6c;
 
-body{
+html {
+  font-size: 10px;
+}
+body {
   margin: 0;
 
   #datetimepicker {
@@ -30,7 +35,7 @@ body{
 
   .modal-content {
     width: 100%;
-    background-color: #fafafb;
+    background-color: rgba(256, 256, 256, .95);
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 
@@ -39,15 +44,15 @@ body{
       justify-content: space-between;
       align-items: center;
       text-align: center;
-      padding: 1rem;
-      border-bottom: 1px solid #d3d3d3;
+      padding: 0 20px;
+      height: 50px;
+      border-bottom: 1px solid $color-border;
       box-sizing: border-box;
-
 
       .cancel-select,
       .ensure-select {
-        padding: 1rem;
-        margin: -1rem;
+        font-size: 1.6rem;
+        color: $color-gray;
       }
 
       .ensure-select {
@@ -57,11 +62,14 @@ body{
     .datetimepicker {
       .date-time-data {
         padding: .8rem 0;
-        color: #615f6c;
-        background-color: #f7f7f7;
-        border-bottom: 1px solid #d3d3d3;
+        color: $color-gray;
+        height: 45px;
+        background-color: #f6f6f6;
+        border-bottom: 1px solid $color-border;
         text-align: center;
         box-sizing: border-box;
+        box-shadow: inset 0 0 3px 0 rgba(0,0,0,0.08);
+        font-size: 1.5rem;
 
         .data-view {
           display: flex;
@@ -69,69 +77,82 @@ body{
           justify-content: center;
 
           .fa {
-            font-size: 2rem;
+            font-size: 2.6rem;
+            color: $color-gray;
             margin: 0 10px;
           }
         }
       }
       .datepicker {
-        border-bottom: 1px solid #d3d3d3;
+        border-bottom: 1px solid $color-border;
 
         .datepicker-ctrl {
           display: flex;
           justify-content: space-between;
           align-items: center;
           text-align: center;
+          height: 45px;
+          font-size: 1.5rem;
+          color: $color-gray;
+          font-weight: bold;
           padding: .5rem 0;
           margin-bottom: .5rem;
           background-color: #f7f7f7;
           box-sizing: border-box;
-          border-bottom: 1px solid #d3d3d3;
+          border-bottom: 1px solid $color-border;
 
           .datepicker-preBtn,
           .datepicker-nextBtn {
             flex: 1;
+            font-size: 1.9rem;
             color: $color-arrow;
-            height: 100%;
-            line-height: 38px;
           }
           .datepicker-text {
             flex: 8;
             color: #625f6c;
-            border-left: 1px solid #d3d3d3;
-            border-right: 1px solid #d3d3d3;
+            border-left: 1px solid #e0e0e0;
+            border-right: 1px solid #e0e0e0;
           }
         }
         .datepicker-inner {
+          padding: 10px 12.5px 25px;
+
           .datepicker-weekRange {
             display: flex;
             justify-content: space-around;
             align-items: center;
-            color: #acacac;
+            height: 35px;
+            font-size: 1.4rem;
+            color: #888;
 
-            .highlightWeekend,{
-              color: $color-main;
+            span {
+              width: 50px;
+              text-align: center;
+
+              &.highlightWeekend,{
+                color: $color-main;
+              }
             }
           }
           .datepicker-dateRange {
             display: flex;
             flex-wrap: wrap;
-            padding: .5rem 0;
 
             .day-cell {
               flex: 0 0 14.28%;
-              height: 50px;
-              line-height: 50px;
+              height: 40px;
+              font-size: 1.4rem;
+              color: #2e2e2e;
+              line-height: 40px;
               text-align: center;
+              margin-top: 5px;
 
-              &.cell-gray {
-                color: #d4d4d4;
-              }
               &.datepicker-item-active {
                 span {
                   display: block;
-                  max-width: 50px;
+                  max-width: 40px;
                   margin: 0 auto;
+                  font-weight: bold;
                   background-color: $color-main;
                   color: #fff;
                   border-radius: 50%;
@@ -144,24 +165,24 @@ body{
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            height: 300px;
 
             div {
               flex: 0 0 25%;
               text-align: center;
-              cursor: pointer;
-              height: 60px;
-              line-height: 60px;
+              font-size: 1.7rem;
+              color: #2e2e2e;
+              height: 97px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
 
-              &:hover {
-                background-color: #d4d4d4;
-              }
               &.datepicker-item-active {
                 span {
-                  display: block;
-                  max-width: 60px;
-                  margin: 0 auto;
-                  background-color: $color-main;
+                 display: block;
+                  width: 55px;
+                  height: 55px;
+                  line-height: 55px;
+                  background-color: #fd7d58;
                   color: #fff;
                   border-radius: 50%;
                 }
@@ -172,8 +193,6 @@ body{
       }
       .timepicker {
         .timepicker-hour-minute {
-          height: 100%;
-
           .timepicker-inner {
             display: flex;
             flex-direction: row;
@@ -182,7 +201,10 @@ body{
             height: 260px;
 
             .connection {
-              margin: 0 35px;
+              font-size: 1rem;
+              color: $color-gray;
+              margin: 0 2.5rem;
+              margin-bottom: 1.5rem;
             }
 
             .timepicker-hour,
@@ -196,29 +218,30 @@ body{
               text-align: center;
 
               .timeName {
-                flex: 1;
-                font-size: 14px;
-                color: #a7a7a7;
+                font-size: 1.3rem;
+                color: #888;
               }
               .preBtn,
               .nextBtn {
                 width: 100%;
+                font-size: 2.3rem;
                 color: $color-arrow;
               }
               .preBtn {
-                flex: 1;
               }
               .nextBtn {
-                flex: 2;
                 line-height: 60px;
               }
               .timeText {
-                flex: 2;
-                width: 60px;
-                height: 60px;
-                line-height: 60px;
-                border: 1px solid #f3f3f3;
-                border-radius: 5px;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                font-size: 1.7rem;
+                font-weight: bold;
+                color: #2e2e2e;
+                margin: 20px 0;
+                border: 1px solid $color-border;
+                border-radius: 4px;
               }
             }
           }

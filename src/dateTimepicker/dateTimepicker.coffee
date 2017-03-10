@@ -126,7 +126,7 @@ datePicker = Vue.extend
         <div class='datepicker-inner'>
           <div class="datepicker-monthRange">
             <div v-for="(m, $index) in months"
-                  :class="{'datepicker-item-active':months[month] == m && year == displayDate.getFullYear() }"
+                  :class="{'datepicker-item-active':months[month] == m && year == selectedDate.getFullYear() }"
                   @click="monthSelect($index)"><span>{{ m }}</span></div>
           </div>
         </div>
@@ -140,7 +140,7 @@ datePicker = Vue.extend
         <div class='datepicker-inner'>
           <div class=datepicker-decadeRange>
             <div v-for="y in decadeRange"
-                  :class="{'datepicker-item-active':year == y.text && year == displayDate.getFullYear() }"
+                  :class="{'datepicker-item-active':year == y.text }"
                   @click="yearSelect(y.text)"><span>{{ y.text }}</span></div>
           </div>
         </div>
@@ -202,10 +202,10 @@ datePicker = Vue.extend
         @displayDate = new Date(nextMonth.year, nextMonth.month, @date)
 
     yearClick: (num) ->
-      if num == -1 then @year = @year - 1 else @year = @year + 1
+      if num == -1 then @displayDate = new Date(@year - 1, @month, @date) else @displayDate = new Date(@year + 1, @month, @date)
 
     decadeClick: (num) ->
-      if num == -1 then @year = @year - 10 else @year = @year + 10
+      if num == -1 then @displayDate = new Date(@year - 10, @month, @date) else @displayDate = new Date(@year + 10, @month, @date)
 
     showMonthView: ->
       @displayDateView = false
@@ -223,12 +223,12 @@ datePicker = Vue.extend
     monthSelect: (index) ->
       @displayMonthView = false
       @displayDateView = true
-      @displayDate = new Date(@year, index, @date)
+      @displayDate = @selectedDate = new Date(@year, index, @date)
 
     yearSelect: (num) ->
       @displayYearView = false
       @displayMonthView = true
-      @displayDate = new Date(num , @month, @date)
+      @displayDate = @selectedDate = new Date(num , @month, @date)
 
     stringifyDecadeYear: (year) ->
       year - 5 + '-' + ( year + 6 )
@@ -363,7 +363,6 @@ timePicker = Vue.extend
       if @minute + num > 59 then @minute = @minute + num - 60
       else if @minute + num < 0 then @minute = @minute + num + 60
       else @minute = @minute + num
-
 
     hourSelect: (h) ->
       @hour = parseInt(h)

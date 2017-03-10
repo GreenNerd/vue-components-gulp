@@ -215,7 +215,7 @@ datePicker = Vue.extend
     daySelect: (date) ->
       if date
         selectDate = date.split('-')
-        @displayDate = @selectedDate = new Date(selectDate[0], selectDate[1] - 1, selectDate[2])
+        @displayDate = new Date(selectDate[0], selectDate[1] - 1, selectDate[2])
 
     monthSelect: (index) ->
       @displayMonthView = false

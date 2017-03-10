@@ -155,7 +155,7 @@ datePicker = Vue.extend
 
   mixins: [timeMixins]
 
-  mounted: ->
+  created: ->
     @displayDate = @initDate
     @year = @initDate.getFullYear()
     @month = @initDate.getMonth()
@@ -322,7 +322,7 @@ timePicker = Vue.extend
 
   mixins: [timeMixins]
 
-  mounted: ->
+  created: ->
     @hour = @initTime.getHours()
     @minute = @initTime.getMinutes()
     @getTimeRange()

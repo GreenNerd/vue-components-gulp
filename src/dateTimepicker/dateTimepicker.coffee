@@ -300,16 +300,16 @@ timePicker = Vue.extend
       </div>
       <div class="timepicker-hour" v-show="displayHourView">
         <div class="timepicker-inner">
-          <span v-for="h in hourRange"
+          <div v-for="h in hourRange"
                 :class="{'timepicker-item-active': h == hour}"
-                @click="hourSelect(h)"><div>{{ h }}</div></span>
+                @click="hourSelect(h)"><span>{{ h }}</span></div>
         </div>
       </div>
       <div class="timepicker-minute" v-show="displayMinuteView">
         <div class="timepicker-inner">
-          <span v-for="m in minuteRange"
+          <div v-for="m in minuteRange"
                 :class="{'timepicker-item-active': m == minute }"
-                @click="minuteSelect(m)"><div>{{ m }}</div></span>
+                @click="minuteSelect(m)"><span>{{ m }}</span></div>
         </div>
       </div>
     </div>

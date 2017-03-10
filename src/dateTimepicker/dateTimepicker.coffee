@@ -289,9 +289,9 @@ timePicker = Vue.extend
           <span class="connection">:</span>
           <div class="timepicker-minute">
             <span class="timeName">分钟</span>
-            <span class="preBtn" @click="minuteClick(-5)">&and;</span>
+            <span class="preBtn" @click="minuteClick(-1)">&and;</span>
             <div class="timeText" @click="showMinuteView">{{ stringifyTime(minute) }}</div>
-            <div class="nextBtn" @click="minuteClick(5)">&or;</div>
+            <div class="nextBtn" @click="minuteClick(1)">&or;</div>
           </div>
         </div>
       </div>

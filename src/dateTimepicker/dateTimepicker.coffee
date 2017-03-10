@@ -47,7 +47,7 @@ datetimepickerSelection = Vue.extend
   template: """
     <selection v-on:submit="submitDate"
                v-on:closeModal="close">
-      <datetimepicker slot="content" :Default.sync=initValue :dateType=formatType></datetimepicker>
+      <datetimepicker slot="content" :currDate.sync=initValue :dateType=formatType></datetimepicker>
     </selection>
   """
 
@@ -409,8 +409,9 @@ datetimepicker = Vue.extend
     'timepicker': timePicker
 
   props:
-    Default:
+    currDate:
       type: Object
+      default: new Date()
 
     dateType:
       type: String
@@ -420,10 +421,8 @@ datetimepicker = Vue.extend
       @isShowDate = true
     else
       @isShowTime = true
-    @currDate = @Default
 
   data: ->
-    currDate: new Date()
     isShowDate: false
     isShowTime: false
     showtime: true

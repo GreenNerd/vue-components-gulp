@@ -45,10 +45,27 @@ dateTimepicker = (date = new Date(), type = 'datetime') ->
 
 datetimepickerSelection = Vue.extend
   template: """
-    <selection :nowValue=initValue :dateType=formatType>
+    <selection v-on:submit="submitDate"
+               v-on:closeModal="close">
       <datetimepicker slot="content" :Default.sync=initValue :dateType=formatType></datetimepicker>
     </selection>
   """
+
+  data: ->
+    dateFormat: '年/月/日'
+    timeFormat: '时:分'
+    datetimeFormat: 'yyyy/MM/dd hh:mm'
+
+  methods:
+    submitDate: ->
+      if (@dateType == 'date')
+        console.log(@initValue.format(@dateFormat))
+      else if (@dateType == 'time')
+        console.log(@initValue.format(@timeFormat))
+      else
+        console.log(@initValue.format(@datetimeFormat))
+
+    close: ->
 
 selection = Vue.extend
   template: """
@@ -65,30 +82,16 @@ selection = Vue.extend
     </div>
   """
 
-  props:
-    nowValue:
-      type: Object
-
-    dateType:
-      type: String
-
   data: ->
     displayModal: true
-    dateFormat: '年/月/日'
-    timeFormat: '时:分'
-    datetimeFormat: 'yyyy/MM/dd hh:mm'
 
   methods:
     submit: ->
-      if (@dateType == 'date')
-        console.log(@nowValue.format(@dateFormat))
-      else if (@dateType == 'time')
-        console.log(@nowValue.format(@timeFormat))
-      else
-        console.log(@nowValue.format(@datetimeFormat))
+      @$emit('submit')
       @close()
 
     close: ->
+      @$emit('closeModal')
       @displayModal = false
       dateTimepicker.instance = null
 

@@ -52,6 +52,7 @@ datetimepickerSelection = Vue.extend
   """
 
   data: ->
+    initValue: new Date()
     dateFormat: '年/月/日'
     timeFormat: '时:分'
     datetimeFormat: 'yyyy/MM/dd hh:mm'
@@ -155,6 +156,7 @@ datePicker = Vue.extend
   props:
     initDate:
       type: Object
+      default: new Date()
 
   mixins: [timeMixins]
 
@@ -321,6 +323,7 @@ timePicker = Vue.extend
   props:
     initTime:
       type: Object
+      default: new Date()
 
   mixins: [timeMixins]
 

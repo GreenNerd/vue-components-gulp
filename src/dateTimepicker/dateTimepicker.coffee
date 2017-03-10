@@ -145,6 +145,9 @@ datePicker = Vue.extend
       type: Object
       default: new Date()
 
+    daysOfWeek:
+      default: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
+
   mixins: [timeMixins]
 
   created: ->
@@ -153,8 +156,6 @@ datePicker = Vue.extend
     @getMonthRange()
 
   computed:
-    daysOfWeek: ->
-       ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
     year: ->
       @displayDate.getFullYear()
     month: ->

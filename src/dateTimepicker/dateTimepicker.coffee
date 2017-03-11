@@ -98,12 +98,12 @@ datePicker = Vue.extend
         <div class="datepicker-inner">
           <div class="datepicker-weekRange">
             <span v-for="(w, $index) in daysOfWeek"
-                  :key="w.id"
+                  :key="$index"
                   :class="{'highlightWeekend': $index == 0 || $index == 6 }">{{ w }}</span>
           </div>
           <div class="datepicker-dateRange">
             <div v-for="d in dateRange"
-                 :key="d.id"
+                 :key="d.date"
                  class="day-cell"
                  :class="d.class"
                  :date-data="d.date"
@@ -120,7 +120,7 @@ datePicker = Vue.extend
         <div class='datepicker-inner'>
           <div class="datepicker-monthRange">
             <div v-for="(m, $index) in months"
-                 :key="m.id"
+                 :key="$index"
                  :class="{'datepicker-item-active':months[month] == m && year == selectedDate.getFullYear() }"
                  @click="monthSelect($index)"><span>{{ m }}</span></div>
           </div>
@@ -135,7 +135,7 @@ datePicker = Vue.extend
         <div class='datepicker-inner'>
           <div class=datepicker-decadeRange>
             <div v-for="y in decadeRange"
-                 :key="y.id"
+                 :key="y.text"
                  :class="{'datepicker-item-active':year == y.text }"
                  @click="yearSelect(y.text)"><span>{{ y.text }}</span></div>
           </div>
@@ -302,7 +302,7 @@ timePicker = Vue.extend
       <div class="timepicker-hour" v-show="displayHourView">
         <div class="timepicker-inner">
           <div v-for="h in hourRange"
-               :key="h.id"
+               :key="h"
                :class="{'timepicker-item-active': h == hour}"
                @click="hourSelect(h)"><span>{{ h }}</span></div>
         </div>
@@ -310,7 +310,7 @@ timePicker = Vue.extend
       <div class="timepicker-minute" v-show="displayMinuteView">
         <div class="timepicker-inner">
           <div v-for="m in minuteRange"
-               :key="m.id"
+               :key="m"
                :class="{'timepicker-item-active': m == minute }"
                @click="minuteSelect(m)"><span>{{ m }}</span></div>
         </div>

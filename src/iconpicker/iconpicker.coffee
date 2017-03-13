@@ -65,15 +65,17 @@ colorpicker = Vue.extend
   """
 
   props:
+    selectedColor:
+      type: String
+
     COLOR_LIST:
       default: ['#fd84c3', '#fd3f76', '#eb6d7a', '#da5842', '#fb8f47', '#feb345', '#aed59c', '#2cac6f', '#2bd2c8', '#82cff3', '#3e9bd9', '#8c95f8', '#8257c3', '#8e99ca']
 
-  data: ->
-    selectedColor: ''
-
   methods:
     colorSelect: (color) ->
-      @selectedColor = color;
+      if @selectedColor != color
+        @selectedColor = color
+        @$emit('colorChanged', @selectedColor)
 
 swiper = Vue.extend
   template: """
@@ -87,7 +89,9 @@ iconpickerSelection = Vue.extend
   template: """
     <selection v-on:submit="submitIcon">
       <div class="fontIconPicker" slot="content">
-        <colorpicker></colorpicker>
+        <colorpicker :selectedColor=iconColor
+                     v-on:colorChanged="updateIconColor">
+        </colorpicker>
         <swiper>
           <iconpicker slot="swiperSlide"></iconpicker>
         </swiper>
@@ -101,6 +105,12 @@ iconpickerSelection = Vue.extend
     'swiper': swiper
     'iconpicker': iconpicker
 
+  methods:
+    updateIconColor: (newColor) ->
+      @iconColor = newColor
+
+    submitIcon: ->
+      console.log @iconColor
 
 iconPicker = () ->
   iconPicker.instance = new iconpickerSelection

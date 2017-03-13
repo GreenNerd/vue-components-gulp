@@ -54,7 +54,8 @@ colorpicker = Vue.extend
         <div v-for="colorItem in COLOR_LIST"
              class="color-cell"
              :class="{ 'color-active-item': colorItem == selectedColor }">
-          <span :style="{ 'background-color': colorItem }">
+          <span :style="{ 'background-color': colorItem }"
+                @click="colorSelect(colorItem)">
             <i class="fa fa-check"></i>
           </span>
         </div>
@@ -67,7 +68,11 @@ colorpicker = Vue.extend
       default: ['#fd84c3', '#fd3f76', '#eb6d7a', '#da5842', '#da5842', '#feb345', '#aed59c', '#2cac6f', '#2bd2c8', '#82cff3', '#3e9bd9', '#8c95f8', '#8257c3', '#8e99ca']
 
   data: ->
-    selectedColor: '#fd84c3'
+    selectedColor: ''
+
+  methods:
+    colorSelect: (color) ->
+      @selectedColor = color;
 
 swiper = Vue.extend
   template: """

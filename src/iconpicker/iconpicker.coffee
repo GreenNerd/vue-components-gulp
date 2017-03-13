@@ -65,7 +65,7 @@ colorpicker = Vue.extend
 
   props:
     COLOR_LIST:
-      default: ['#fd84c3', '#fd3f76', '#eb6d7a', '#da5842', '#da5842', '#feb345', '#aed59c', '#2cac6f', '#2bd2c8', '#82cff3', '#3e9bd9', '#8c95f8', '#8257c3', '#8e99ca']
+      default: ['#fd84c3', '#fd3f76', '#eb6d7a', '#da5842', '#fb8f47', '#feb345', '#aed59c', '#2cac6f', '#2bd2c8', '#82cff3', '#3e9bd9', '#8c95f8', '#8257c3', '#8e99ca']
 
   data: ->
     selectedColor: ''

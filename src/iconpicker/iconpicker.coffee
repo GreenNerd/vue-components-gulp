@@ -112,9 +112,14 @@ iconpickerSelection = Vue.extend
     submitIcon: ->
       console.log @iconColor
 
-iconPicker = () ->
+
+iconPicker = (icon = 'bath', color) ->
   iconPicker.instance = new iconpickerSelection
     el: createModalContainer('modal-container')
+
+    data:
+      fontIcon: icon
+      iconColor: color
 
   iconPicker.instance
 

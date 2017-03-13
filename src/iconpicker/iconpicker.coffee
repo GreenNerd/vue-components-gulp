@@ -20,14 +20,32 @@ iconpicker = Vue.extend
 
 selection = Vue.extend
   template: """
-    <div>
-        <div class="selection-ctrl">
-          <span class="cancel-select" @click="">取消</span>
-          <span class="ensure-select" @click="">确认</span>
+    <div class="modal modal-position-bottom"
+         :class="{ 'modal-open': displayModal }"
+         @click="toggleDisplay(event)">
+        <div class="modal-content">
+          <div class="selection-ctrl">
+            <span class="cancel-select" @click="close">取消</span>
+            <span class="ensure-select" @click="submit">确认</span>
+          </div>
+          <slot class="selection-content" name="content"></slot>
         </div>
-        <slot class="selection-content" name="content"></slot>
     </div>
   """
+
+  data: ->
+    displayModal: true
+
+  methods:
+    submit: ->
+      @close()
+
+    close: ->
+      @displayModal = false
+      iconPicker.instance = null
+
+    toggleDisplay: (e) ->
+      @close() if e.target.classList.contains('modal')
 
 colorpicker = Vue.extend
   template: """

@@ -1,0 +1,58 @@
+$color-main: #fd7d58;
+$color-border: #e9e9e9;
+$color-gray: #615f6c;
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+html {
+  font-size: 10px;
+}
+body {
+  margin: 0;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  background-color: rgba(98, 95, 108, 0.6);
+
+  &.modal-position-bottom {
+    align-items: flex-end;
+  }
+
+  &.modal-open {
+    display: flex;
+  }
+
+  .modal-content {
+    width: 100%;
+    background-color: rgba(256, 256, 256, .95);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+    .selection-ctrl {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      height: 50px;
+      border-bottom: 1px solid $color-border;
+      box-sizing: border-box;
+
+      .cancel-select,
+      .ensure-select {
+        font-size: 1.6rem;
+        color: $color-gray;
+      }
+
+      .ensure-select {
+        color: $color-main;
+      }
+    }
+  }
+}

@@ -4,6 +4,7 @@ $color-gray: #615f6c;
 
 * {
   -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 html {
   font-size: 10px;
@@ -52,6 +53,34 @@ body {
 
       .ensure-select {
         color: $color-main;
+      }
+    }
+
+    .fontIconPicker {
+
+      .colorPicker {
+        background-color: #f6f6f6;
+        border-bottom: 1px solid $color-border;
+
+        .color-list {
+          display: flex;
+          flex-wrap: wrap;
+
+          .color-cell {
+            flex: 14.285% 0 0;
+            height: 4.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            span {
+              display: block;
+              width: 3rem;
+              height: 3rem;
+              border-radius: 50%;
+            }
+          }
+        }
       }
     }
   }

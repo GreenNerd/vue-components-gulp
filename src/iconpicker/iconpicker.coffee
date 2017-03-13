@@ -38,7 +38,7 @@ selection = Vue.extend
 
   methods:
     submit: ->
-      @$emit('submit')
+      @$emit 'submit'
       @close()
 
     close: ->
@@ -75,7 +75,7 @@ colorpicker = Vue.extend
     colorSelect: (color) ->
       if @selectedColor != color
         @selectedColor = color
-        @$emit('colorChanged', @selectedColor)
+        @$emit 'colorChanged', @selectedColor
 
 swiper = Vue.extend
   template: """

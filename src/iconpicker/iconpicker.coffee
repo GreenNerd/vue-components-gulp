@@ -38,6 +38,7 @@ selection = Vue.extend
 
   methods:
     submit: ->
+      @$emit('submit')
       @close()
 
     close: ->
@@ -84,7 +85,7 @@ swiper = Vue.extend
 
 iconpickerSelection = Vue.extend
   template: """
-    <selection>
+    <selection v-on:submit="submitIcon">
       <div class="fontIconPicker" slot="content">
         <colorpicker></colorpicker>
         <swiper>

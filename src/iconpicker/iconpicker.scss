@@ -97,6 +97,12 @@ body {
         padding: 1rem 0;
 
         .swiper-wrap {
+
+          &.duration {
+            transition-timing-function: ease-out;
+            transition-duration: .3s;
+            transition-property: transform
+          }
           .iconPicker {
             display: flex;
             flex-direction: row;

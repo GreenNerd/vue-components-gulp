@@ -93,6 +93,29 @@ body {
           }
         }
       }
+      .iconPicker {
+        display: flex;
+        flex-direction: row;
+
+        .icon-list {
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+
+          .icon-cell {
+            flex: 20% 0 0;
+            height: 6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+
+            .fa {
+              font-size: 2.9rem;
+            }
+          }
+        }
+      }
     }
   }
 }

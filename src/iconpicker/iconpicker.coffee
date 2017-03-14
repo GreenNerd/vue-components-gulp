@@ -13,10 +13,61 @@ createModalContainer = (modalId) ->
 
 iconpicker = Vue.extend
   template: """
-    <div slot="swiperSlide">
-      icon-list
+    <div class="iconPicker" slot="swiperSlide" :style="{ width: widthPercent }">
+      <div class="icon-list" v-for="iconList in icon_list">
+        <div v-for="(iconItem, index) in iconList"
+             class="icon-cell"
+             @click="iconSelect(index)">
+          <i class="fa"
+             :class="'fa-' + iconItem.icon"
+             ></i>
+        </div>
+      </div>
     </div>
   """
+
+  props:
+    activeColor:
+      type: String
+      default: '#fd3f76'
+
+    ICON_LIST:
+      default: ['address-book', 'address-book-o', 'address-card', 'address-card-o', 'bandcamp', 'bath', 'eercast', 'envelope-open', 'etsy', 'free-code-camp', 'grav', 'handshake-o', 'id-card', 'etsy', 'free-code-camp', 'grav', 'handshake-o', 'id-card','free-code-camp', 'grav', 'handshake-o', 'id-card']
+
+  computed:
+    allpages: ->
+      Math.ceil(@ICON_LIST.length / @per_page)
+
+    widthPercent: ->
+      @currpage * 100 + '%'
+
+  created: ->
+    @getIconRange()
+
+  data: ->
+    selectedIcon: 'address-book'
+    per_page: '15'
+    currpage: 2
+    icon_list: []
+
+  methods:
+    iconSelect: (index) ->
+      @selectedIcon = @ICON_LIST[index]
+
+    getIconRange: ->
+      #获取页数
+      #总的渲染list
+      for k in [1..@allpages]
+        startIcon = 0 + (k - 1) * @per_page
+        if k != @allpages
+          endIcon = 14 + (k - 1) * @per_page
+        else
+          endIcon = 14 + @ICON_LIST.length - (k - 1) * @per_page
+        @icon_list[k-1] = []
+        for i in [startIcon..endIcon]
+          @icon_list[k-1].push({
+            icon: @ICON_LIST[i]
+          })
 
 selection = Vue.extend
   template: """

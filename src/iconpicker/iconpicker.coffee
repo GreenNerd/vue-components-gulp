@@ -132,11 +132,12 @@ colorpicker = Vue.extend
 
 swiper = Vue.extend
   template: """
-    <div>
-      <div>swiper</div>
-      <slot name="swiperSlide"></slot>
+    <div class="swiper-wrapper">
+      <slot></slot>
     </div>
   """
+
+
 
 iconpickerSelection = Vue.extend
   template: """
@@ -146,7 +147,7 @@ iconpickerSelection = Vue.extend
                      v-on:colorChanged="updateIconColor">
         </colorpicker>
         <swiper>
-          <iconpicker slot="swiperSlide"></iconpicker>
+          <iconpicker :activeColor=iconColor></iconpicker>
         </swiper>
       </div>
     </selection>

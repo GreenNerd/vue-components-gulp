@@ -14,10 +14,10 @@ createModalContainer = (modalId) ->
 iconpicker = Vue.extend
   template: """
     <div class="iconPicker" :style="{ width: widthPercent }">
-      <div class="icon-list" v-for="iconList in icon_list">
-        <div v-for="(iconItem, index) in iconList"
+      <div class="icon-list" v-for="(iconList, index) in icon_list">
+        <div v-for="(iconItem, track) in iconList"
              class="icon-cell"
-             @click="iconSelect(index)">
+             @click="iconSelect(index, track)">
           <i class="fa"
              :class="'fa-' + iconItem.icon"
              :style="setColor(iconItem)"
@@ -33,7 +33,10 @@ iconpicker = Vue.extend
       default: '#fd3f76'
 
     ICON_LIST:
-      default: ['address-book', 'address-book-o', 'address-card', 'address-card-o', 'bandcamp', 'bath', 'eercast', 'envelope-open', 'etsy', 'free-code-camp', 'grav', 'handshake-o', 'id-card', 'etsy', 'free-code-camp', 'grav', 'handshake-o', 'id-card','free-code-camp', 'grav', 'handshake-o', 'id-card']
+      default: ['address-book', 'address-book-o', 'address-card', 'address-card-o', 'bandcamp', 'bath', 'eercast', 'envelope-open', 'etsy', 'free-code-camp', 'grav', 'handshake-o', 'id-card', 'imdb', 'linode', 'meetup', 'podcast', 'quora']
+
+  created: ->
+    @getIconRange()
 
   computed:
     allpages: ->
@@ -52,8 +55,8 @@ iconpicker = Vue.extend
       if item.icon == @selectedIcon
         'color': @activeColor
 
-    iconSelect: (index) ->
-      @selectedIcon = @ICON_LIST[index]
+    iconSelect: (i, j) ->
+      @selectedIcon = @ICON_LIST[i * @per_page + j]
 
     getIconRange: ->
       #总的渲染list

@@ -127,6 +127,8 @@ colorpicker = Vue.extend
       if @selectedColor != color
         @selectedColor = color
         @$emit 'colorChanged', @selectedColor
+      else
+        @selectedColor = ''
 
 swiper = Vue.extend
   template: """

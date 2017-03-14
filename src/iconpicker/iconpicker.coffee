@@ -57,17 +57,24 @@ iconpicker = Vue.extend
 
     getIconRange: ->
       #总的渲染list
-      for k in [1..@allpages]
-        startIcon = 0 + (k - 1) * @per_page
-        if k != @allpages
-          endIcon = 14 + (k - 1) * @per_page
-        else
-          endIcon = 14 + @ICON_LIST.length - (k - 1) * @per_page
-        @icon_list[k-1] = []
-        for i in [startIcon..endIcon]
-          @icon_list[k-1].push({
+      if @allpages == 1
+        @icon_list[0] = []
+        for i in [0..@ICON_LIST.length]
+          @icon_list[0].push({
             icon: @ICON_LIST[i]
           })
+      else
+        for k in [1..@allpages]
+          startIcon = 0 + (k - 1) * @per_page
+          if k != @allpages
+            endIcon = 14 + (k - 1) * @per_page
+          else
+            endIcon = 14 + @ICON_LIST.length - (k - 1) * @per_page
+          @icon_list[k-1] = []
+          for i in [startIcon..endIcon]
+            @icon_list[k-1].push({
+              icon: @ICON_LIST[i]
+            })
 
 selection = Vue.extend
   template: """

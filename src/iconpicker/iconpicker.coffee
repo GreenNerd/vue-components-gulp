@@ -188,6 +188,25 @@ swiper = Vue.extend
       @translateX = @startTranslate + @delta
 
     onTouchEnd: ->
+      if @delta > 0 #右滑 page-1
+        if Math.abs(@delta) > @clientWidth / 3
+          if @currpage != 1
+            @currpage = @currpage - 1
+            @translateX = @startTranslate + @clientWidth
+          else
+            @translateX = @startTranslate
+        else
+          @translateX = @startTranslate
+
+      else #左滑 page+1
+        if Math.abs(@delta) > @clientWidth / 3
+          if @currpage != @slideEls.length
+            @currpage = @currpage + 1
+            @translateX = @startTranslate - @clientWidth
+          else
+            @translateX = @startTranslate
+        else
+          @translateX = @startTranslate
 
 iconpickerSelection = Vue.extend
   template: """

@@ -39,7 +39,7 @@ iconpicker = Vue.extend
       Math.ceil(@ICON_LIST.length / @per_page)
 
     widthPercent: ->
-      @currpage * 100 + '%'
+      @allpages * 100 + '%'
 
   created: ->
     @getIconRange()
@@ -47,7 +47,6 @@ iconpicker = Vue.extend
   data: ->
     selectedIcon: 'address-book'
     per_page: '15'
-    currpage: 2
     icon_list: []
 
   methods:

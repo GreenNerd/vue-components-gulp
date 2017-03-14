@@ -137,13 +137,14 @@ swiper = Vue.extend
          @touchend="onTouchEnd">
       <div class="swiper-wrap"
            ref="swiperWrap"
-           :style="{ 'transform': 'translate3d(' + delta + 'px, 0, 0)' }">
+           :style="{ 'transform': 'translate3d(' + translateX + 'px, 0, 0)' }">
         <slot></slot>
       </div>
       <div class="swiper-pagination">
         <span class="swiper-pagination-bullet"
               v-for="(slide, index) in slideEls"
-              :class="{ 'active': index + 1 == currpage }"
+              @click="setPage(index)"
+              :class="{ 'active': index == currpage - 1 }"
               ></span>
       </div>
     </div>
@@ -151,18 +152,25 @@ swiper = Vue.extend
 
   mounted: ->
     @slideEls = @$refs.swiperWrap.children[0].children
-    # console.log @$refs.swiperWrap.children[0].children
-    # console.log @slideEls
+    @clientWidth = @$el.clientWidth
+
+  computed:
+    translateX: ->
+      - ((@currpage - 1) * @clientWidth)
 
   data: ->
     startPosition: null
     slideEls: []
-    translateX: '3'
+    clientWidth: ''
+    translateX: 0
     delta: 0
-    currpage: 1
+    currpage: '1'
     startTranslate: 0
 
   methods:
+    setPage: (page) ->
+      @currpage = parseInt(page) + 1
+
     onTouchStart: (e) ->
       @startPosition = e.changedTouches[0].pageX
 

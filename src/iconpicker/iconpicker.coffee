@@ -132,12 +132,45 @@ colorpicker = Vue.extend
 
 swiper = Vue.extend
   template: """
-    <div class="swiper-wrapper">
-      <slot></slot>
+    <div class="swiper"
+         @touchstart="onTouchStart"
+         @touchmove="onTouchMove"
+         @touchend="onTouchEnd">
+      <div class="swiper-wrap"
+           ref="swiperWrap"
+           :style="{ 'transform': 'translate3d(' + delta + 'px, 0, 0)' }">
+        <slot></slot>
+      </div>
+      <div class="swiper-pagination">
+        <span class="swiper-pagination-bullet"
+              v-for="(slide, index) in slideEls"
+              :class="{ 'active': index + 1 == currpage }"
+              ></span>
+      </div>
     </div>
   """
 
+  mounted: ->
+    @slideEls = @$refs.swiperWrap.children[0].children
+    # console.log @$refs.swiperWrap.children[0].children
+    # console.log @slideEls
 
+  data: ->
+    startPosition: null
+    slideEls: []
+    translateX: '3'
+    delta: 0
+    currpage: 1
+    startTranslate: 0
+
+  methods:
+    onTouchStart: (e) ->
+      @startPosition = e.changedTouches[0].pageX
+
+    onTouchMove: (e) ->
+      @delta = e.changedTouches[0].pageX - @startPosition
+
+    onTouchEnd: ->
 
 iconpickerSelection = Vue.extend
   template: """

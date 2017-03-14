@@ -93,25 +93,53 @@ body {
           }
         }
       }
-      .iconPicker {
-        display: flex;
-        flex-direction: row;
+      .swiper {
+        padding: 1rem 0;
 
-        .icon-list {
-          display: flex;
-          flex-wrap: wrap;
-          width: 100%;
-
-          .icon-cell {
-            flex: 20% 0 0;
-            height: 6rem;
+        .swiper-wrap {
+          .iconPicker {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ccc;
+            flex-direction: row;
 
-            .fa {
-              font-size: 2.9rem;
+            .icon-list {
+              display: flex;
+              flex-wrap: wrap;
+              align-content: flex-start;
+              width: 100%;
+
+              .icon-cell {
+                flex: 20% 0 0;
+                height: 6rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ccc;
+
+                .fa {
+                  font-size: 2.9rem;
+                }
+              }
+            }
+          }
+        }
+        .swiper-pagination {
+          height: 2.5rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .swiper-pagination-bullet {
+            display: block;
+            width: 6px;
+            height: 6px;
+            background-color: $color-gray;
+            opacity: .2;
+            margin: .75rem;
+            border-radius: 50%;
+
+            &.active {
+              background-color: $color-main;
+              opacity: 1;
             }
           }
         }

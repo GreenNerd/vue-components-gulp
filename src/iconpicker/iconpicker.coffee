@@ -13,7 +13,7 @@ createModalContainer = (modalId) ->
 
 iconpicker = Vue.extend
   template: """
-    <div class="iconPicker" slot="swiperSlide" :style="{ width: widthPercent }">
+    <div class="iconPicker" :style="{ width: widthPercent }">
       <div class="icon-list" v-for="iconList in icon_list">
         <div v-for="(iconItem, index) in iconList"
              class="icon-cell"

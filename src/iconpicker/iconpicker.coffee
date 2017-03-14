@@ -171,7 +171,7 @@ swiper = Vue.extend
     clientWidth: ''
     translateX: 0
     delta: 0
-    currpage: '1'
+    currpage: 1
     startTranslate: 0
 
   methods:

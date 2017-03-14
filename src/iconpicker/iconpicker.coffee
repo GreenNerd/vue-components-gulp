@@ -20,6 +20,7 @@ iconpicker = Vue.extend
              @click="iconSelect(index)">
           <i class="fa"
              :class="'fa-' + iconItem.icon"
+             :style="setColor(iconItem)"
              ></i>
         </div>
       </div>
@@ -50,6 +51,10 @@ iconpicker = Vue.extend
     icon_list: []
 
   methods:
+    setColor: (item) ->
+      if item.icon == @selectedIcon
+        'color': @activeColor
+
     iconSelect: (index) ->
       @selectedIcon = @ICON_LIST[index]
 

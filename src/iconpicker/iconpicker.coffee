@@ -42,9 +42,6 @@ iconpicker = Vue.extend
     widthPercent: ->
       @allpages * 100 + '%'
 
-  created: ->
-    @getIconRange()
-
   data: ->
     selectedIcon: 'address-book'
     per_page: '15'
@@ -59,7 +56,6 @@ iconpicker = Vue.extend
       @selectedIcon = @ICON_LIST[index]
 
     getIconRange: ->
-      #获取页数
       #总的渲染list
       for k in [1..@allpages]
         startIcon = 0 + (k - 1) * @per_page

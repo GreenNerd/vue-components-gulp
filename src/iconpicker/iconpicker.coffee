@@ -165,10 +165,6 @@ swiper = Vue.extend
     @slideEls = @$refs.swiperWrap.children[0].children
     @clientWidth = @$el.clientWidth
 
-  computed:
-    translateX: ->
-      - ((@currpage - 1) * @clientWidth)
-
   data: ->
     startPosition: null
     slideEls: []
@@ -181,12 +177,15 @@ swiper = Vue.extend
   methods:
     setPage: (page) ->
       @currpage = parseInt(page) + 1
+      @translateX = - ((@currpage - 1) * @clientWidth)
 
     onTouchStart: (e) ->
       @startPosition = e.changedTouches[0].pageX
+      @startTranslate = @translateX
 
     onTouchMove: (e) ->
       @delta = e.changedTouches[0].pageX - @startPosition
+      @translateX = @startTranslate + @delta
 
     onTouchEnd: ->
 

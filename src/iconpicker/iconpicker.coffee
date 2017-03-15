@@ -54,6 +54,12 @@ iconpicker = Vue.extend
     icon_list: []
 
   methods:
+    searchIcon: (icon) ->
+      for i in [0..@ICON_LIST.length]
+        if @ICON_LIST[i] == icon
+          currpage = Math.ceil i / @per_page
+          @$emit('initPage', currpage)
+
     setColor: (item) ->
       if item.icon == @selectedIcon
         'color': @activeColor
@@ -230,10 +236,12 @@ iconpickerSelection = Vue.extend
         <colorpicker :selectedColor=iconColor
                      v-on:colorChanged="updateIconColor">
         </colorpicker>
-        <swiper>
-          <iconpicker :activeColor=iconColor
+        <swiper ref="swiper">
+          <iconpicker ref="icon-picker"
+                      :activeColor=iconColor
                       :selectedIcon=fontIcon
-                      v-on:iconChanged="updateIcon"></iconpicker>
+                      v-on:iconChanged="updateIcon"
+                      v-on:initPage="setPage"></iconpicker>
         </swiper>
       </div>
     </selection>
@@ -245,6 +253,9 @@ iconpickerSelection = Vue.extend
     'swiper': swiper
     'iconpicker': iconpicker
 
+  mounted: ->
+    @$refs["icon-picker"].searchIcon(@fontIcon)
+
   methods:
     updateIconColor: (newColor) ->
       @iconColor = newColor
@@ -252,10 +263,13 @@ iconpickerSelection = Vue.extend
     updateIcon: (newIcon) ->
       @fontIcon = newIcon
 
-    submitIcon: ->
-      console.log @iconColor
+    setPage: (page) ->
+      @$refs.swiper.setPage(page - 1)
 
-iconPicker = (icon = 'bath', color) ->
+    submitIcon: ->
+      console.log @iconColor, @fontIcon
+
+iconPicker = (icon = 'quora', color = '#fd84c3') ->
   iconPicker.instance = new iconpickerSelection
     el: createModalContainer('modal-container')
 

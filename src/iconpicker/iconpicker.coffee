@@ -175,6 +175,7 @@ swiper = Vue.extend
     currpage: 1
     startTranslate: 0
     transition: false
+    minDstce: 100
 
   methods:
     setPage: (page) ->
@@ -193,7 +194,7 @@ swiper = Vue.extend
     onTouchEnd: ->
       @transition = true
       if @delta > 0 #右滑 page-1
-        if Math.abs(@delta) > @clientWidth / 3
+        if Math.abs(@delta) > @minDstce
           if @currpage != 1
             @currpage = @currpage - 1
             @translateX = @startTranslate + @clientWidth
@@ -203,7 +204,7 @@ swiper = Vue.extend
           @translateX = @startTranslate
 
       else #左滑 page+1
-        if Math.abs(@delta) > @clientWidth / 3
+        if Math.abs(@delta) > @minDstce
           if @currpage != @slideEls.length
             @currpage = @currpage + 1
             @translateX = @startTranslate - @clientWidth
@@ -238,7 +239,6 @@ iconpickerSelection = Vue.extend
 
     submitIcon: ->
       console.log @iconColor
-
 
 iconPicker = (icon = 'bath', color) ->
   iconPicker.instance = new iconpickerSelection

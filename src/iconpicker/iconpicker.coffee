@@ -20,7 +20,7 @@ iconpicker = Vue.extend
              @click="iconSelect(index, track)">
           <i class="fa"
              :class="'fa-' + iconItem.icon"
-             :style="setColor(iconItem)"
+             :style="_setColor(iconItem)"
              ></i>
         </div>
       </div>
@@ -40,7 +40,7 @@ iconpicker = Vue.extend
       default: ['address-book', 'address-book-o', 'address-card', 'address-card-o', 'bandcamp', 'bath', 'eercast', 'envelope-open', 'etsy', 'free-code-camp', 'grav', 'handshake-o', 'id-card', 'imdb', 'linode', 'meetup', 'podcast', 'quora']
 
   created: ->
-    @getIconRange()
+    @_getIconRange()
 
   computed:
     allpages: ->
@@ -60,7 +60,7 @@ iconpicker = Vue.extend
           currpage = Math.ceil i / @per_page
           @$emit('initPage', currpage)
 
-    setColor: (item) ->
+    _setColor: (item) ->
       if item.icon == @selectedIcon
         'color': @activeColor
 
@@ -71,7 +71,7 @@ iconpicker = Vue.extend
         @selectedIcon = @ICON_LIST[i * @per_page + j]
       @$emit('iconChanged', @selectedIcon)
 
-    getIconRange: ->
+    _getIconRange: ->
       #总的渲染list
       if @allpages == 1
         @icon_list[0] = []
@@ -96,7 +96,7 @@ selection = Vue.extend
   template: """
     <div class="modal modal-position-bottom"
          :class="{ 'modal-open': displayModal }"
-         @click="toggleDisplay(event)">
+         @click="_toggleDisplay(event)">
         <div class="modal-content">
           <div class="selection-ctrl">
             <span class="cancel-select" @click="close">取消</span>
@@ -119,7 +119,7 @@ selection = Vue.extend
       @displayModal = false
       iconPicker.instance = null
 
-    toggleDisplay: (e) ->
+    _toggleDisplay: (e) ->
       @close() if e.target.classList.contains('modal')
 
 colorpicker = Vue.extend
@@ -156,9 +156,9 @@ colorpicker = Vue.extend
 swiper = Vue.extend
   template: """
     <div class="swiper"
-         @touchstart="onTouchStart"
-         @touchmove="onTouchMove"
-         @touchend="onTouchEnd">
+         @touchstart="_onTouchStart"
+         @touchmove="_onTouchMove"
+         @touchend="_onTouchEnd">
       <div class="swiper-wrap"
            ref="swiperWrap"
            :class="{ 'duration': transition }"
@@ -199,19 +199,19 @@ swiper = Vue.extend
       @currpage = parseInt(page) + 1
       @translateX = - ((@currpage - 1) * @clientWidth)
 
-    onTouchStart: (e) ->
+    _onTouchStart: (e) ->
       @startPosition = e.changedTouches[0].pageX
       @startTranslate = @translateX
       @transition = false
 
-    onTouchMove: (e) ->
+    _onTouchMove: (e) ->
       @delta = e.changedTouches[0].pageX - @startPosition
       @translateX = @startTranslate + @delta
 
       if Math.abs(@delta) > 0
         e.preventDefault()
 
-    onTouchEnd: ->
+    _onTouchEnd: ->
       @transition = true
       if @delta > 0 #右滑 page-1
         if Math.abs(@delta) > @minDstce

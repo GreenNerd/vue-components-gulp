@@ -30,7 +30,11 @@ iconpicker = Vue.extend
   props:
     activeColor:
       type: String
-      default: '#fd3f76'
+      default: '#fd84c3'
+
+    selectedIcon:
+      type: String
+      default: 'bath'
 
     ICON_LIST:
       default: ['address-book', 'address-book-o', 'address-card', 'address-card-o', 'bandcamp', 'bath', 'eercast', 'envelope-open', 'etsy', 'free-code-camp', 'grav', 'handshake-o', 'id-card', 'imdb', 'linode', 'meetup', 'podcast', 'quora']
@@ -46,7 +50,6 @@ iconpicker = Vue.extend
       @allpages * 100 + '%'
 
   data: ->
-    selectedIcon: 'address-book'
     per_page: '15'
     icon_list: []
 
@@ -224,7 +227,8 @@ iconpickerSelection = Vue.extend
                      v-on:colorChanged="updateIconColor">
         </colorpicker>
         <swiper>
-          <iconpicker :activeColor=iconColor></iconpicker>
+          <iconpicker :activeColor=iconColor
+                      :selectedIcon=fontIcon></iconpicker>
         </swiper>
       </div>
     </selection>

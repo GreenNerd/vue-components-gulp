@@ -175,6 +175,11 @@ swiper = Vue.extend
     </div>
   """
 
+  props:
+    minDstce:
+      type: Number
+      default: 100
+
   mounted: ->
     @slideEls = @$refs.swiperWrap.children[0].children
     @clientWidth = @$el.clientWidth
@@ -188,7 +193,6 @@ swiper = Vue.extend
     currpage: 1
     startTranslate: 0
     transition: false
-    minDstce: 100
 
   methods:
     setPage: (page) ->

@@ -59,7 +59,11 @@ iconpicker = Vue.extend
         'color': @activeColor
 
     iconSelect: (i, j) ->
-      @selectedIcon = @ICON_LIST[i * @per_page + j]
+      if @selectedIcon == @ICON_LIST[i * @per_page + j]
+        @selectedIcon = ''
+      else
+        @selectedIcon = @ICON_LIST[i * @per_page + j]
+      @$emit('iconChanged', @selectedIcon)
 
     getIconRange: ->
       #总的渲染list
@@ -228,7 +232,8 @@ iconpickerSelection = Vue.extend
         </colorpicker>
         <swiper>
           <iconpicker :activeColor=iconColor
-                      :selectedIcon=fontIcon></iconpicker>
+                      :selectedIcon=fontIcon
+                      v-on:iconChanged="updateIcon"></iconpicker>
         </swiper>
       </div>
     </selection>
@@ -243,6 +248,9 @@ iconpickerSelection = Vue.extend
   methods:
     updateIconColor: (newColor) ->
       @iconColor = newColor
+
+    updateIcon: (newIcon) ->
+      @fontIcon = newIcon
 
     submitIcon: ->
       console.log @iconColor

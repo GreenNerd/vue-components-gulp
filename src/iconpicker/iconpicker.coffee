@@ -191,6 +191,9 @@ swiper = Vue.extend
       @delta = e.changedTouches[0].pageX - @startPosition
       @translateX = @startTranslate + @delta
 
+      if Math.abs(@delta) > 0
+        e.preventDefault()
+
     onTouchEnd: ->
       @transition = true
       if @delta > 0 #右滑 page-1

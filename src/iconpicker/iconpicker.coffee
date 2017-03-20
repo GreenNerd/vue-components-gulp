@@ -240,6 +240,10 @@ swiper = Vue.extend
         e.preventDefault()
 
       @translateX = @startTranslate + offsetLeft
+      if @translateX > 20
+        @translateX = 20
+      if Math.abs(@translateX) > (@slideEls.length - 1) * @offsetWidth + 20
+        @translateX = - (@slideEls.length - 1) * @offsetWidth - 20
 
     _onTouchEnd: ->
       offsetLeft = @dragState.currentLeft - @dragState.startLeft

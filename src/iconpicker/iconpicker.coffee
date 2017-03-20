@@ -50,7 +50,7 @@ iconpicker = Vue.extend
       @allpages * 100 + '%'
 
   data: ->
-    per_page: '15'
+    per_page: 15
     icon_list: []
 
   methods:

@@ -176,18 +176,31 @@ swiper = Vue.extend
     minDstce:
       type: Number
       default: 100
+    speed:
+      type: Number
+      default: 300
+
+  created: ->
+    @dragState = {}
 
   mounted: ->
     @slideEls = @$refs.swiperWrap.children[0].children
     @$el.addEventListener 'touchstart', (event) =>
+      @dragging = true
       @_onTouchStart(event)
     @$el.addEventListener 'touchmove', (event) =>
+      if !@dragging
+        return
       @_onTouchMove(event)
     @$el.addEventListener 'touchend', (event) =>
+      if !@dragging
+        return
       @_onTouchEnd(event)
+      @dragging = false
     @clientWidth = @$el.clientWidth
 
   data: ->
+    dragging: false
     startPosition: null
     slideEls: []
     clientWidth: ''

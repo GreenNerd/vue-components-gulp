@@ -56,16 +56,16 @@ iconpicker = Vue.extend
   methods:
     searchIcon: (icon) ->
       for i in [0..@ICON_LIST.length]
-        if @ICON_LIST[i] == icon
+        if @ICON_LIST[i] is icon
           currpage = Math.ceil i / @per_page
           @$emit('initPage', currpage)
 
     _setColor: (item) ->
-      if item.icon == @selectedIcon
+      if item.icon is @selectedIcon
         'color': @activeColor
 
     iconSelect: (i, j) ->
-      if @selectedIcon == @ICON_LIST[i * @per_page + j]
+      if @selectedIcon is @ICON_LIST[i * @per_page + j]
         @selectedIcon = ''
       else
         @selectedIcon = @ICON_LIST[i * @per_page + j]
@@ -73,7 +73,7 @@ iconpicker = Vue.extend
 
     _getIconRange: ->
       #总的渲染list
-      if @allpages == 1
+      if @allpages is 1
         @icon_list[0] = []
         for i in [0..@ICON_LIST.length]
           @icon_list[0].push({
@@ -128,7 +128,7 @@ colorpicker = Vue.extend
       <div class="color-list">
         <div v-for="colorItem in COLOR_LIST"
              class="color-cell"
-             :class="{ 'color-active-item': colorItem == selectedColor }">
+             :class="{ 'color-active-item': colorItem is selectedColor }">
           <span :style="{ 'background-color': colorItem }"
                 @click="colorSelect(colorItem)">
             <i class="fa fa-check"></i>
@@ -169,7 +169,7 @@ swiper = Vue.extend
         <span class="swiper-pagination-bullet"
               v-for="(slide, index) in slideEls"
               @click="setPage(index)"
-              :class="{ 'active': index == currpage - 1 }"
+              :class="{ 'active': index is currpage - 1 }"
               ></span>
       </div>
     </div>

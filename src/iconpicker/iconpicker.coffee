@@ -185,6 +185,8 @@ swiper = Vue.extend
   mounted: ->
     @slideEls = @$refs.swiperWrap.children[0].children
     @$el.addEventListener 'touchstart', (event) =>
+      if @animating
+        return
       @dragging = true
       @_onTouchStart(event)
     @$el.addEventListener 'touchmove', (event) =>

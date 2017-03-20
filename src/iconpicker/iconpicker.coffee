@@ -128,7 +128,7 @@ colorpicker = Vue.extend
       <div class="color-list">
         <div v-for="colorItem in COLOR_LIST"
              class="color-cell"
-             :class="{ 'color-active-item': colorItem is selectedColor }">
+             :class="{ 'color-active-item': colorItem == selectedColor }">
           <span :style="{ 'background-color': colorItem }"
                 @click="colorSelect(colorItem)">
             <i class="fa fa-check"></i>
@@ -169,7 +169,7 @@ swiper = Vue.extend
         <span class="swiper-pagination-bullet"
               v-for="(slide, index) in slideEls"
               @click="setPage(index)"
-              :class="{ 'active': index is currpage - 1 }"
+              :class="{ 'active': index == currpage - 1 }"
               ></span>
       </div>
     </div>

@@ -201,6 +201,8 @@ swiper = Vue.extend
 
   data: ->
     dragging: false
+    scrolling: false
+    animating: false
     startPosition: null
     slideEls: []
     clientWidth: ''

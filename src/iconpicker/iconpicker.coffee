@@ -192,6 +192,9 @@ swiper = Vue.extend
         return
       @_onTouchMove(event)
     @$el.addEventListener 'touchend', (event) =>
+      if @scrolling
+        @dragging = false
+        @dragState = {}
       if !@dragging
         return
       @_onTouchEnd(event)
@@ -240,26 +243,37 @@ swiper = Vue.extend
       @translateX = @startTranslate + offsetLeft
 
     _onTouchEnd: ->
-      @transition = true
-      if @delta > 0 #右滑 page-1
-        if Math.abs(@delta) > @minDstce
+      offsetLeft = @dragState.currentLeft - @dragState.startLeft
+      offsetTop = @dragState.currentTop - @dragState.startTop
+
+      @animating = true
+      @$refs.swiperWrap.style.webkitTransition = '-webkit-transform ' + @speed + 'ms ease-in-out'
+      if offsetLeft > 0 #右滑 page-1
+        if Math.abs(offsetLeft) > @minDistance
           if @currpage != 1
             @currpage = @currpage - 1
-            @translateX = @startTranslate + @clientWidth
+            @translateX = @startTranslate + @dragState.pageWidth
           else
             @translateX = @startTranslate
         else
           @translateX = @startTranslate
 
       else #左滑 page+1
-        if Math.abs(@delta) > @minDstce
+        if Math.abs(offsetLeft) > @minDistance
           if @currpage != @slideEls.length
             @currpage = @currpage + 1
-            @translateX = @startTranslate - @clientWidth
+            @translateX = @startTranslate - @dragState.pageWidth
           else
             @translateX = @startTranslate
         else
           @translateX = @startTranslate
+
+      setTimeout () =>
+        @animating = false
+        @$refs.swiperWrap.style.webkitTransition = ''
+      , @speed + 100
+
+      @dragState = {}
 
 iconpickerSelection = Vue.extend
   template: """

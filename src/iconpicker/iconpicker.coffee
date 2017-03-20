@@ -222,11 +222,22 @@ swiper = Vue.extend
       @startTranslate = @translateX
 
     _onTouchMove: (e) ->
-      @delta = e.changedTouches[0].pageX - @startPosition
-      @translateX = @startTranslate + @delta
+      @dragState.currentLeft = e.changedTouches[0].pageX
+      @dragState.currentLTop = e.changedTouches[0].pageY
 
-      if Math.abs(@delta) > 0
-        e.preventDefault()
+      offsetLeft = @dragState.currentLeft - @dragState.startLeft
+      offsetTop = @dragState.currentTop - @dragState.startTop
+
+      distanceX = Math.abs(offsetLeft)
+      distanceY = Math.abs(offsetTop)
+
+      if distanceX < 5 || distanceX >=5 && distanceY >= distanceX
+        @scrolling = true
+      else
+        @scrolling = false
+        event.preventDefault()
+
+      @translateX = @startTranslate + offsetLeft
 
     _onTouchEnd: ->
       @transition = true

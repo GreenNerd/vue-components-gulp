@@ -221,9 +221,6 @@ swiper = Vue.extend
       @dragState.startLeft = e.changedTouches[0].pageX
       @dragState.startTop = e.changedTouches[0].pageY
 
-      @dragState.pageWidth = @$el.offsetWidth
-      @dragState.pageHeight = @$el.offsetHeight
-
       @startTranslate = - ((@currpage - 1) * @offsetWidth)
 
     _onTouchMove: (e) ->
@@ -254,7 +251,7 @@ swiper = Vue.extend
         if Math.abs(offsetLeft) > @minDistance
           if @currpage != 1
             @currpage = @currpage - 1
-            @translateX = @startTranslate + @dragState.pageWidth
+            @translateX = @startTranslate + @offsetWidth
           else
             @translateX = @startTranslate
         else
@@ -264,7 +261,7 @@ swiper = Vue.extend
         if Math.abs(offsetLeft) > @minDistance
           if @currpage != @slideEls.length
             @currpage = @currpage + 1
-            @translateX = @startTranslate - @dragState.pageWidth
+            @translateX = @startTranslate - @offsetWidth
           else
             @translateX = @startTranslate
         else

@@ -199,7 +199,7 @@ swiper = Vue.extend
         return
       @_onTouchEnd(event)
       @dragging = false
-    @clientWidth = @$el.clientWidth
+    @offsetWidth = @$el.offsetWidth
 
   data: ->
     dragging: false
@@ -213,7 +213,7 @@ swiper = Vue.extend
   methods:
     setPage: (page) ->
       @currpage = parseInt(page) + 1
-      @translateX = - ((@currpage - 1) * @clientWidth)
+      @translateX = - ((@currpage - 1) * @offsetWidth)
 
     _onTouchStart: (e) ->
       @dragState.startLeft = e.changedTouches[0].pageX

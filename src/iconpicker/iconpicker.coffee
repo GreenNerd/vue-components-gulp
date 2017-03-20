@@ -172,7 +172,7 @@ swiper = Vue.extend
   """
 
   props:
-    minDstce:
+    minDistance:
       type: Number
       default: 100
     speed:
@@ -213,7 +213,12 @@ swiper = Vue.extend
       @translateX = - ((@currpage - 1) * @clientWidth)
 
     _onTouchStart: (e) ->
-      @startPosition = e.changedTouches[0].pageX
+      @dragState.startLeft = e.changedTouches[0].pageX
+      @dragState.startTop = e.changedTouches[0].pageY
+
+      @dragState.pageWidth = @$el.offsetWidth
+      @dragState.pageHeight = @$el.offsetHeight
+
       @startTranslate = @translateX
 
     _onTouchMove: (e) ->

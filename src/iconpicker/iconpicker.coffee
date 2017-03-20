@@ -174,7 +174,7 @@ swiper = Vue.extend
   props:
     minDistance:
       type: Number
-      default: 100
+      default: 10
     speed:
       type: Number
       default: 300

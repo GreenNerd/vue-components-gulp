@@ -224,7 +224,7 @@ swiper = Vue.extend
       @dragState.pageWidth = @$el.offsetWidth
       @dragState.pageHeight = @$el.offsetHeight
 
-      @startTranslate = @translateX
+      @startTranslate = - ((@currpage - 1) * @offsetWidth)
 
     _onTouchMove: (e) ->
       @dragState.currentLeft = e.changedTouches[0].pageX

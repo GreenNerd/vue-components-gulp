@@ -1,0 +1,155 @@
+$color-main: #fd7d58;
+$color-border: #e9e9e9;
+$color-gray: #615f6c;
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+html {
+  font-size: 10px;
+}
+body {
+  margin: 0;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  background-color: rgba(98, 95, 108, 0.6);
+
+  &.modal-position-bottom {
+    align-items: flex-end;
+  }
+
+  &.modal-open {
+    display: flex;
+  }
+
+  .modal-content {
+    width: 100%;
+    background-color: rgba(256, 256, 256, .95);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+    .selection-ctrl {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      height: 50px;
+      border-bottom: 1px solid $color-border;
+      box-sizing: border-box;
+
+      .cancel-select,
+      .ensure-select {
+        font-size: 1.6rem;
+        color: $color-gray;
+      }
+
+      .ensure-select {
+        color: $color-main;
+      }
+    }
+
+    .fontIconPicker {
+
+      .colorPicker {
+        background-color: #f6f6f6;
+        border-bottom: 1px solid $color-border;
+
+        .color-list {
+          display: flex;
+          flex-wrap: wrap;
+
+          .color-cell {
+            flex: 14.285% 0 0;
+            height: 4.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+
+            span {
+              display: block;
+              width: 3rem;
+              height: 3rem;
+              border-radius: 50%;
+              text-align: center;
+
+              .fa {
+                font-size: 2.5rem;
+                line-height: 3rem;
+              }
+            }
+
+            &.color-active-item {
+              color: #fff;
+            }
+          }
+        }
+      }
+      .swiper {
+        padding: 1rem 0;
+
+        .swiper-wrap {
+
+          &.duration {
+            transition-timing-function: ease-out;
+            transition-duration: .3s;
+            transition-property: transform
+          }
+          .iconPicker {
+            display: flex;
+            flex-direction: row;
+
+            .icon-list {
+              display: flex;
+              flex-wrap: wrap;
+              align-content: flex-start;
+              width: 100%;
+
+              .icon-cell {
+                flex: 20% 0 0;
+                height: 6rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ccc;
+
+                .fa {
+                  font-size: 2.9rem;
+                }
+              }
+            }
+          }
+        }
+        .swiper-pagination {
+          height: 2.5rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .swiper-pagination-bullet {
+            display: block;
+            width: 6px;
+            height: 6px;
+            background-color: $color-gray;
+            opacity: .2;
+            margin: .75rem;
+            border-radius: 50%;
+
+            &.active {
+              background-color: $color-main;
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}

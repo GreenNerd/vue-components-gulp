@@ -155,10 +155,7 @@ colorpicker = Vue.extend
 
 swiper = Vue.extend
   template: """
-    <div class="swiper"
-         @touchstart="_onTouchStart"
-         @touchmove="_onTouchMove"
-         @touchend="_onTouchEnd">
+    <div class="swiper">
       <div class="swiper-wrap"
            ref="swiperWrap"
            :class="{ 'duration': transition }"
@@ -182,6 +179,12 @@ swiper = Vue.extend
 
   mounted: ->
     @slideEls = @$refs.swiperWrap.children[0].children
+    @$el.addEventListener 'touchstart', (event) =>
+      @_onTouchStart(event)
+    @$el.addEventListener 'touchmove', (event) =>
+      @_onTouchMove(event)
+    @$el.addEventListener 'touchend', (event) =>
+      @_onTouchEnd(event)
     @clientWidth = @$el.clientWidth
 
   data: ->

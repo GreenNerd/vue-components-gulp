@@ -237,7 +237,7 @@ swiper = Vue.extend
         @scrolling = true
       else
         @scrolling = false
-        event.preventDefault()
+        e.preventDefault()
 
       @translateX = @startTranslate + offsetLeft
 

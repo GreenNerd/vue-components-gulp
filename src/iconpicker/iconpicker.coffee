@@ -158,7 +158,6 @@ swiper = Vue.extend
     <div class="swiper">
       <div class="swiper-wrap"
            ref="swiperWrap"
-           :class="{ 'duration': transition }"
            :style="{ 'transform': 'translate3d(' + translateX + 'px, 0, 0)' }">
         <slot></slot>
       </div>
@@ -203,14 +202,10 @@ swiper = Vue.extend
     dragging: false
     scrolling: false
     animating: false
-    startPosition: null
     slideEls: []
-    clientWidth: ''
     translateX: 0
-    delta: 0
     currpage: 1
     startTranslate: 0
-    transition: false
 
   methods:
     setPage: (page) ->
@@ -220,7 +215,6 @@ swiper = Vue.extend
     _onTouchStart: (e) ->
       @startPosition = e.changedTouches[0].pageX
       @startTranslate = @translateX
-      @transition = false
 
     _onTouchMove: (e) ->
       @delta = e.changedTouches[0].pageX - @startPosition
